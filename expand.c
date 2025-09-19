@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/19 00:42:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 16:48:13 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	expand_variables(t_info *info, t_token *tokens)
 	while (cur)
 	{
 		if (expand_token(info, cur) == 1)
-			return ;
+			return (parent_exit("malloc", info));
 		cur = cur->next;
 	}
 }

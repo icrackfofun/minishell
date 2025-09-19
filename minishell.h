@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/18 22:59:07 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 17:05:01 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@
 //Token Structure Nodes
 typedef enum s_token_type
 {
-    TOKEN_WORD,
-    TOKEN_PIPE,
-    TOKEN_REDIRECT_IN,
-    TOKEN_REDIRECT_OUT,
-    TOKEN_REDIRECT_APPEND,
-    TOKEN_HEREDOC,
-    TOKEN_SINGLE_QUOTED,
-    TOKEN_DOUBLE_QUOTED,
-    TOKEN_VARIABLE
-}   t_token_type;
+	TOKEN_WORD,
+	TOKEN_PIPE,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_REDIRECT_APPEND,
+	TOKEN_HEREDOC,
+	TOKEN_SINGLE_QUOTED,
+	TOKEN_DOUBLE_QUOTED,
+	TOKEN_VARIABLE
+}	t_token_type;
 
-typedef struct s_token 
+typedef struct s_token
 {
-    char                *value;
-    t_token_type        type;
-    struct s_token      *next;
-}   t_token;
+	char				*value;
+	t_token_type		type;
+	struct s_token		*next;
+}	t_token;
 
 //AST Structure Nodes
 typedef enum e_node_type
@@ -136,12 +136,12 @@ void	unset_env(t_env **env_list, const char *key);
 
 //lexing
 int		ft_isspace(char c);
-void	malloc_error_lexing(t_token **tokens, char **buf);
+void	malloc_error_lexing(t_token **tokens, char **buf, t_info *info);
 int		append_char(char **buf, char c);
 int		append_token(t_token **tokens, char **buf);
 t_token	*new_token(char *value);
 int		add_token(t_token **head, t_token *new);
-void    classify_tokens(t_token *tokens);
+void	classify_tokens(t_token *tokens);
 int		is_operator(t_token *token);
 void	error_tokens(t_token **tokens, const char *value);
 t_token	*lexing(t_info *info);
@@ -150,7 +150,6 @@ t_token	*lexing(t_info *info);
 void	expand_variables(t_info *info, t_token *tokens);
 
 //parsing
-
 
 //path
 char	*get_path(t_info *info, t_ast *cmd);

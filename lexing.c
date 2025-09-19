@@ -6,66 +6,58 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:44:13 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/19 00:21:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 16:53:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	handle_quotes(const char *line, int *i, char **buf, t_token **tokens)
+static int	handle_quotes(t_info *info, int *i, char **buf, t_token **tokens)
 {
 	char	quote;
 
-	quote = line[*i];
+	quote = info->line[*i];
 	if (append_char(buf, quote))
-		return (malloc_error_lexing(tokens, buf), 0);
+		malloc_error_lexing(tokens, buf, info);
 	(*i)++;
-	while (line[*i] && line[*i] != quote)
+	while (info->line[*i] && info->line[*i] != quote)
 	{
-		if (append_char(buf, line[*i]))
-			return (malloc_error_lexing(tokens, buf), 0);
+		if (append_char(buf, info->line[*i]))
+			malloc_error_lexing(tokens, buf, info);
 		(*i)++;
 	}
-	if (line[*i] == quote)
+	if (info->line[*i] == quote)
 	{
 		if (append_char(buf, quote))
-			return (malloc_error_lexing(tokens, buf), 1);
+			malloc_error_lexing(tokens, buf, info);
 		if (append_token(tokens, buf))
-            return (malloc_error_lexing(tokens, buf), 0);
-		return (1);
+			malloc_error_lexing(tokens, buf, info);
+		return (0);
 	}
 	if (buf && *buf)
 		free(*buf);
 	error_tokens(tokens, "newline");
-	return (0);
+	return (1);
 }
 
 static void	handle_operator(t_token **tokens, char **buf,
-							const char *line, int *i)
+							t_info *info, int *i)
 {
 	char	op[3];
 
-	op[0] = line[*i];
+	op[0] = info->line[*i];
 	op[1] = '\0';
-	if ((line[*i] == '>' && line[*i + 1] == '>')
-		|| (line[*i] == '<' && line[*i + 1] == '<'))
+	if ((info->line[*i] == '>' && info->line[*i + 1] == '>')
+		|| (info->line[*i] == '<' && info->line[*i + 1] == '<'))
 	{
-		op[1] = line[*i + 1];
+		op[1] = info->line[*i + 1];
 		op[2] = '\0';
 		(*i)++;
 	}
 	if (append_token(tokens, buf))
-	{
-		while (line[*i + 1])
-				i++;
-		return (malloc_error_lexing(tokens, buf));
-	}
+		malloc_error_lexing(tokens, buf, info);
 	if (add_token(tokens, new_token(op)))
-	{
-		while (line[*i + 1])
-				(*i)++;
-		return (malloc_error_lexing(tokens, buf));
-	}
+		malloc_error_lexing(tokens, buf, info);
 }
 
 static t_token	*token_error(t_token **tokens)
@@ -94,29 +86,20 @@ static t_token	*token_error(t_token **tokens)
 	return (*tokens);
 }
 
-static void	handle_char_or_space(char *line, char **buf,
+static void	handle_char_or_space(t_info *info, char **buf,
 								t_token **tokens, int *i)
 {
-	if (!ft_isspace(line[*i]))
+	if (!ft_isspace(info->line[*i]))
 	{
-		if (append_char(buf, line[*i]))
-		{
-			while (line[*i + 1])
-				(*i)++;
-			return (malloc_error_lexing(tokens, buf));
-		}
+		if (append_char(buf, info->line[*i]))
+			malloc_error_lexing(tokens, buf, info);
 	}
 	else
 	{
 		if (append_token(tokens, buf))
-		{
-			while (line[*i + 1])
-				(*i)++;
-			return (malloc_error_lexing(tokens, buf));
-		}
+			malloc_error_lexing(tokens, buf, info);
 	}
 }
-
 
 t_token	*lexing(t_info *info)
 {
@@ -131,18 +114,18 @@ t_token	*lexing(t_info *info)
 	{
 		if (info->line[i] == '\'' || info->line[i] == '\"')
 		{
-			if (!handle_quotes(info->line, &i, &buf, &tokens))
+			if (handle_quotes(info, &i, &buf, &tokens))
 				return (NULL);
 		}
 		else if (info->line[i] == '|' || info->line[i] == '<'
 			|| info->line[i] == '>')
-			handle_operator(&tokens, &buf, info->line, &i);
+			handle_operator(&tokens, &buf, info, &i);
 		else
-			handle_char_or_space(info->line, &buf, &tokens, &i);
+			handle_char_or_space(info, &buf, &tokens, &i);
 		i++;
 	}
 	if (append_token(&tokens, &buf))
-		malloc_error_lexing(&tokens, &buf);
+		malloc_error_lexing(&tokens, &buf, info);
 	classify_tokens(tokens);
 	return (token_error(&tokens));
 }

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 11:53:23 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/18 13:19:48 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 16:37:25 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int	ft_isspace(char c)
 		|| c == '\v' || c == '\f' || c == '\r');
 }
 
-void	malloc_error_lexing(t_token **tokens, char **buf)
+void	malloc_error_lexing(t_token **tokens, char **buf, t_info *info)
 {
-	perror("malloc");
 	if (buf && *buf)
 	{
 		free(*buf);
@@ -42,6 +41,7 @@ void	malloc_error_lexing(t_token **tokens, char **buf)
 		free_tokens(*tokens);
 		*tokens = NULL;
 	}
+	parent_exit("malloc", info);
 }
 
 int	append_char(char **buf, char c)

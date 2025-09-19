@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:32:59 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/18 23:27:19 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/19 17:00:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token	*new_token(char *value) 
+t_token	*new_token(char *value)
 {
 	t_token	*token;
 
@@ -65,7 +65,7 @@ int	append_token(t_token **tokens, char **buf)
 	return (0);
 }
 
-void    classify_tokens(t_token *tokens)
+void	classify_tokens(t_token *tokens)
 {
 	while (tokens)
 	{
@@ -96,11 +96,8 @@ void	error_tokens(t_token **tokens, const char *value)
 	if (value[0] != 0)
 	{
 		printf("minishell: syntax error near unexpected token `%s'\n",
-		value);
+			value);
 	}
 	if (*tokens)
-	{
 		free_tokens(*tokens);
-		*tokens = NULL;
-	}
 }
