@@ -38,7 +38,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 SRCS = main.c clean.c clean2.c error.c env.c env_ops.c executor.c flatten.c pipe.c \
        command.c path.c redirect.c builtin1.c builtin2.c signals.c tokens.c lexing.c \
-	   lexing_utils.c expand.c
+	   lexing_utils.c expand.c parsing.c parsing_utils.c
 OBJS = $(SRCS:.c=.o)
 
 MAKE = make -C

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:56:53 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/15 16:04:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 00:14:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ static void	handle_last_child_status(int status, t_info *info)
 		info->last_status = 1;
 }
 
-void	reap_children(t_info *info)
+void	reap_children(t_info *info, int i)
 {
 	int		status;
 	pid_t	ret;
 
 	if (info->child_count <= 0)
 		return ;
-	ret = waitpid(info->child_pids[0], &status, 0);
+	ret = waitpid(info->child_pids[i], &status, 0);
 	if (ret > 0 && info->child_count == 1)
 		handle_last_child_status(status, info);
-	info->child_pids++;
+	i++;
 	info->child_count--;
-	reap_children(info);
+	reap_children(info, i);
 }
 
 void	executor(t_ast *node, t_info *info)
@@ -68,7 +68,7 @@ void	executor(t_ast *node, t_info *info)
 			parent_exit("malloc", info);
 		exec_pipeline(info->cmds, count, info, -1);
 	}
-	reap_children(info);
+	reap_children(info, 0);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
 	disable_ctrl_echo();

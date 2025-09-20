@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/18 13:46:05 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 00:46:42 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,21 +99,7 @@ void	clean_shell(t_info *info)
 {
 	if (!info)
 		return ;
-	if (info->tree)
-		free_ast(info->tree);
-	if (info->env_array)
-		free_env_array(info->env_array);
-	if (info->child_pids)
-		free(info->child_pids);
 	if (info->env_list)
 		free_env(info->env_list);
-	if (info->cmds)
-		free(info->cmds);
-	if (info->line)
-		free(info->line);
-	if (info->tokens)
-		free(info->tokens);
-	cleanup_heredoc_files();
-	close_parent_fds(info);
 	rl_clear_history();
 }

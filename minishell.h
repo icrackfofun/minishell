@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/19 17:05:01 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 00:33:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	free_env_array(char **arr);
 void	cleanup_heredoc_files(void);
 void	close_parent_fds(t_info *info);
 void	kill_all_children(t_info *info);
-void	reap_children(t_info *info);
+void	reap_children(t_info *info, int i);
 
 //error
 void	child_exit(char *message, int code);
@@ -143,6 +143,7 @@ t_token	*new_token(char *value);
 int		add_token(t_token **head, t_token *new);
 void	classify_tokens(t_token *tokens);
 int		is_operator(t_token *token);
+int		is_redirect(t_token *token);
 void	error_tokens(t_token **tokens, const char *value);
 t_token	*lexing(t_info *info);
 
@@ -150,6 +151,8 @@ t_token	*lexing(t_info *info);
 void	expand_variables(t_info *info, t_token *tokens);
 
 //parsing
+int		is_builtin(char *str);
+t_ast	*parsing(t_token *tokens);
 
 //path
 char	*get_path(t_info *info, t_ast *cmd);
