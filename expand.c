@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/19 16:48:13 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 22:51:12 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 
 	(*i)++;
 	start = *i;
-	while (str[*i] && (isalnum(str[*i]) || str[*i] == '_'))
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 		(*i)++;
 	key = ft_strndup(str + start, *i - start);
 	if (!key)
@@ -105,6 +105,7 @@ static int	expand_token(t_info *info, t_token *cur)
 void	expand_variables(t_info *info, t_token *tokens)
 {
 	t_token	*cur;
+	int		count;
 
 	cur = tokens;
 	while (cur)
@@ -113,4 +114,13 @@ void	expand_variables(t_info *info, t_token *tokens)
 			return (parent_exit("malloc", info));
 		cur = cur->next;
 	}
+	cur = tokens;
+	count = 0;
+	while (cur)
+	{
+		if (cur->type == TOKEN_PIPE)
+			count++;
+		cur = cur->next;
+	}
+	info->pipe_count = count;
 }

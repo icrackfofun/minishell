@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:32:59 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/19 17:00:18 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 22:44:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_token	*new_token(char *value)
 	if (!token)
 		return (NULL);
 	token->value = ft_strdup(value);
+	if (!token->value)
+		return (NULL);
 	token->next = NULL;
 	return (token);
 }
@@ -58,7 +60,7 @@ int	append_token(t_token **tokens, char **buf)
 		token = new_token(*buf);
 		if (!token)
 			return (1);
-		add_token(tokens, new_token(*buf));
+		add_token(tokens, token);
 		free(*buf);
 		*buf = NULL;
 	}

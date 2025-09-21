@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 00:16:21 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 16:46:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	parent_exit(char *message, t_info *info)
 	perror(message);
 	kill_all_children(info);
 	reap_children(info, 0);
+	clean_loop(info);
 	clean_shell(info);
 	exit(1);
 }

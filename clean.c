@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 00:46:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 19:23:17 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ t_env	*free_env(t_env *env)
 		free(env);
 		env = tmp;
 	}
-	return (NULL);
+	return (tmp);
 }
 
-static void	free_redirs(t_redir *redir)
+void	free_redirs(t_redir *redir)
 {
 	t_redir	*tmp;
 

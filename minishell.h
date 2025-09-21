@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 00:33:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/21 22:36:58 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_info
 	char	**env_array;
 	int		last_status;
 	t_token	*tokens;
+	int		pipe_count;
 	t_ast	*tree;
 	t_ast	**cmds;
 	int		last_pipe_read_fd;
@@ -108,78 +109,83 @@ typedef struct s_info
 extern volatile sig_atomic_t	g_last_signal;
 
 //cleaner
-void	clean_shell(t_info *info);
-void	clean_loop(t_info *info);
-void	free_tokens(t_token *token);
-void	free_ast(t_ast *node);
-t_env	*free_env(t_env *env);
-void	free_env_array(char **arr);
-void	cleanup_heredoc_files(void);
-void	close_parent_fds(t_info *info);
-void	kill_all_children(t_info *info);
-void	reap_children(t_info *info, int i);
+void			clean_shell(t_info *info);
+void			clean_loop(t_info *info);
+void			free_tokens(t_token *token);
+void			free_ast(t_ast *node);
+t_env			*free_env(t_env *env);
+void			free_redirs(t_redir *redir);
+void			free_env_array(char **arr);
+void			cleanup_heredoc_files(void);
+void			close_parent_fds(t_info *info);
+void			kill_all_children(t_info *info);
+void			reap_children(t_info *info, int i);
 
 //error
-void	child_exit(char *message, int code);
-void	parent_exit(char *message, t_info *info);
-void	parent_return(char *message, t_info *info, int status);
-void	exit_exec_error(const char *cmd);
+void			child_exit(char *message, int code);
+void			parent_exit(char *message, t_info *info);
+void			parent_return(char *message, t_info *info, int status);
+void			exit_exec_error(const char *cmd);
 
 //env
-void	env_list_to_array(t_info *info);
-t_env	*env_init(char **envp);
+void			env_list_to_array(t_info *info);
+t_env			*env_init(char **envp);
 
 //env_ops
-char	*get_env_value(t_env *env_list, const char *key);
-void	set_env_value(t_env **env_list, const char *key, const char *value);
-void	unset_env(t_env **env_list, const char *key);
+char			*get_env_value(t_env *env_list, const char *key);
+void			set_env_value(t_env **env_list, const char *key,
+					const char *value);
+void			unset_env(t_env **env_list, const char *key);
 
 //lexing
-int		ft_isspace(char c);
-void	malloc_error_lexing(t_token **tokens, char **buf, t_info *info);
-int		append_char(char **buf, char c);
-int		append_token(t_token **tokens, char **buf);
-t_token	*new_token(char *value);
-int		add_token(t_token **head, t_token *new);
-void	classify_tokens(t_token *tokens);
-int		is_operator(t_token *token);
-int		is_redirect(t_token *token);
-void	error_tokens(t_token **tokens, const char *value);
-t_token	*lexing(t_info *info);
+int				ft_isspace(char c);
+void			malloc_error_lexing(t_token **tokens, char **buf, t_info *info);
+int				append_char(char **buf, char c);
+int				append_token(t_token **tokens, char **buf);
+t_token			*new_token(char *value);
+int				add_token(t_token **head, t_token *new);
+void			classify_tokens(t_token *tokens);
+int				is_operator(t_token *token);
+int				is_redirect(t_token *token);
+void			error_tokens(t_token **tokens, const char *value);
+t_token			*lexing(t_info *info);
 
 //expansion
-void	expand_variables(t_info *info, t_token *tokens);
+void			expand_variables(t_info *info, t_token *tokens);
 
 //parsing
-int		is_builtin(char *str);
-t_ast	*parsing(t_token *tokens);
+int				is_builtin(char *str);
+t_redir_type	redir_type(t_token *redir);
+t_token			*find_pipe(t_token *tokens, int n);
+void			parsing(t_info *info, int pipe_count);
 
 //path
-char	*get_path(t_info *info, t_ast *cmd);
+char			*get_path(t_info *info, t_ast *cmd);
 
 //command execution
-void	executor(t_ast *node, t_info *info);
-t_ast	**flatten_pipeline(t_ast *root, int *out_count);
-void	exec_pipeline(t_ast **cmds, int count, t_info *info, int input_fd);
-void	exec_command(t_ast *cmd, t_info *info, int root);
+void			executor(t_ast *node, t_info *info);
+t_ast			**flatten_pipeline(t_ast *root, int *out_count);
+void			exec_pipeline(t_ast **cmds, int count,
+					t_info *info, int input_fd);
+void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
-void	handle_redirections(t_redir *redir);
-void	prepare_heredocs(t_ast *cmd, t_info *info);
+void			handle_redirections(t_redir *redir);
+void			prepare_heredocs(t_ast *cmd, t_info *info);
 
 //builtins
-void	builtin_echo(t_ast *ast, int root, t_info *info);
-void	builtin_cd(t_ast *ast, t_info *info, int root);
-void	builtin_pwd(t_info *info, int root);
-void	builtin_export(t_ast *cmd, t_info *info);
-void	builtin_unset(t_ast *ast, t_info *info);
-void	builtin_env(t_ast *ast, t_info *info);
-void	builtin_exit(t_ast *ast, t_info *info, int root);
+void			builtin_echo(t_ast *ast, int root, t_info *info);
+void			builtin_cd(t_ast *ast, t_info *info, int root);
+void			builtin_pwd(t_info *info, int root);
+void			builtin_export(t_ast *cmd, t_info *info);
+void			builtin_unset(t_ast *ast, t_info *info);
+void			builtin_env(t_ast *ast, t_info *info);
+void			builtin_exit(t_ast *ast, t_info *info, int root);
 
 //signals
-void	sigint_handler(int sig);
-void	sigquit_handler(int sig);
-void	disable_ctrl_echo(void);
-void	enable_ctrl_echo(void);
+void			sigint_handler(int sig);
+void			sigquit_handler(int sig);
+void			disable_ctrl_echo(void);
+void			enable_ctrl_echo(void);
 
 #endif
