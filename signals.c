@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:23:38 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/15 16:02:43 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:10:40 by jose-vda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	disable_ctrl_echo(void)
-{
-	struct termios	t;
+// void	disable_ctrl_echo(void)
+// {
+// 	struct termios	t;
 
-	if (tcgetattr(STDIN_FILENO, &t) == -1)
-		return ;
-	t.c_lflag &= ~ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
+// 	if (tcgetattr(STDIN_FILENO, &t) == -1)
+// 		return ;
+// 	t.c_lflag &= ~ECHOCTL;
+// 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+// }
 
-void	enable_ctrl_echo(void)
-{
-	struct termios	t;
+// void	enable_ctrl_echo(void)
+// {
+// 	struct termios	t;
 
-	if (tcgetattr(STDIN_FILENO, &t) == -1)
-		return ;
-	t.c_lflag |= ECHOCTL;
-	tcsetattr(STDIN_FILENO, TCSANOW, &t);
-}
+// 	if (tcgetattr(STDIN_FILENO, &t) == -1)
+// 		return ;
+// 	t.c_lflag |= ECHOCTL;
+// 	tcsetattr(STDIN_FILENO, TCSANOW, &t);
+// }
 
 void	sigint_handler(int sig)
 {

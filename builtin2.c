@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/15 02:04:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:26:14 by jose-vda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	builtin_exit(t_ast *ast, t_info *info, int root)
 	if (!root)
 		exit(status);
 	printf("exit\n");
+	clean_loop(info);
 	clean_shell(info);
 	exit(status);
 }

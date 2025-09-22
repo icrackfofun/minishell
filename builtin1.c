@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 21:16:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 00:52:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:32:36 by jose-vda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	echo_child(t_ast *cmd)
+static void	echo_child(t_ast *cmd, t_info *info)
 {
 	int	newline;
 	int	i;
@@ -29,12 +29,12 @@ static void	echo_child(t_ast *cmd)
 	while (cmd->argv[i])
 	{
 		printf("%s", cmd->argv[i]);
-		if (cmd->argv[i + 1])
-			printf(" ");
 		i++;
 	}
 	if (newline)
 		printf("\n");
+	clean_loop(info);
+	clean_shell(info);
 	exit(0);
 }
 
@@ -43,12 +43,12 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 	pid_t	pid;
 
 	if (!root)
-		echo_child(ast);
+		echo_child(ast, info);
 	pid = fork();
 	if (pid < 0)
 		parent_exit("fork", info);
 	if (pid == 0)
-		echo_child(ast);
+		echo_child(ast, info);
 	info->child_pids[info->child_count++] = pid;
 }
 

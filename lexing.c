@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:44:13 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/19 16:53:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/22 17:19:25 by jose-vda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ static void	handle_char_or_space(t_info *info, char **buf,
 	{
 		if (append_char(buf, info->line[*i]))
 			malloc_error_lexing(tokens, buf, info);
+		if (info->line[*i + 1] == '\'' || info->line[*i + 1] == '\"')
+		{
+			if (append_token(tokens, buf))
+				malloc_error_lexing(tokens, buf, info);
+		}
 	}
 	else
 	{

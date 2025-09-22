@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 16:46:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/22 18:29:02 by jose-vda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_exec_error(const char *cmd)
+void	exit_exec_error(const char *cmd, t_info *info)
 {
 	int	code;
 
@@ -33,6 +33,8 @@ void	exit_exec_error(const char *cmd)
 	}
 	else
 		code = 1;
+	clean_loop(info);
+	clean_shell(info);
 	exit (code);
 }
 
