@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:33:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 22:46:43 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:44:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ static void	build_ast(t_ast *node, t_token *tokens,
 
 void	parsing(t_info *info, int pipe_count)
 {
+	if (!info->tokens)
+		return ;
 	info->tree = malloc(sizeof(t_ast));
 	if (!info->tree)
 		parent_exit("malloc", NULL);

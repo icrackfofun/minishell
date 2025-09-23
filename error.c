@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:18:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 16:01:40 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	kill_all_children(t_info *info)
 
 void	child_exit(char *message, int code, t_info *info, char *file)
 {
-	if (message && file[0] == 0)
+	if (message[0] != 0 && file[0] == 0)
 		perror(message);
-	else if (message && file[0] != 0)
+	else if (message[0] != 0 && file[0] != 0)
 	{
 		write(2, message, ft_strlen(message));
 		write(2, ": ", 2);
@@ -82,9 +82,9 @@ void	parent_exit(char *message, t_info *info)
 
 void	parent_return(char *message, t_info *info, int status, char *f)
 {
-	if (message && f[0] == 0)
+	if (message[0] != 0 && f[0] == 0)
 		perror(message);
-	else if (message && f[0] != 0)
+	else if (message[0] != 0 && f[0] != 0)
 	{
 		write(2, message, ft_strlen(message));
 		write(2, ": ", 2);

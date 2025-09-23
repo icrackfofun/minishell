@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:44:13 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:22:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 16:08:20 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	handle_operator(t_token **tokens, char **buf,
 		op[2] = '\0';
 		(*i)++;
 	}
-	// if (append_token(tokens, buf, info))
-	// 	malloc_error_lexing(tokens, buf, info);
+	if (append_token(tokens, buf, info))
+		malloc_error_lexing(tokens, buf, info);
 	if (add_token(tokens, new_token(op), info))
 		malloc_error_lexing(tokens, buf, info);
 }
@@ -113,32 +113,3 @@ t_token	*lexing(t_info *info)
 	}
 	return (finalize_tokens(info, &tokens));
 }
-
-// t_token	*lexing(t_info *info)
-// {
-// 	t_token	*tokens;
-// 	char	*buf;
-// 	int		i;
-
-// 	tokens = NULL;
-// 	buf = NULL;
-// 	i = 0;
-// 	while (info->line[i])
-// 	{
-// 		if (info->line[i] == '\'' || info->line[i] == '\"')
-// 		{
-// 			if (handle_quotes(info, &i, &buf, &tokens))
-// 				return (NULL);
-// 		}
-// 		else if (info->line[i] == '|' || info->line[i] == '<'
-// 			|| info->line[i] == '>')
-// 			handle_operator(&tokens, &buf, info, &i);
-// 		else
-// 			handle_char(info, &buf, &tokens, &i);
-// 		i++;
-// 	}
-// 	if (append_token(&tokens, &buf, info))
-// 		malloc_error_lexing(&tokens, &buf, info);
-// 	classify_tokens(tokens);
-// 	return (token_error(&tokens));
-// }
