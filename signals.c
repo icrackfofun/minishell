@@ -22,8 +22,16 @@ void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-void	sigquit_handler(int sig)
-{
-	(void)sig;
-	g_last_signal = SIGQUIT;
-}
+// void	sigquit_handler(int sig)
+// {
+// 	(void)sig;
+// 	g_last_signal = SIGQUIT;
+// }
+
+// void	sigint_handler_child(int sig, t_info *info)
+// {
+// 	(void)sig;
+// 	g_last_signal = SIGINT;
+// 	exit
+// }
+

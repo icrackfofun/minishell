@@ -25,7 +25,7 @@ static void	handle_last_child_status(int status, t_info *info)
 		if (sig == SIGINT)
 			printf("\n");
 		else if (sig == SIGQUIT)
-			printf("Quit: %d\n", sig);
+			printf("Quit (core dumped)\n");
 	}
 	else
 		info->last_status = 1;
@@ -51,7 +51,6 @@ void	executor(t_ast *node, t_info *info)
 	int	count;
 
 	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 	if (node->type == NODE_COMMAND)
 	{
 		info->child_pids = malloc(sizeof(pid_t));
@@ -69,5 +68,4 @@ void	executor(t_ast *node, t_info *info)
 	}
 	reap_children(info, 0);
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
 }

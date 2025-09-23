@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 13:07:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 19:23:44 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ volatile sig_atomic_t	g_last_signal;
 
 static void	info_init(t_info *info, char **envp)
 {
+	if (!envp | !*envp | !**envp)
+	{
+		printf("No environment variables found");
+		exit(1);
+	}
 	info->env_list = env_init(envp);
 	if (!info->env_list)
 		parent_exit("malloc", info);
@@ -33,7 +38,7 @@ static void	info_init(t_info *info, char **envp)
 	info->leftover_read_fd = -1;
 	g_last_signal = 0;
 	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 int	main(int argc, char **argv, char **envp)
