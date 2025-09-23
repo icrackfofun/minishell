@@ -6,23 +6,23 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 22:56:15 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/15 16:03:16 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:05:02 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*join_path(const char *dir, const char *cmd)
+static char	*join_path(const char *dir, const char *cmd, t_info *info)
 {
 	char	*tmp;
 	char	*full;
 
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
-		child_exit("malloc", 1);
+		child_exit("malloc", 1, info, "");
 	full = ft_strjoin(tmp, cmd);
 	if (!full)
-		child_exit("malloc", 1);
+		child_exit("malloc", 1, info, "");
 	free(tmp);
 	return (full);
 }
@@ -48,7 +48,7 @@ static char	*next_token(char **str, char delim)
 	return (start);
 }
 
-static char	*search_in_path(char *path_copy, const char *cmd)
+static char	*search_in_path(char *path_copy, const char *cmd, t_info *info)
 {
 	char	*dir;
 	char	*full;
@@ -58,7 +58,7 @@ static char	*search_in_path(char *path_copy, const char *cmd)
 	dir = next_token(&cursor, ':');
 	while (dir)
 	{
-		full = join_path(dir, cmd);
+		full = join_path(dir, cmd, info);
 		if (access(full, X_OK) == 0)
 			return (full);
 		free(full);
@@ -80,8 +80,8 @@ char	*get_path(t_info *info, t_ast *cmd)
 		return (cmd->argv[0]);
 	copy = ft_strdup(path_env);
 	if (!copy)
-		child_exit("malloc", 1);
-	result = search_in_path(copy, cmd->argv[0]);
+		child_exit("malloc", 1, info, "");
+	result = search_in_path(copy, cmd->argv[0], info);
 	free(copy);
 	return (result);
 }

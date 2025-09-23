@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:26:14 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:03:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	print_env_list(t_env *env_list, t_info *info)
+static void	print_env_list(int root, t_env *env_list, t_info *info)
 {
 	t_env	*node;
 
@@ -25,6 +25,8 @@ static void	print_env_list(t_env *env_list, t_info *info)
 		printf("\"\n");
 		node = node->next;
 	}
+	if (!root)
+		child_exit("", 0, info, "");
 	info->last_status = 0;
 }
 
@@ -51,19 +53,21 @@ static void	handle_export_arg(t_env **env_list, char *arg)
 	}
 }
 
-void	builtin_export(t_ast *cmd, t_info *info)
+void	builtin_export(int root, t_ast *cmd, t_info *info)
 {
 	int	i;
 
 	i = 1;
 	if (cmd->argv[i] == NULL)
-		return (print_env_list(info->env_list, info));
+		return (print_env_list(root, info->env_list, info));
 	while (cmd->argv[i] != NULL)
 		handle_export_arg(&info->env_list, cmd->argv[i++]);
+	if (!root)
+		child_exit("", 0, info, "");
 	info->last_status = 0;
 }
 
-void	builtin_env(t_ast *ast, t_info *info)
+void	builtin_env(int root, t_ast *ast, t_info *info)
 {
 	t_env	*node;
 
@@ -75,6 +79,8 @@ void	builtin_env(t_ast *ast, t_info *info)
 			printf("%s=%s\n", node->key, node->value);
 		node = node->next;
 	}
+	if (!root)
+		child_exit("", 0, info, "");
 	info->last_status = 0;
 }
 
@@ -87,14 +93,15 @@ void	builtin_exit(t_ast *ast, t_info *info, int root)
 	else if (ast->argv[2])
 	{
 		printf("exit\nbash: exit: too many arguments\n");
+		if (!root)
+			child_exit("", 1, info, "");
 		info->last_status = 1;
-		if (root)
-			return ;
+		return ;
 	}
 	else
 		status = ft_atoi(ast->argv[1]);
 	if (!root)
-		exit(status);
+		child_exit("", status, info, "");
 	printf("exit\n");
 	clean_loop(info);
 	clean_shell(info);

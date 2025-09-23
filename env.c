@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:58:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/14 14:23:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:04:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_env_array(char **arr)
+void	free_array(char **arr)
 {
 	int	i;
 
@@ -40,7 +40,7 @@ static int	env_count(t_env *list)
 	return (count);
 }
 
-static char	*env_str(t_env *node)
+static char	*env_str(t_env *node, t_info *info)
 {
 	char	*str;
 	size_t	len;
@@ -48,7 +48,7 @@ static char	*env_str(t_env *node)
 	len = ft_strlen(node->key) + ft_strlen(node->value) + 2;
 	str = malloc(len);
 	if (!str)
-		child_exit("malloc", 1);
+		child_exit("malloc", 1, info, "");
 	ft_strlcpy(str, node->key, ft_strlen(node->key) + 1);
 	str[ft_strlen(node->key)] = '=';
 	ft_strlcpy(str + ft_strlen(node->key) + 1, node->value,
@@ -62,16 +62,15 @@ void	env_list_to_array(t_info *info)
 	int		i;
 	int		size;
 
-	free_env_array(info->env_array);
 	size = env_count(info->env_list);
 	info->env_array = malloc(sizeof(char *) * (size + 1));
 	if (!info->env_array)
-		child_exit("malloc", 1);
+		child_exit("malloc", 1, info, "");
 	tmp = info->env_list;
 	i = 0;
 	while (tmp)
 	{
-		info->env_array[i++] = env_str(tmp);
+		info->env_array[i++] = env_str(tmp, info);
 		tmp = tmp->next;
 	}
 	info->env_array[i] = NULL;

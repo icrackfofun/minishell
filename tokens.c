@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:32:59 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 22:44:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:41:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*new_token(char *value)
 	return (token);
 }
 
-int	add_token(t_token **head, t_token *new)
+int	add_token(t_token **head, t_token *new, t_info *info)
 {
 	t_token	*tmp;
 	int		len;
@@ -38,6 +38,7 @@ int	add_token(t_token **head, t_token *new)
 		len = ft_strlen(new->value);
 		while (len > 0 && new->value[len - 1] == ' ')
 			new->value[--len] = '\0';
+		new->has_space_before = info->had_space;
 	}
 	if (!*head)
 		*head = new;
@@ -51,19 +52,20 @@ int	add_token(t_token **head, t_token *new)
 	return (0);
 }
 
-int	append_token(t_token **tokens, char **buf)
+int	append_token(t_token **tokens, char **buf, t_info *info)
 {
 	t_token	*token;
 
-	if (*buf && **buf)
+	if (buf && *buf && **buf)
 	{
 		token = new_token(*buf);
 		if (!token)
 			return (1);
-		add_token(tokens, token);
+		add_token(tokens, token, info);
 		free(*buf);
 		*buf = NULL;
 	}
+	info->had_space = 0;
 	return (0);
 }
 

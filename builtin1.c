@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 21:16:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:32:36 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:18:14 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ static void	echo_child(t_ast *cmd, t_info *info)
 		i++;
 	}
 	if (cmd->redirs)
-		handle_redirections(cmd->redirs);
+		handle_redirections(cmd->redirs, info);
 	while (cmd->argv[i])
 	{
 		printf("%s", cmd->argv[i]);
+		if (cmd->argv[i + 1])
+			printf(" ");
 		i++;
 	}
 	if (newline)
 		printf("\n");
-	clean_loop(info);
-	clean_shell(info);
-	exit(0);
+	child_exit("", 0, info, "");
 }
 
 void	builtin_echo(t_ast *ast, int root, t_info *info)
@@ -64,20 +64,20 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 	if (!path)
 	{
 		if (!root)
-			exit(1);
+			child_exit("", 1, info, "");
 		return ;
 	}
 	if (chdir(path) != 0)
 	{
 		if (!root)
-			child_exit("bash: cd", 1);
-		return (parent_return("bash: cd", info, 1));
+			child_exit("cd", 1, info, path);
+		return (parent_return("cd", info, 1, path));
 	}
 	cwd = getcwd(NULL, 0);
 	set_env_value(&info->env_list, "PWD", cwd);
 	free(cwd);
 	if (!root)
-		exit(0);
+		child_exit("", 0, info, "");
 	info->last_status = 0;
 }
 
@@ -89,17 +89,17 @@ void	builtin_pwd(t_info *info, int root)
 	if (!cwd)
 	{
 		if (!root)
-			child_exit("bash: pwd", 1);
-		return (parent_return("bash: pwd", info, 1));
+			child_exit("pwd", 1, info, "");
+		return (parent_return("pwd", info, 1, ""));
 	}
 	printf("%s\n", cwd);
 	free(cwd);
 	if (!root)
-		exit(0);
+		child_exit("", 0, info, "");
 	info->last_status = 0;
 }
 
-void	builtin_unset(t_ast *ast, t_info *info)
+void	builtin_unset(int root, t_ast *ast, t_info *info)
 {
 	int		i;
 	char	*key;
@@ -111,5 +111,7 @@ void	builtin_unset(t_ast *ast, t_info *info)
 		unset_env(&info->env_list, key);
 		i++;
 	}
+	if (!root)
+		child_exit("", 0, info, "");
 	info->last_status = 0;
 }

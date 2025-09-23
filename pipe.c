@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:17:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/15 12:48:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:06:26 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static pid_t	fork_command_stage(t_ast *cmd, t_info *info,
 			close(output_fd);
 		}
 		exec_command(cmd, info, 0);
-		child_exit("exec failed", 1);
 	}
 	return (pid);
 }

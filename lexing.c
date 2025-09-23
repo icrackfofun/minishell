@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexing.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:44:13 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 17:19:25 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:22:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	handle_quotes(t_info *info, int *i, char **buf, t_token **tokens)
 	{
 		if (append_char(buf, quote))
 			malloc_error_lexing(tokens, buf, info);
-		if (append_token(tokens, buf))
+		if (append_token(tokens, buf, info))
 			malloc_error_lexing(tokens, buf, info);
 		return (0);
 	}
@@ -54,56 +54,43 @@ static void	handle_operator(t_token **tokens, char **buf,
 		op[2] = '\0';
 		(*i)++;
 	}
-	if (append_token(tokens, buf))
-		malloc_error_lexing(tokens, buf, info);
-	if (add_token(tokens, new_token(op)))
+	// if (append_token(tokens, buf, info))
+	// 	malloc_error_lexing(tokens, buf, info);
+	if (add_token(tokens, new_token(op), info))
 		malloc_error_lexing(tokens, buf, info);
 }
 
-static t_token	*token_error(t_token **tokens)
-{
-	t_token	*current;
-
-	if (!tokens || !*tokens)
-		return (NULL);
-	if (is_operator(*tokens))
-	{
-		if ((*tokens)->next)
-			error_tokens(tokens, (*tokens)->next->value);
-		else
-			error_tokens(tokens, (*tokens)->value);
-		return (NULL);
-	}
-	current = *tokens;
-	while (current && current->next)
-	{
-		if (is_operator(current) && is_operator(current->next))
-			return (error_tokens(tokens, current->next->value), NULL);
-		current = current->next;
-	}
-	if (is_operator(current))
-		return (error_tokens(tokens, "newline"), NULL);
-	return (*tokens);
-}
-
-static void	handle_char_or_space(t_info *info, char **buf,
+static void	handle_char(t_info *info, char **buf,
 								t_token **tokens, int *i)
 {
-	if (!ft_isspace(info->line[*i]))
+	if (append_char(buf, info->line[*i]))
+		malloc_error_lexing(tokens, buf, info);
+	if (info->line[*i + 1] == '\'' || info->line[*i + 1] == '\"')
 	{
-		if (append_char(buf, info->line[*i]))
+		if (append_token(tokens, buf, info))
 			malloc_error_lexing(tokens, buf, info);
-		if (info->line[*i + 1] == '\'' || info->line[*i + 1] == '\"')
-		{
-			if (append_token(tokens, buf))
-				malloc_error_lexing(tokens, buf, info);
-		}
 	}
+	else if (!info->line[*i + 1] || ft_isspace(info->line[*i + 1]))
+	{
+		if (append_token(tokens, buf, info))
+			malloc_error_lexing(tokens, buf, info);
+	}
+}
+
+static int	process_char(t_info *info, int *i, char **buf,
+						t_token **tokens)
+{
+	if (info->line[*i] == '\'' || info->line[*i] == '\"')
+	{
+		if (handle_quotes(info, i, buf, tokens))
+			return (1);
+	}
+	else if (info->line[*i] == '|' || info->line[*i] == '<'
+		|| info->line[*i] == '>')
+		handle_operator(tokens, buf, info, i);
 	else
-	{
-		if (append_token(tokens, buf))
-			malloc_error_lexing(tokens, buf, info);
-	}
+		handle_char(info, buf, tokens, i);
+	return (0);
 }
 
 t_token	*lexing(t_info *info)
@@ -117,20 +104,41 @@ t_token	*lexing(t_info *info)
 	i = 0;
 	while (info->line[i])
 	{
-		if (info->line[i] == '\'' || info->line[i] == '\"')
-		{
-			if (handle_quotes(info, &i, &buf, &tokens))
-				return (NULL);
-		}
-		else if (info->line[i] == '|' || info->line[i] == '<'
-			|| info->line[i] == '>')
-			handle_operator(&tokens, &buf, info, &i);
-		else
-			handle_char_or_space(info, &buf, &tokens, &i);
+		skip_spaces_and_mark(info->line, &i, info);
+		if (!info->line[i])
+			break ;
+		if (process_char(info, &i, &buf, &tokens))
+			return (NULL);
 		i++;
 	}
-	if (append_token(&tokens, &buf))
-		malloc_error_lexing(&tokens, &buf, info);
-	classify_tokens(tokens);
-	return (token_error(&tokens));
+	return (finalize_tokens(info, &tokens));
 }
+
+// t_token	*lexing(t_info *info)
+// {
+// 	t_token	*tokens;
+// 	char	*buf;
+// 	int		i;
+
+// 	tokens = NULL;
+// 	buf = NULL;
+// 	i = 0;
+// 	while (info->line[i])
+// 	{
+// 		if (info->line[i] == '\'' || info->line[i] == '\"')
+// 		{
+// 			if (handle_quotes(info, &i, &buf, &tokens))
+// 				return (NULL);
+// 		}
+// 		else if (info->line[i] == '|' || info->line[i] == '<'
+// 			|| info->line[i] == '>')
+// 			handle_operator(&tokens, &buf, info, &i);
+// 		else
+// 			handle_char(info, &buf, &tokens, &i);
+// 		i++;
+// 	}
+// 	if (append_token(&tokens, &buf, info))
+// 		malloc_error_lexing(&tokens, &buf, info);
+// 	classify_tokens(tokens);
+// 	return (token_error(&tokens));
+// }

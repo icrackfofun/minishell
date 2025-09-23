@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:28:39 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 14:57:46 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_token
 {
 	char				*value;
 	t_token_type		type;
+	int					has_space_before;
 	struct s_token		*next;
 }	t_token;
 
@@ -94,6 +95,7 @@ typedef struct s_info
 	t_env	*env_list;
 	char	**env_array;
 	int		last_status;
+	int		had_space;
 	t_token	*tokens;
 	int		pipe_count;
 	t_ast	*tree;
@@ -115,16 +117,16 @@ void			free_tokens(t_token *token);
 void			free_ast(t_ast *node);
 t_env			*free_env(t_env *env);
 void			free_redirs(t_redir *redir);
-void			free_env_array(char **arr);
+void			free_array(char **arr);
 void			cleanup_heredoc_files(void);
 void			close_parent_fds(t_info *info);
 void			kill_all_children(t_info *info);
 void			reap_children(t_info *info, int i);
 
 //error
-void			child_exit(char *message, int code);
+void			child_exit(char *message, int code, t_info *info, char *file);
 void			parent_exit(char *message, t_info *info);
-void			parent_return(char *message, t_info *info, int status);
+void			parent_return(char *message, t_info *info, int status, char *f);
 void			exit_exec_error(const char *cmd, t_info *info);
 
 //env
@@ -140,17 +142,21 @@ void			unset_env(t_env **env_list, const char *key);
 //lexing
 int				ft_isspace(char c);
 void			malloc_error_lexing(t_token **tokens, char **buf, t_info *info);
+void			skip_spaces_and_mark(const char *line, int *i, t_info *info);
 int				append_char(char **buf, char c);
-int				append_token(t_token **tokens, char **buf);
+int				append_token(t_token **tokens, char **buf, t_info *info);
 t_token			*new_token(char *value);
-int				add_token(t_token **head, t_token *new);
+int				add_token(t_token **head, t_token *new, t_info *info);
 void			classify_tokens(t_token *tokens);
 int				is_operator(t_token *token);
 int				is_redirect(t_token *token);
+t_token			*token_error(t_token **tokens);
 void			error_tokens(t_token **tokens, const char *value);
+t_token			*finalize_tokens(t_info *info, t_token **tokens);
 t_token			*lexing(t_info *info);
 
 //expansion
+int				join_non_operator_tokens(t_token **tokens);
 void			expand_variables(t_info *info, t_token *tokens);
 
 //parsing
@@ -170,22 +176,20 @@ void			exec_pipeline(t_ast **cmds, int count,
 void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
-void			handle_redirections(t_redir *redir);
+void			handle_redirections(t_redir *redir, t_info *info);
 void			prepare_heredocs(t_ast *cmd, t_info *info);
 
 //builtins
 void			builtin_echo(t_ast *ast, int root, t_info *info);
 void			builtin_cd(t_ast *ast, t_info *info, int root);
 void			builtin_pwd(t_info *info, int root);
-void			builtin_export(t_ast *cmd, t_info *info);
-void			builtin_unset(t_ast *ast, t_info *info);
-void			builtin_env(t_ast *ast, t_info *info);
+void			builtin_export(int root, t_ast *cmd, t_info *info);
+void			builtin_unset(int root, t_ast *ast, t_info *info);
+void			builtin_env(int root, t_ast *ast, t_info *info);
 void			builtin_exit(t_ast *ast, t_info *info, int root);
 
 //signals
 void			sigint_handler(int sig);
 void			sigquit_handler(int sig);
-void			disable_ctrl_echo(void);
-void			enable_ctrl_echo(void);
 
 #endif

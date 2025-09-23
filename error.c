@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:29:02 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 15:18:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@ void	exit_exec_error(const char *cmd, t_info *info)
 {
 	int	code;
 
+	if (errno == ENOENT || errno == EACCES || errno == EISDIR)
+		write(2, cmd, ft_strlen(cmd));
 	if (errno == ENOENT)
 	{
 		code = 127;
-		printf("bash: %s: command not found\n", cmd);
+		write(2, ": command not found\n", 20);
 	}
 	else if (errno == EACCES)
 	{
 		code = 126;
-		printf("bash: %s: Permission denied\n", cmd);
+		write(2, ": Permission denied\n", 20);
 	}
 	else if (errno == EISDIR)
 	{
 		code = 126;
-		printf("bash: %s: is a directory\n", cmd);
+		write(2, ": is a directory\n", 17);
 	}
 	else
 		code = 1;
@@ -51,9 +53,20 @@ void	kill_all_children(t_info *info)
 	}
 }
 
-void	child_exit(char *message, int code)
+void	child_exit(char *message, int code, t_info *info, char *file)
 {
-	perror(message);
+	if (message && file[0] == 0)
+		perror(message);
+	else if (message && file[0] != 0)
+	{
+		write(2, message, ft_strlen(message));
+		write(2, ": ", 2);
+		write(2, file, ft_strlen(file));
+		write(2, ": ", 2);
+		perror("");
+	}
+	clean_loop(info);
+	clean_shell(info);
 	exit(code);
 }
 
@@ -67,9 +80,17 @@ void	parent_exit(char *message, t_info *info)
 	exit(1);
 }
 
-void	parent_return(char *message, t_info *info, int status)
+void	parent_return(char *message, t_info *info, int status, char *f)
 {
-	info->last_status = status;
-	if (message[0] != 0)
+	if (message && f[0] == 0)
 		perror(message);
+	else if (message && f[0] != 0)
+	{
+		write(2, message, ft_strlen(message));
+		write(2, ": ", 2);
+		write(2, f, ft_strlen(f));
+		write(2, ": ", 2);
+		perror("");
+	}
+	info->last_status = status;
 }

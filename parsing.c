@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:33:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 22:53:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/22 22:46:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	add_arg(t_ast *cmd, char *value, int *argc, t_info *info)
 	new_argv[i] = ft_strdup(value);
 	if (!new_argv[i])
 	{
-		free_env_array(new_argv);
+		free_array(new_argv);
 		parent_exit("strdup", info);
 	}
 	new_argv[i + 1] = NULL;

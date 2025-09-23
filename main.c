@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:10:52 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:07:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	info_init(t_info *info, char **envp)
 	if (!info->env_list)
 		parent_exit("malloc", info);
 	info->env_array = NULL;
+	info->had_space = 0;
 	info->last_status = 0;
 	info->pipe_count = 0;
 	info->tree = NULL;
@@ -33,7 +34,6 @@ static void	info_init(t_info *info, char **envp)
 	g_last_signal = 0;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-	//disable_ctrl_echo();
 }
 
 int	main(int argc, char **argv, char **envp)

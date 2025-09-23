@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:56:53 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:11:07 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:32:56 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	executor(t_ast *node, t_info *info)
 {
 	int	count;
 
-	//enable_ctrl_echo();
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	if (node->type == NODE_COMMAND)
@@ -71,5 +70,4 @@ void	executor(t_ast *node, t_info *info)
 	reap_children(info, 0);
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, sigquit_handler);
-	//disable_ctrl_echo();
 }

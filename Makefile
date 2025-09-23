@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+         #
+#    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/09/22 18:20:34 by jose-vda         ###   ########.fr        #
+#    Updated: 2025/09/23 11:18:43 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS = 	main.c  \
 		tokens.c \
 		lexing.c \
 	   	lexing_utils.c \
+		lexing_utils2.c \
 		expand.c \
 		parsing.c \
 		parsing_utils.c \

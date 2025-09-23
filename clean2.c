@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/20 23:57:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 13:05:11 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	clean_loop(t_info *info)
 {
 	if (!info)
 		return ;
+	if (info->env_array)
+		free_array(info->env_array);
 	if (info->tree)
 		free_ast(info->tree);
 	if (info->cmds)

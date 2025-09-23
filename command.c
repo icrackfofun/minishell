@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 18:29:37 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/22 23:15:38 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static void	exec_builtin(t_ast *cmd, t_info *info, int root)
 	else if (!ft_strcmp(cmd->argv[0], "pwd"))
 		builtin_pwd(info, root);
 	else if (!ft_strcmp(cmd->argv[0], "export"))
-		builtin_export(cmd, info);
+		builtin_export(root, cmd, info);
 	else if (!ft_strcmp(cmd->argv[0], "unset"))
-		builtin_unset(cmd, info);
+		builtin_unset(root, cmd, info);
 	else if (!ft_strcmp(cmd->argv[0], "env"))
-		builtin_env(cmd, info);
+		builtin_env(root, cmd, info);
 	else if (!ft_strcmp(cmd->argv[0], "exit"))
 		builtin_exit(cmd, info, root);
 }
@@ -39,7 +39,7 @@ static void	exec_child(t_ast *cmd, t_info *info)
 	path = get_path(info, cmd);
 	env_list_to_array(info);
 	if (cmd->redirs)
-		handle_redirections(cmd->redirs);
+		handle_redirections(cmd->redirs, info);
 	execve(path, cmd->argv, info->env_array);
 	exit_exec_error(cmd->argv[0], info);
 }
@@ -61,7 +61,7 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 		path = get_path(info, cmd);
 		env_list_to_array(info);
 		if (cmd->redirs)
-			handle_redirections(cmd->redirs);
+			handle_redirections(cmd->redirs, info);
 		execve(path, cmd->argv, info->env_array);
 		exit_exec_error(cmd->argv[0], info);
 	}

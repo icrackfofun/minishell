@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 17:24:24 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:09:55 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <string.h>
 
 static char	*expand_var_value(t_info *info, const char *key)
 {
@@ -123,4 +122,6 @@ void	expand_variables(t_info *info, t_token *tokens)
 		cur = cur->next;
 	}
 	info->pipe_count = count;
+	if (join_non_operator_tokens(&tokens))
+		return (parent_exit("malloc", info));
 }
