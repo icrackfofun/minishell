@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/19 13:33:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:44:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:45:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ static void	parse_command(t_ast *cmd, t_token *tokens, t_info *info)
 			add_arg(cmd, tokens->value, &argc, info);
 		tokens = tokens->next;
 	}
-	cmd->is_builtin = is_builtin(cmd->argv[0]);
+	if (!cmd->argv)
+		cmd->is_builtin = 0;
+	else
+		cmd->is_builtin = is_builtin(cmd->argv[0]);
 }
 
 static void	build_ast(t_ast *node, t_token *tokens,

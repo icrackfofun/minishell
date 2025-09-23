@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 10:27:56 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:22:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:41:02 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_token	*token_error(t_token **tokens)
 
 	if (!tokens || !*tokens)
 		return (NULL);
-	if (is_operator(*tokens))
+	if ((*tokens)->type == TOKEN_PIPE)
 	{
 		if ((*tokens)->next)
 			error_tokens(tokens, (*tokens)->next->value);
@@ -63,6 +63,14 @@ t_token	*token_error(t_token **tokens)
 			error_tokens(tokens, "newline");
 		return (NULL);
 	}
+	// if (is_operator(*tokens))
+	// {
+	// 	if ((*tokens)->next)
+	// 		error_tokens(tokens, (*tokens)->next->value);
+	// 	else
+	// 		error_tokens(tokens, "newline");
+	// 	return (NULL);
+	// }
 	current = *tokens;
 	while (current && current->next)
 	{
