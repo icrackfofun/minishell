@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:23:38 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 23:29:30 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:28:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ void	sigint_handler(int sig)
 // 	g_last_signal = SIGINT;
 // 	exit
 // }
-

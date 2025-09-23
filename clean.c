@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jose-vda <jose-vda@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 17:58:35 by jose-vda         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:12:34 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,14 @@ void	free_ast(t_ast *node)
 	if (node->right)
 		free_ast(node->right);
 	free(node);
-	node = NULL;
 }
 
 void	clean_shell(t_info *info)
 {
 	if (!info)
 		return ;
+	if (info->env_array)
+		free_array(info->env_array);
 	if (info->env_list)
 		free_env(info->env_list);
 	rl_clear_history();
