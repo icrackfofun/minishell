@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 23:32:34 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 23:50:19 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void    exit_exec_error(const char *cmd, t_info *info)
 	else if (errno == ENOENT)
 	{
 		write(2, cmd, strlen(cmd));
-		write(2, ": command not found\n", 20);
+		if (cmd[0] == '/')
+			write(2, ": No such file or directory\n", 28);
+		else
+			write(2, ": command not found\n", 20);
 		code = 127;
 	}
 	else if (errno == EACCES)
