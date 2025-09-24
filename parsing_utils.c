@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 00:27:17 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/21 22:52:40 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 19:29:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,24 @@ int	is_builtin(char *str)
 	else if (ft_strcmp (str, "exit") == 0)
 		return (1);
 	return (0);
+}
+
+int	is_operator_redir_char(char c)
+{
+	return (c == '\'' || c == '\"' || c == '|'
+		|| c == '<' || c == '>');
+}
+
+int	ft_is_valid(char *name, int i, char delim)
+{
+	if (!(ft_isalpha(name[i]) || name[i] == '_' || name[i] == '?'))
+		return (0);
+	i++;
+	while (name[i] != delim)
+	{
+		if (!(ft_isalnum((unsigned char)name[i]) || name[i] == '_'))
+			return (0);
+		i++;
+	}
+	return (1);
 }

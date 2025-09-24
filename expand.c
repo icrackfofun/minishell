@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 12:09:55 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 22:56:07 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,17 @@ static char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 
 	(*i)++;
 	start = *i;
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_' || str[*i] == '?'
+		|| is_operator_redir_char(str[*i]) || str[*i] == '\''
+		|| str[*i] == '\"'))
+	{
+		if (str[*i] == '?')
+		{
+			(*i)++;
+			break ;
+		}
 		(*i)++;
+	}
 	key = ft_strndup(str + start, *i - start);
 	if (!key)
 		return (NULL);
@@ -78,7 +87,7 @@ static int	expand_token(t_info *info, t_token *cur)
 	char	*expanded;
 	char	*inner;
 
-	if (!cur || cur->type == TOKEN_WORD || is_operator(cur))
+	if (!cur || cur->type == TOKEN_WORD || is_pipe(cur) || is_redirect(cur))
 		return (0);
 	expanded = NULL;
 	if (cur->type == TOKEN_VARIABLE)

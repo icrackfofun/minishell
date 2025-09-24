@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:17:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:06:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 21:52:16 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ static pid_t	fork_command_stage(t_ast *cmd, t_info *info,
 			dup2(output_fd, STDOUT_FILENO);
 			close(output_fd);
 		}
+		if (info->last_pipe_read_fd != -1)
+			close(info->last_pipe_read_fd);
+		if (info->last_pipe_write_fd != -1)
+			close(info->last_pipe_write_fd);
 		exec_command(cmd, info, 0);
 	}
 	return (pid);
@@ -71,11 +75,11 @@ void	exec_pipeline(t_ast **cmds, int count, t_info *info, int input_fd)
 	int		write_fd;
 
 	i = 0;
+	if (cmds)
+		prepare_heredocs(cmds, info, count);
 	while (i < count)
 	{
 		write_fd = -1;
-		if (cmds[i]->redirs)
-			prepare_heredocs(cmds[i], info);
 		if (i < count - 1)
 		{
 			create_pipe_fd(pipefd, info);

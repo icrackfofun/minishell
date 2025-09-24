@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 22:49:28 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 22:27:01 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 
 void	exec_command(t_ast *cmd, t_info *info, int root)
 {
-	if (root && cmd->redirs)
-		prepare_heredocs(cmd, info);
+	if (root && cmd)
+		prepare_heredocs(&cmd, info, 1);
 	if (cmd->is_builtin == 1)
 		exec_builtin(cmd, info, root);
 	else

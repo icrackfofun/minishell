@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 14:57:46 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 23:17:15 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft/libft.h"
 # include <unistd.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -141,14 +142,18 @@ void			unset_env(t_env **env_list, const char *key);
 
 //lexing
 int				ft_isspace(char c);
+int				is_operator_redir_char(char c);
 void			malloc_error_lexing(t_token **tokens, char **buf, t_info *info);
 void			skip_spaces_and_mark(const char *line, int *i, t_info *info);
+void			handle_variable(t_info *info, int *i, char **buf,
+					t_token **tokens);
 int				append_char(char **buf, char c);
 int				append_token(t_token **tokens, char **buf, t_info *info);
 t_token			*new_token(char *value);
 int				add_token(t_token **head, t_token *new, t_info *info);
 void			classify_tokens(t_token *tokens);
-int				is_operator(t_token *token);
+int				ft_is_valid(char *name, int i, char delim);
+int				is_pipe(t_token *token);
 int				is_redirect(t_token *token);
 t_token			*token_error(t_token **tokens);
 void			error_tokens(t_token **tokens, const char *value);
@@ -177,7 +182,7 @@ void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
 void			handle_redirections(t_redir *redir, t_info *info);
-void			prepare_heredocs(t_ast *cmd, t_info *info);
+void			prepare_heredocs(t_ast **cmds, t_info *info, int count);
 
 //builtins
 void			builtin_echo(t_ast *ast, int root, t_info *info);
@@ -189,7 +194,6 @@ void			builtin_env(int root, t_ast *ast, t_info *info);
 void			builtin_exit(t_ast *ast, t_info *info, int root);
 
 //signals
-void			sigint_handler(int sig);
-void			sigquit_handler(int sig);
+void			prompt_sigint_handler(int sig);
 
 #endif

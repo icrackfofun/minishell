@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/09/23 15:40:30 by psantos-         ###   ########.fr        #
+#    Updated: 2025/09/24 20:18:47 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,5 +69,10 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+test: re
+	@git clone https://github.com/LucasKuhn/minishell_tester
+	@cd minishell_tester && (./tester || true) && cd ..
+	@rm -rf minishell_tester
 
 .PHONY: all clean fclean re

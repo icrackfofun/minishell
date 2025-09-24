@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 22:52:47 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 16:28:35 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	info_init(t_info *info, char **envp)
 	info->last_pipe_write_fd = -1;
 	info->leftover_read_fd = -1;
 	g_last_signal = 0;
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, prompt_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
 

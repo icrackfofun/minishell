@@ -6,21 +6,17 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 11:53:23 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/20 22:30:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 22:49:36 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_operator(t_token *token)
+int	is_pipe(t_token *token)
 {
 	if (!token)
 		return (0);
-	return (token->type == TOKEN_PIPE
-		|| token->type == TOKEN_REDIRECT_IN
-		|| token->type == TOKEN_REDIRECT_OUT
-		|| token->type == TOKEN_REDIRECT_APPEND
-		|| token->type == TOKEN_HEREDOC);
+	return (token->type == TOKEN_PIPE);
 }
 
 int	is_redirect(t_token *token)

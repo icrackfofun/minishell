@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:56:53 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/22 23:32:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:39:08 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ void	executor(t_ast *node, t_info *info)
 		exec_pipeline(info->cmds, count, info, -1);
 	}
 	reap_children(info, 0);
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, prompt_sigint_handler);
 }

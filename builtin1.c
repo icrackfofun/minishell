@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 21:16:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:18:14 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 22:27:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 	char	*cwd;
 	char	*path;
 
-	if (ast->argv[1] != NULL && ft_strcmp(ast->argv[1], "~") != 0)
+	if (ast->argv[1] != NULL)
 		path = ast->argv[1];
 	else
 		path = get_env_value(info->env_list, "HOME");

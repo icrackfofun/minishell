@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:23:38 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 22:28:18 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 15:16:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	sigint_handler(int sig)
+void	prompt_sigint_handler(int sig)
 {
 	(void)sig;
 	g_last_signal = SIGINT;
@@ -21,6 +21,13 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_redisplay();
 }
+
+// static void sigint_heredoc(int sig)
+// {
+//     (void)sig;
+//     g_last_signal = 130;
+//     rl_done = 1;
+// }
 
 // void	sigquit_handler(int sig)
 // {

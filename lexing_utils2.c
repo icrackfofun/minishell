@@ -6,11 +6,37 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 10:27:56 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 22:51:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/24 22:55:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	handle_variable(t_info *info, int *i, char **buf, t_token **tokens)
+{
+	if (append_char(buf, info->line[*i]))
+		malloc_error_lexing(tokens, buf, info);
+	(*i)++;
+	if (info->line[*i] == '?')
+	{
+		if (append_char(buf, info->line[*i]))
+			malloc_error_lexing(tokens, buf, info);
+		if (append_token(tokens, buf, info))
+			malloc_error_lexing(tokens, buf, info);
+		return ;
+	}
+	while (info->line[*i] && !ft_isspace(info->line[*i])
+		&& !is_operator_redir_char(info->line[*i])
+		&& info->line[*i] != '$' && info->line[*i] != '?')
+	{
+		if (append_char(buf, info->line[*i]))
+			malloc_error_lexing(tokens, buf, info);
+		(*i)++;
+	}
+	(*i)--;
+	if (append_token(tokens, buf, info))
+		malloc_error_lexing(tokens, buf, info);
+}
 
 int	join_non_operator_tokens(t_token **tokens)
 {
@@ -22,8 +48,8 @@ int	join_non_operator_tokens(t_token **tokens)
 	while (cur && cur->next)
 	{
 		next = cur->next;
-		if (!is_operator(cur) && !is_operator(next)
-			&& next->has_space_before == 0)
+		if ((!is_pipe(cur) && !is_redirect(cur)) && (!is_pipe(next)
+				&& !is_redirect(next)) && next->has_space_before == 0)
 		{
 			joined = ft_strjoin(cur->value, next->value);
 			if (!joined)
@@ -66,11 +92,12 @@ t_token	*token_error(t_token **tokens)
 	current = *tokens;
 	while (current && current->next)
 	{
-		if (is_operator(current) && is_operator(current->next))
+		if ((is_pipe((*tokens)) && is_pipe((*tokens)->next))
+			|| (is_redirect((*tokens)) && is_redirect((*tokens)->next)))
 			return (error_tokens(tokens, current->next->value), NULL);
 		current = current->next;
 	}
-	if (is_operator(current))
+	if (is_pipe(current) || is_redirect(current))
 		return (error_tokens(tokens, "newline"), NULL);
 	return (*tokens);
 }
