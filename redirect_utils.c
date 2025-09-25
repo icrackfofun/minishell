@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 19:01:30 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:57:15 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static char	*heredoc_filename(t_info *info, int *j)
 	if (!count)
 		child_exit("malloc", 1, info, "");
 	filename = ft_strjoin(".minishell_heredoc_", count);
+	free(count);
 	if (!filename)
 		child_exit("malloc", 1, info, "");
-	free(count);
 	(*j)++;
 	return (filename);
 }
