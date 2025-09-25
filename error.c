@@ -6,13 +6,27 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 23:50:19 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:10:36 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    exit_exec_error(const char *cmd, t_info *info)
+static void	handle_enoent(const char *cmd, int *code)
+{
+	if (cmd[0])
+		write(2, cmd, strlen(cmd));
+	if (ft_strchr (cmd, '/'))
+		write(2, ": No such file or directory\n", 28);
+	else if (cmd[0])
+		write(2, ": command not found\n", 20);
+	if (cmd[0])
+		*code = 127;
+	else
+		code = 0;
+}
+
+void	exit_exec_error(const char *cmd, t_info *info)
 {
 	struct stat	st;
 	int			code;
@@ -24,14 +38,7 @@ void    exit_exec_error(const char *cmd, t_info *info)
 		code = 126;
 	}
 	else if (errno == ENOENT)
-	{
-		write(2, cmd, strlen(cmd));
-		if (cmd[0] == '/')
-			write(2, ": No such file or directory\n", 28);
-		else
-			write(2, ": command not found\n", 20);
-		code = 127;
-	}
+		handle_enoent(cmd, &code);
 	else if (errno == EACCES)
 	{
 		write(2, cmd, strlen(cmd));
@@ -43,19 +50,6 @@ void    exit_exec_error(const char *cmd, t_info *info)
 	clean_loop(info);
 	clean_shell(info);
 	exit(code);
-}
-
-void	kill_all_children(t_info *info)
-{
-	int	i;
-
-	i = 0;
-	while (i < info->child_count)
-	{
-		if (kill(info->child_pids[i], 0) == 0 || errno == EPERM)
-			kill(info->child_pids[i], SIGTERM);
-		i++;
-	}
 }
 
 void	child_exit(char *message, int code, t_info *info, char *file)
@@ -70,10 +64,16 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		write(2, ": ", 2);
 		if (ft_strcmp(message, "export") == 0)
 			write(2, "not a valid identifier", 22);
-		if (ft_strcmp(message, "exit\nexit") == 0)
+		else if (ft_strcmp(message, "exit\nexit") == 0)
 			write(2, "numeric argument required\n", 26);
 		else
 			perror("");
+	}
+	else if (message[0] == 0 && file[0] != 0)
+	{
+		write(2, file, ft_strlen(file));
+		write(2, ": ", 2);
+		write(2, "command not found\n", 18);
 	}
 	clean_loop(info);
 	clean_shell(info);
@@ -87,6 +87,7 @@ void	parent_exit(char *message, t_info *info)
 	reap_children(info, 0);
 	clean_loop(info);
 	clean_shell(info);
+	cleanup_heredoc_files();
 	exit(1);
 }
 

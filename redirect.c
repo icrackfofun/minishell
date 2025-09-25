@@ -6,59 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 17:55:27 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:02:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*heredoc_filename(t_info *info, int *j)
-{
-	char	*filename;
-	char	*count;
-
-	count = ft_itoa(*j);
-	if (!count)
-		parent_exit("malloc", info);
-	filename = ft_strjoin(".minishell_heredoc_", count);
-	if (!filename)
-		parent_exit("malloc", info);
-	free(count);
-	(*j)++;
-	return (filename);
-}
-
-static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
-								t_info *info)
-{
-	int		fd;
-	char	*line;
-
-	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-	{
-		free(filename);
-		parent_exit("heredoc", info);
-	}
-	while (1)
-	{
-		line = readline("> ");
-		if (!line)
-			return (close(fd), 1);
-		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-	}
-	close(fd);
-	return (0);
-}
-
-void	prepare_heredocs(t_ast **cmds, t_info *info, int count)
+int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 {
 	int		i;
 	t_redir	*redir;
@@ -72,17 +26,18 @@ void	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 		redir = cmds[i]->redirs;
 		while (redir)
 		{
+			filename = NULL;
 			if (redir->type == REDIR_HEREDOC)
 			{
-				filename = heredoc_filename(info, &j);
-				write_heredoc_to_tmp(redir->target, filename, info);
-				free(redir->target);
-				redir->target = filename;
+				if (child_heredocs(redir, &j, filename, info) == 1)
+					return (free(filename), 1);
 			}
 			redir = redir->next;
+			free (filename);
 		}
 		i++;
 	}
+	return (0);
 }
 
 static void	change_fd(t_redir *redir, int fd, t_info *info)

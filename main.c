@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 16:28:35 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:57:20 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	main(int argc, char **argv, char **envp)
 		if (*info.line)
 			add_history(info.line);
 		info.tokens = lexing(&info);
-		expand_variables(&info, info.tokens);
+		expand_variables(&info);
 		parsing(&info, info.pipe_count);
-		if (info.tree)
-			executor(info.tree, &info);
+		executor(info.tree, &info);
 		clean_loop(&info);
+		cleanup_heredoc_files();
+		g_last_signal = 0;
 	}
 	clean_shell(&info);
 }

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 10:27:56 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 22:55:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 18:24:57 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	join_non_operator_tokens(t_token **tokens)
 
 void	skip_spaces_and_mark(const char *line, int *i, t_info *info)
 {
-	while (line[*i] && ft_isspace(line[*i]))
+	while (line[*i] && ft_isspace(line[*i]) && line [*i + 1])
 	{
 		info->had_space = 1;
 		(*i)++;
@@ -92,8 +92,9 @@ t_token	*token_error(t_token **tokens)
 	current = *tokens;
 	while (current && current->next)
 	{
-		if ((is_pipe((*tokens)) && is_pipe((*tokens)->next))
-			|| (is_redirect((*tokens)) && is_redirect((*tokens)->next)))
+		if ((is_pipe((current)) && is_pipe(current->next))
+			|| (is_redirect(current) && is_redirect(current->next))
+			|| (is_redirect(current) && is_pipe(current->next)))
 			return (error_tokens(tokens, current->next->value), NULL);
 		current = current->next;
 	}

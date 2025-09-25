@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 22:56:15 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/23 15:05:02 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:10:07 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ char	*get_path(t_info *info, t_ast *cmd)
 	char	*copy;
 	char	*result;
 
-	if (cmd->argv[0][0] == '/' || cmd->argv[0][0] == '.')
+	if (cmd->argv[0][0] == '/' || cmd->argv[0][0] == '.'
+		|| cmd->argv[0][0] == 0)
 		return (ft_strdup(cmd->argv[0]));
 	path_env = get_env_value(info->env_list, "PATH");
 	if (!path_env)

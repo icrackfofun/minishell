@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 22:56:07 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:09:29 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 	(*i)++;
 	start = *i;
 	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_' || str[*i] == '?'
-		|| is_operator_redir_char(str[*i]) || str[*i] == '\''
-		|| str[*i] == '\"'))
+			|| is_operator_redir_char(str[*i]) || str[*i] == '\''
+			|| str[*i] == '\"'))
 	{
 		if (str[*i] == '?')
 		{
@@ -110,19 +110,19 @@ static int	expand_token(t_info *info, t_token *cur)
 	return (0);
 }
 
-void	expand_variables(t_info *info, t_token *tokens)
+void	expand_variables(t_info *info)
 {
 	t_token	*cur;
 	int		count;
 
-	cur = tokens;
+	cur = info->tokens;
 	while (cur)
 	{
 		if (expand_token(info, cur) == 1)
 			return (parent_exit("malloc", info));
 		cur = cur->next;
 	}
-	cur = tokens;
+	cur = info->tokens;
 	count = 0;
 	while (cur)
 	{
@@ -131,6 +131,8 @@ void	expand_variables(t_info *info, t_token *tokens)
 		cur = cur->next;
 	}
 	info->pipe_count = count;
-	if (join_non_operator_tokens(&tokens))
+	if (join_non_operator_tokens(&info->tokens))
 		return (parent_exit("malloc", info));
+	remove_empty_tokens_from_list(&info->tokens);
+	token_error(&info->tokens);
 }

@@ -6,11 +6,24 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:23:38 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 15:16:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 19:00:23 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	kill_all_children(t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->child_count)
+	{
+		if (kill(info->child_pids[i], 0) == 0 || errno == EPERM)
+			kill(info->child_pids[i], SIGTERM);
+		i++;
+	}
+}
 
 void	prompt_sigint_handler(int sig)
 {

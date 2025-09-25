@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 23:17:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:11:24 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,8 @@ t_token			*lexing(t_info *info);
 
 //expansion
 int				join_non_operator_tokens(t_token **tokens);
-void			expand_variables(t_info *info, t_token *tokens);
+int				remove_empty_tokens_from_list(t_token **tokens);
+void			expand_variables(t_info *info);
 
 //parsing
 int				is_builtin(char *str);
@@ -182,7 +183,9 @@ void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
 void			handle_redirections(t_redir *redir, t_info *info);
-void			prepare_heredocs(t_ast **cmds, t_info *info, int count);
+int				child_heredocs(t_redir *redir, int *j, char *filename,
+					t_info *info);
+int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 
 //builtins
 void			builtin_echo(t_ast *ast, int root, t_info *info);

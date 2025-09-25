@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:56:53 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 15:39:08 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:15:49 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	executor(t_ast *node, t_info *info)
 {
 	int	count;
 
+	if (!info->tree)
+		return ;
 	signal(SIGINT, SIG_IGN);
 	if (node->type == NODE_COMMAND)
 	{

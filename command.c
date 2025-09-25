@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 22:27:01 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:13:39 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void	exec_child(t_ast *cmd, t_info *info)
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
 	path = get_path(info, cmd);
+	if (path[0] && path[0] != '.' && path[0] != '/')
+		child_exit("", 127, info, path);
 	env_list_to_array(info);
 	execve(path, cmd->argv, info->env_array);
 	exit_exec_error(cmd->argv[0], info);
@@ -61,6 +63,8 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 		if (cmd->redirs)
 			handle_redirections(cmd->redirs, info);
 		path = get_path(info, cmd);
+		if (path[0] && path[0] != '.' && path[0] != '/')
+			child_exit("", 127, info, path);
 		env_list_to_array(info);
 		execve(path, cmd->argv, info->env_array);
 		exit_exec_error(cmd->argv[0], info);
@@ -71,7 +75,13 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 void	exec_command(t_ast *cmd, t_info *info, int root)
 {
 	if (root && cmd)
-		prepare_heredocs(&cmd, info, 1);
+	{
+		if (prepare_heredocs(&cmd, info, 1))
+		{
+			info->last_status = 1;
+			return ;
+		}
+	}
 	if (cmd->is_builtin == 1)
 		exec_builtin(cmd, info, root);
 	else

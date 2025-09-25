@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/09/24 20:18:47 by psantos-         ###   ########.fr        #
+#    Updated: 2025/09/25 15:08:46 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = 	main.c  \
        	command.c \
 		path.c \
 		redirect.c \
+		redirect_utils.c \
 		builtin1.c \
 		builtin2.c \
 		signals.c \
@@ -35,6 +36,7 @@ SRCS = 	main.c  \
 		expand.c \
 		parsing.c \
 		parsing_utils.c \
+		parsing_utils2.c
 
 OBJS = $(SRCS:.c=.o)
 
