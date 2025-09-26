@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 17:10:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:24:19 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	free_heredoc(char **filename)
 {
-	free(*filename);
+	if (filename && *filename)
+		free(*filename);
 	*filename = NULL;
 }
 
@@ -75,7 +76,6 @@ void	clean_loop(t_info *info)
 		free(info->line);
 		info->line = NULL;
 	}
-	printf("%p\n", info->heredoc_filename);
 	if (info && info->heredoc_filename)
 		free_heredoc(&info->heredoc_filename);
 	close_parent_fds(info);
