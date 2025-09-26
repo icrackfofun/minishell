@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 21:48:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 23:00:29 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,13 @@ static char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 
 	(*i)++;
 	start = *i;
-	while (*str[*i] )
-	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_' || str[*i] == '?'
-			|| is_operator_redir_char(str[*i]) || str[*i] == '\''
-			|| str[*i] == '\"'))
-	{
-		if (str[*i] == '?')
-		{
-			(*i)++;
-			break ;
-		}
+	if (str[*i] == '?')
 		(*i)++;
+	else if (ft_isalpha(str[*i]) || str[*i] == '_')
+	{
+		(*i)++;
+		while (ft_isalnum(str[*i]) || str[*i] == '_')
+			(*i)++;
 	}
 	key = ft_strndup(str + start, *i - start);
 	if (!key)

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 10:27:56 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 18:24:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 22:48:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	handle_variable(t_info *info, int *i, char **buf, t_token **tokens)
 {
-	if (append_char(buf, info->line[*i]))
+	if (append_char(buf, info->line[(*i)++]))
 		malloc_error_lexing(tokens, buf, info);
-	(*i)++;
 	if (info->line[*i] == '?')
 	{
 		if (append_char(buf, info->line[*i]))
@@ -25,17 +24,19 @@ void	handle_variable(t_info *info, int *i, char **buf, t_token **tokens)
 			malloc_error_lexing(tokens, buf, info);
 		return ;
 	}
-	while (info->line[*i] && !ft_isspace(info->line[*i])
-		&& !is_operator_redir_char(info->line[*i])
-		&& info->line[*i] != '$' && info->line[*i] != '?')
+	else if (ft_isalpha(info->line[*i]) || info->line[*i] == '_')
 	{
-		if (append_char(buf, info->line[*i]))
+		if (append_char(buf, info->line[(*i)++]))
 			malloc_error_lexing(tokens, buf, info);
-		(*i)++;
+		while (ft_isalnum(info->line[*i]) || info->line[*i] == '_')
+		{
+			if (append_char(buf, info->line[(*i)++]))
+				malloc_error_lexing(tokens, buf, info);
+		}
 	}
-	(*i)--;
 	if (append_token(tokens, buf, info))
 		malloc_error_lexing(tokens, buf, info);
+	(*i)--;
 }
 
 int	join_non_operator_tokens(t_token **tokens)
