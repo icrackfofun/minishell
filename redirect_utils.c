@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 16:23:37 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:31:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	child_heredocs(t_redir *redir, int *j, char *filename, t_info *info)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		write_heredoc_to_tmp(redir->target, filename, info);
+		write_heredoc_to_tmp(redir->target, info->heredoc_filename, info);
 		child_exit("", 0, info, "");
 	}
 	else if (pid > 0)
