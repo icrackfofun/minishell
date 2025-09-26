@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 16:18:48 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:55:45 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,7 @@ void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
 void			handle_redirections(t_redir *redir, t_info *info);
-int				child_heredocs(t_redir *redir, int *j, char *filename,
-					t_info *info);
+int				child_heredocs(t_redir *redir, int *j, t_info *info);
 int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 
 //builtins
