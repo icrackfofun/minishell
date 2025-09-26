@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 17:26:23 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:27:07 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_heredoc(char **filename)
 {
-	// if (filename && *filename)
 	free(*filename);
 	*filename = NULL;
 }

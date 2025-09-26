@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 21:16:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 22:27:10 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 18:04:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	echo_child(t_ast *cmd, t_info *info)
 	int	newline;
 	int	i;
 
+	signal(SIGINT, child_sigint_handler);
+	signal(SIGQUIT, child_sigquit_handler);
 	i = 1;
 	newline = 1;
 	if (cmd->argv[i] && ft_strcmp(cmd->argv[i], "-n") == 0)
