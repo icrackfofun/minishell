@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 15:10:12 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:16:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ void	clean_shell(t_info *info)
 		free_array(info->env_array);
 	if (info->env_list)
 		free_env(info->env_list);
-	if (!isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO))
 		close(STDIN_FILENO);
-	if (!isatty(STDOUT_FILENO))
+	if (isatty(STDOUT_FILENO))
 		close(STDOUT_FILENO);
-	if (!isatty(STDERR_FILENO))
+	if (isatty(STDERR_FILENO))
 		close(STDERR_FILENO);
 	rl_clear_history();
 }
