@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 17:57:20 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:02:26 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	info_init(t_info *info, char **envp)
 	info->child_pids = NULL;
 	info->child_count = 0;
 	info->cmds = NULL;
+	info->heredoc_filename = NULL;
 	info->last_pipe_read_fd = -1;
 	info->last_pipe_write_fd = -1;
 	info->leftover_read_fd = -1;

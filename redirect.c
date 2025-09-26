@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 15:52:12 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:20:56 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 {
 	int		i;
 	t_redir	*redir;
-	char	*filename;
 	int		j;
 
 	i = 0;
@@ -26,14 +25,16 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 		redir = cmds[i]->redirs;
 		while (redir)
 		{
-			filename = NULL;
 			if (redir->type == REDIR_HEREDOC)
 			{
-				if (child_heredocs(redir, &j, &filename, info))
-					return (free(filename), 1);
+				if (child_heredocs(redir, &j, info->heredoc_filename, info))
+				{
+					info->last_status = 1;
+					return (1);
+				}
 			}
+			free_heredoc(info->heredoc_filename);
 			redir = redir->next;
-			free (filename);
 		}
 		i++;
 	}

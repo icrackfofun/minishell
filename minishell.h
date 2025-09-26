@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 15:49:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:18:48 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_info
 	int		pipe_count;
 	t_ast	*tree;
 	t_ast	**cmds;
+	char	*heredoc_filename;
 	int		last_pipe_read_fd;
 	int		last_pipe_write_fd;
 	int		leftover_read_fd;
@@ -115,6 +116,7 @@ extern volatile sig_atomic_t	g_last_signal;
 void			clean_shell(t_info *info);
 void			clean_loop(t_info *info);
 void			free_tokens(t_token *token);
+void			free_heredoc(char *filename);
 void			free_ast(t_ast *node);
 t_env			*free_env(t_env *env);
 void			free_redirs(t_redir *redir);
@@ -183,7 +185,7 @@ void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
 void			handle_redirections(t_redir *redir, t_info *info);
-int				child_heredocs(t_redir *redir, int *j, char **filename,
+int				child_heredocs(t_redir *redir, int *j, char *filename,
 					t_info *info);
 int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 

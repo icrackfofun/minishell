@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:17:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 14:54:11 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:21:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ void	exec_pipeline(t_ast **cmds, int count, t_info *info, int input_fd)
 
 	i = 0;
 	if (prepare_heredocs(cmds, info, count))
-	{
-		info->last_status = 1;
 		return ;
-	}
 	while (i < count)
 	{
 		write_fd = -1;
