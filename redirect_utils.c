@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 23:57:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:53:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ static void	write_heredoc_to_tmp(const char *delimiter, char *filename,
 	free (filename);
 }
 
-int	child_heredocs(t_redir *redir, int *j, char *filename, t_info *info)
+int	child_heredocs(t_redir *redir, int *j, char **filename, t_info *info)
 {
 	pid_t	pid;
 	int		status;
 
-	filename = heredoc_filename(info, j);
+	*filename = heredoc_filename(info, j);
 	pid = fork();
 	if (pid < 0)
 		parent_exit("fork", info);
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		write_heredoc_to_tmp(redir->target, filename, info);
+		write_heredoc_to_tmp(redir->target, *filename, info);
 		child_exit("", 0, info, "");
 	}
 	else if (pid > 0)
@@ -81,7 +81,7 @@ int	child_heredocs(t_redir *redir, int *j, char *filename, t_info *info)
 		if (WTERMSIG(status) == SIGINT)
 			return (write(1, "\n", 1));
 		free(redir->target);
-		redir->target = filename;
+		redir->target = *filename;
 	}
 	return (0);
 }

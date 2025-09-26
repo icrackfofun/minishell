@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 23:53:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:52:12 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 			filename = NULL;
 			if (redir->type == REDIR_HEREDOC)
 			{
-				if (child_heredocs(redir, &j, filename, info))
+				if (child_heredocs(redir, &j, &filename, info))
 					return (free(filename), 1);
 			}
 			redir = redir->next;
