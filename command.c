@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 23:13:39 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:10:17 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void	exec_command(t_ast *cmd, t_info *info, int root)
 			info->last_status = 1;
 			return ;
 		}
+	}
+	if (!root)
+	{
+		info->last_pipe_read_fd = -1;
+		info->last_pipe_write_fd = -1;
 	}
 	if (cmd->is_builtin == 1)
 		exec_builtin(cmd, info, root);
