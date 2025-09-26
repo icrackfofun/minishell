@@ -6,15 +6,16 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 15:23:38 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 18:53:38 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 21:41:35 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_terminal *terminal(void)
+t_terminal	*terminal(void)
 {
-	static t_terminal t;
+	static t_terminal	t;
+
 	return (&t);
 }
 

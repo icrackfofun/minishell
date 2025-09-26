@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 23:10:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 21:27:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,7 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		write(2, ": ", 2);
 		write(2, file, ft_strlen(file));
 		write(2, ": ", 2);
-		if (ft_strcmp(message, "export") == 0)
-			write(2, "not a valid identifier", 22);
-		else if (ft_strcmp(message, "exit\nexit") == 0)
+		if (ft_strcmp(message, "exit\nexit") == 0)
 			write(2, "numeric argument required\n", 26);
 		else
 			perror("");

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/24 22:33:35 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 21:29:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	builtin_export(int root, t_ast *cmd, t_info *info)
 	{
 		if (handle_export_arg(&info->env_list, cmd->argv[i]))
 		{
-			if (!root)
-				child_exit("export", 1, info, cmd->argv[i]);
 			info->last_status = 1;
-			return (parent_return("export", info, 1, cmd->argv[i]));
+			write(2, "export: `", 9);
+			write(2, cmd->argv[i], ft_strlen(cmd->argv[i]));
+			write(2, "\': not a valid identifier\n", 26);
 		}
 		i++;
 	}
