@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 17:04:24 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 15:00:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ void	close_parent_fds(t_info *info)
 		close(info->last_pipe_write_fd);
 		info->last_pipe_write_fd = -1;
 	}
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }
 
 void	clean_loop(t_info *info)
