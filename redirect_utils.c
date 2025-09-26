@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 16:55:00 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:01:09 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	add_redir(t_redir *redir, char *filename, t_info *info)
 {
 	free(redir->target);
 	redir->target = ft_strdup(filename);
-	if (!redir->next)
+	if (!redir->target)
 		parent_exit("malloc", info);
 }
 
