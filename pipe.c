@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:17:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 18:07:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:51:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,17 @@ static pid_t	fork_command_stage(t_ast *cmd, t_info *info,
 		{
 			dup2(input_fd, STDIN_FILENO);
 			close(input_fd);
+			info->leftover_read_fd = -1;
 		}
 		if (output_fd != -1)
 		{
 			dup2(output_fd, STDOUT_FILENO);
 			close(output_fd);
 		}
-		if (info->last_pipe_read_fd != -1)
-			close(info->last_pipe_read_fd);
-		if (info->last_pipe_write_fd != -1)
-			close(info->last_pipe_write_fd);
+		if (info->last_pipe_read_fd != -1 && info->last_pipe_read_fd != input_fd)
+    		close(info->last_pipe_read_fd);
+		if (info->last_pipe_write_fd != -1 && info->last_pipe_write_fd != output_fd)
+    		close(info->last_pipe_write_fd);
 		exec_command(cmd, info, 0);
 	}
 	return (pid);
@@ -51,7 +52,11 @@ static pid_t	fork_command_stage(t_ast *cmd, t_info *info,
 static void	update_parent_fds(int *input_fd, int pipefd[2], int i, int count)
 {
 	if (*input_fd != -1)
+	{
 		close(*input_fd);
+		if (i == count - 1)
+			*input_fd = -1;
+	}
 	if (i < count - 1)
 	{
 		close(pipefd[1]);
@@ -63,6 +68,8 @@ static void	update_struct_fds(t_info *info, int *input_fd)
 {
 	if (*input_fd != -1)
 		info->leftover_read_fd = *input_fd;
+	else
+		info->leftover_read_fd = -1;
 	info->last_pipe_read_fd = -1;
 	info->last_pipe_write_fd = -1;
 }
