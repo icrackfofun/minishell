@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:17:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 14:51:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 14:54:11 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ static pid_t	fork_command_stage(t_ast *cmd, t_info *info,
 			dup2(output_fd, STDOUT_FILENO);
 			close(output_fd);
 		}
-		if (info->last_pipe_read_fd != -1 && info->last_pipe_read_fd != input_fd)
+		if (info->last_pipe_read_fd != -1)
     		close(info->last_pipe_read_fd);
-		if (info->last_pipe_write_fd != -1 && info->last_pipe_write_fd != output_fd)
-    		close(info->last_pipe_write_fd);
 		exec_command(cmd, info, 0);
 	}
 	return (pid);
