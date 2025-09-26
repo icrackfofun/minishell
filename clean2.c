@@ -6,16 +6,16 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 16:25:16 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/26 17:05:36 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_heredoc(char *filename)
+void	free_heredoc(char **filename)
 {
-	free(filename);
-	filename = NULL;
+	free(*filename);
+	*filename = NULL;
 }
 
 void	free_tokens(t_token *token)
@@ -76,6 +76,6 @@ void	clean_loop(t_info *info)
 		info->line = NULL;
 	}
 	if (info->heredoc_filename)
-		free_heredoc(info->heredoc_filename);
+		free_heredoc(&info->heredoc_filename);
 	close_parent_fds(info);
 }
