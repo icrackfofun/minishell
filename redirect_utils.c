@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 21:41:51 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 11:51:34 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	write_heredoc_to_tmp(const char *delimiter, char *filename,
 								t_info *info)
 {
 	int		fd;
+	char	*expanded;
 
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
@@ -52,8 +53,10 @@ static void	write_heredoc_to_tmp(const char *delimiter, char *filename,
 			break ;
 		if (ft_strcmp(info->line, delimiter) == 0)
 			break ;
-		//expand heredocs
-		write(fd, info->line, ft_strlen(info->line));
+		expanded = expand_inside_quotes(info, info->line);
+		if (!expanded)
+			child_exit("malloc", 1, info, "");
+		write(fd, expanded, ft_strlen(info->line));
 		write(fd, "\n", 1);
 	}
 	close (fd);

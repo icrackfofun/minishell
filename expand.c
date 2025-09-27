@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 23:00:29 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 11:26:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*expand_var_value(t_info *info, const char *key)
+char	*expand_var_value(t_info *info, const char *key)
 {
 	char	*value;
 
@@ -26,7 +26,7 @@ static char	*expand_var_value(t_info *info, const char *key)
 	return (ft_strdup(""));
 }
 
-static char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
+char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 {
 	int		start;
 	char	*key;
@@ -50,7 +50,7 @@ static char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 	return (val);
 }
 
-static char	*expand_inside_quotes(t_info *info, const char *str)
+char	*expand_inside_quotes(t_info *info, const char *str)
 {
 	char	*res;
 	char	*tmp;
