@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/27 12:14:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:16:08 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*expand_inside_quotes(t_info *info, const char *str)
 			if (!expanded)	
 				return (free(res), NULL);
 			tmp = ft_strjoin(res, expanded);
+			free(expanded);
 		}
 		else
 		{
