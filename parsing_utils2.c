@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 00:51:34 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 23:15:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:16:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,4 @@ int	remove_empty_tokens_from_list(t_token **tokens)
 	return (0);
 }
 
-// void	remove_empty_tokens_from_list(t_token **tokens)
-// {
-//     t_token *cur;
-//     t_token *prev;
-//     t_token *tmp;
 
-// 	cur = *tokens;
-// 	prev = NULL;
-//     while (cur)
-//     {
-//         if (!cur->value || cur->value[0] == '\0')
-//         {
-//             tmp = cur;
-//             if (prev)
-//                 prev->next = cur->next;
-//             else
-//                 *tokens = cur->next;
-//             cur = cur->next;
-//             free(tmp->value);
-//             free(tmp);
-//         }
-//         else
-//         {
-//             prev = cur;
-//             cur = cur->next;
-//         }
-//     }
-// }
