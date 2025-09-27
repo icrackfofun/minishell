@@ -6,11 +6,34 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 00:51:34 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/27 12:16:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:46:54 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*append_piece(t_info *info, const char *str, int *i, char *res)
+{
+	char	*expanded;
+	char	*tmp;
+	char	buf[2];
+
+	if (str[*i] == '$')
+	{
+		expanded = expand_var_in_quotes(info, str, i);
+		if (!expanded)
+			return (NULL);
+		tmp = ft_strjoin(res, expanded);
+		free(expanded);
+	}
+	else
+	{
+		buf[0] = str[(*i)++];
+		buf[1] = '\0';
+		tmp = ft_strjoin(res, buf);
+	}
+	return (tmp);
+}
 
 int	remove_empty_tokens_from_list(t_token **tokens)
 {
@@ -40,5 +63,3 @@ int	remove_empty_tokens_from_list(t_token **tokens)
 	}
 	return (0);
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 17:30:16 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/27 12:20:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:46:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,66 +49,6 @@ char	*expand_var_in_quotes(t_info *info, const char *str, int *i)
 	free(key);
 	return (val);
 }
-
-// char	*expand_inside_quotes(t_info *info, const char *str)
-// {
-// 	char	*res;
-// 	char	*tmp;
-// 	int		i;
-// 	char	buf[2];
-// 	char	*expanded;
-
-// 	res = ft_strdup("");
-// 	if (!res)
-// 		return (NULL);
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (str[i] == '$')
-// 		{
-// 			expanded = expand_var_in_quotes(info, str, &i);
-// 			if (!expanded)	
-// 				return (free(res), NULL);
-// 			tmp = ft_strjoin(res, expanded);
-// 			free(expanded);
-// 		}
-// 		else
-// 		{
-// 			buf[0] = str[i++];
-// 			buf[1] = '\0';
-// 			tmp = ft_strjoin(res, buf);
-// 		}
-// 		if (!tmp)
-// 			return (free(res), NULL);
-// 		free(res);
-// 		res = tmp;
-// 	}
-// 	return (res);
-// }
-
-static char	*append_piece(t_info *info, const char *str, int *i, char *res)
-{
-	char	*expanded;
-	char	*tmp;
-	char	buf[2];
-
-	if (str[*i] == '$')
-	{
-		expanded = expand_var_in_quotes(info, str, i);
-		if (!expanded)
-			return (NULL);
-		tmp = ft_strjoin(res, expanded);
-		free(expanded);
-	}
-	else
-	{
-		buf[0] = str[(*i)++];
-		buf[1] = '\0';
-		tmp = ft_strjoin(res, buf);
-	}
-	return (tmp);
-}
-
 
 char	*expand_inside_quotes(t_info *info, const char *str)
 {

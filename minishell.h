@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/27 11:28:23 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/27 12:46:09 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ int				join_non_operator_tokens(t_token **tokens);
 int				remove_empty_tokens_from_list(t_token **tokens);
 char			*expand_inside_quotes(t_info *info, const char *str);
 char			*expand_var_in_quotes(t_info *info, const char *str, int *i);
+char			*append_piece(t_info *info, const char *str, int *i, char *res);
 char			*expand_var_value(t_info *info, const char *key);
 void			expand_variables(t_info *info);
 
