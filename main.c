@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 15:55:00 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/28 15:56:09 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int argc, char **argv, char **envp)
 	t_info	info;
 
 	((void)argc, (void)argv);
-	printf("%s", **envp);
+	printf("%s", *envp);
 	info_init(&info, envp);
 	while (1)
 	{
