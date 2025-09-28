@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:01:26 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 16:03:05 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/28 16:03:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	populate_env(char **envp, t_info *info)
 		//set_env_value(&info->env_list, "PATH", path);
 		set_env_value(&info->env_list, "PWD", cwd);
     	set_env_value(&info->env_list, "SHLVL", "1");
-		free(path);
+		//free(path);
 		free(cwd);
 	}
 	else
