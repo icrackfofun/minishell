@@ -6,11 +6,39 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:01:26 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/06 18:41:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/28 15:48:02 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	populate_env(char **envp, t_info *info)
+{
+	char	*path;
+	char	*cwd;
+
+	if (!envp | !*envp | !**envp)
+	{
+		path = getenv("PATH");
+		cwd = getcwd(NULL, 0);
+		if (!path || !cwd)
+		{
+			printf("No environment variables found");
+			exit(1);
+		}
+		set_env_value(&info->env_list, "PATH", path);
+		set_env_value(&info->env_list, "PWD", cwd);
+    	set_env_value(&info->env_list, "SHLVL", "1");
+		free(path);
+		free(cwd);
+	}
+	else
+	{
+		info->env_list = env_init(envp);
+		if (!info->env_list)
+			parent_exit("malloc", info);
+	}
+}
 
 char	*get_env_value(t_env *env_list, const char *key)
 {
