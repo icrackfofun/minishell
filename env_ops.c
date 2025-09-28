@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:01:26 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 16:01:58 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/28 16:03:05 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	populate_env(char **envp, t_info *info)
 
 	if (!envp || !*envp || !**envp)
 	{
-		path = getenv("PATH");
+		//path = getenv("PATH");
 		cwd = getcwd(NULL, 0);
-		if (!path || !cwd)
+		if (!cwd)
 		{
 			printf("No environment variables found");
 			exit(1);
 		}
-		set_env_value(&info->env_list, "PATH", path);
+		//set_env_value(&info->env_list, "PATH", path);
 		set_env_value(&info->env_list, "PWD", cwd);
     	set_env_value(&info->env_list, "SHLVL", "1");
 		free(path);
