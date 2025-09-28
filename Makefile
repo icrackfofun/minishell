@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/09/25 15:08:46 by psantos-         ###   ########.fr        #
+#    Updated: 2025/09/28 19:18:57 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = 	main.c  \
 		redirect_utils.c \
 		builtin1.c \
 		builtin2.c \
+		builtin_utils.c \
 		signals.c \
 		tokens.c \
 		lexing.c \

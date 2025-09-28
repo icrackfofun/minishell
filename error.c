@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 21:27:22 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/28 19:17:47 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	handle_enoent(const char *cmd, int *code)
 {
 	if (cmd[0])
-		write(2, cmd, strlen(cmd));
+		write(2, cmd, ft_strlen(cmd));
 	if (ft_strchr (cmd, '/'))
 		write(2, ": No such file or directory\n", 28);
 	else if (cmd[0])
@@ -33,7 +33,7 @@ void	exit_exec_error(const char *cmd, t_info *info)
 
 	if (stat(cmd, &st) == 0 && S_ISDIR(st.st_mode))
 	{
-		write(2, cmd, strlen(cmd));
+		write(2, cmd, ft_strlen(cmd));
 		write(2, ": is a directory\n", 17);
 		code = 126;
 	}
@@ -41,7 +41,7 @@ void	exit_exec_error(const char *cmd, t_info *info)
 		handle_enoent(cmd, &code);
 	else if (errno == EACCES)
 	{
-		write(2, cmd, strlen(cmd));
+		write(2, cmd, ft_strlen(cmd));
 		write(2, ": Permission denied\n", 20);
 		code = 126;
 	}
@@ -66,12 +66,14 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 			write(2, "numeric argument required\n", 26);
 		else
 			perror("");
+		free(file);
 	}
 	else if (message[0] == 0 && file[0] != 0)
 	{
 		write(2, file, ft_strlen(file));
 		write(2, ": ", 2);
 		write(2, "command not found\n", 18);
+		free(file);
 	}
 	clean_loop(info);
 	clean_shell(info);
@@ -103,6 +105,7 @@ void	parent_return(char *message, t_info *info, int status, char *f)
 			write(2, "not a valid identifier\n", 23);
 		else
 			perror("");
+		free(f);
 	}
 	info->last_status = status;
 }

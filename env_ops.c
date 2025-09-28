@@ -5,31 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 17:01:26 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 16:03:36 by psantos-         ###   ########.fr       */
+/*   Created: 2025/09/28 18:48:19 by psantos-          #+#    #+#             */
+/*   Updated: 2025/09/28 19:24:55 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
 void	populate_env(char **envp, t_info *info)
 {
-	//char	*path;
 	char	*cwd;
 
 	if (!envp || !*envp || !**envp)
 	{
-		//path = getenv("PATH");
+		set_env_value(&info->env_list, "PATH",
+			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+		set_env_value(&info->env_list, "SHLVL", "1");
+		set_env_value(&info->env_list, "OLDPWD", "");
 		cwd = getcwd(NULL, 0);
 		if (!cwd)
 		{
-			printf("No environment variables found");
-			exit(1);
+			set_env_value(&info->env_list, "PWD", "/");
+			return (free(cwd));
 		}
-		//set_env_value(&info->env_list, "PATH", path);
 		set_env_value(&info->env_list, "PWD", cwd);
-    	set_env_value(&info->env_list, "SHLVL", "1");
-		//free(path);
 		free(cwd);
 	}
 	else

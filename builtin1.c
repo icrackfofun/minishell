@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/12 21:16:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 21:36:23 by psantos-         ###   ########.fr       */
+/*   Created: 2025/09/28 18:47:58 by psantos-          #+#    #+#             */
+/*   Updated: 2025/09/28 19:19:23 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 
 void	builtin_cd(t_ast *ast, t_info *info, int root)
 {
-	char	*cwd;
 	char	*path;
 
 	if (ast->argv[1] != NULL)
@@ -65,19 +64,13 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 		path = get_env_value(info->env_list, "HOME");
 	if (!path)
 	{
+		write(2, "cd: HOME not set\n", 17);
 		if (!root)
 			child_exit("", 1, info, "");
 		return ;
 	}
-	if (chdir(path) != 0)
-	{
-		if (!root)
-			child_exit("cd", 1, info, path);
-		return (parent_return("cd", info, 1, path));
-	}
-	cwd = getcwd(NULL, 0);
-	set_env_value(&info->env_list, "PWD", cwd);
-	free(cwd);
+	if (update_env(info, path, root))
+		return ;
 	if (!root)
 		child_exit("", 0, info, "");
 	info->last_status = 0;
