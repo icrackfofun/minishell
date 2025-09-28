@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 18:47:25 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 23:43:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 00:30:28 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int    update_env(t_info *info, char *path, int root)
 	oldwd = get_env_value(info->env_list, "PWD");
     if (chdir(path) != 0)
 	{
-		free(oldwd);
 		if (!root)
 			child_exit("cd", 1, info, path);
 		return (parent_return("cd", info, 1, path), 1);
@@ -28,15 +27,11 @@ int    update_env(t_info *info, char *path, int root)
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
-		free(oldwd);
-		free(path);
 		if (!root)
 			child_exit("cd", 1, info, "");
 		return (parent_return("cd", info, 1, ""), 1);
 	}
 	set_env_value(&info->env_list, "PWD", cwd);
 	set_env_value(&info->env_list, "OLDPWD", oldwd);
-	free(oldwd);
-	free(path);
 	return (free(cwd), 0);
 }
