@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 19:17:47 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 00:15:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 			write(2, "numeric argument required\n", 26);
 		else
 			perror("");
-		free(file);
 	}
 	else if (message[0] == 0 && file[0] != 0)
 	{
 		write(2, file, ft_strlen(file));
 		write(2, ": ", 2);
 		write(2, "command not found\n", 18);
-		free(file);
 	}
 	clean_loop(info);
 	clean_shell(info);
+	if (file)
+		free(file);
 	exit(code);
 }
 
@@ -105,7 +105,6 @@ void	parent_return(char *message, t_info *info, int status, char *f)
 			write(2, "not a valid identifier\n", 23);
 		else
 			perror("");
-		free(f);
 	}
 	info->last_status = status;
 }
