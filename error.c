@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 00:15:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 00:21:41 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 	}
 	clean_loop(info);
 	clean_shell(info);
-	if (file)
-		free(file);
 	exit(code);
 }
 
