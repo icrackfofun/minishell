@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 17:01:26 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 16:03:21 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/28 16:03:36 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	populate_env(char **envp, t_info *info)
 {
-	char	*path;
+	//char	*path;
 	char	*cwd;
 
 	if (!envp || !*envp || !**envp)
