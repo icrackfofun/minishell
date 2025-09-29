@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:20:03 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 21:09:47 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:17:25 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ void	populate_env(char **envp, t_info *info)
 		info->env_list = env_init(envp);
 		if (!info->env_list)
 			parent_exit("malloc", info);
-		unset_env(&info->env_list, "PANEL_GDK_CORE_DEVICE_EVENTS");
-		unset_env(&info->env_list, "DISPLAY");
-		set_env_value(&info->env_list, "DISPLAY", ":0");
 	}
 }
 
