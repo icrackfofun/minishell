@@ -10,10 +10,3 @@
     ...
     fun:add_history
 }
-{
-    sigint_readline
-    Memcheck:Leak
-    fun:readline
-    fun:rl_getc
-    fun:rl_read_key
-}
