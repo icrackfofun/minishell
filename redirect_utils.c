@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 22:34:34 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 22:35:17 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 		if (!info->line)
 			return (close(fd));
 		if (ft_strcmp(info->line, delimiter) == 0)
-			return (clode(fd));
+			return (close(fd));
 		expanded = expand_inside_quotes(info, info->line);
 		if (!expanded)
 			child_exit("malloc", 1, info, "");
