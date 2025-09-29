@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 13:49:11 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:34:55 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:41:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,21 @@ int	is_operator_redir_char(char c)
 		|| c == '<' || c == '>');
 }
 
-int	ft_is_valid(char *name, int i, char delim)
+int	ft_is_valid(char *name, char delim)
 {
-	if (!(ft_isalpha(name[i]) || name[i] != '_'))
+	int	i;
+
+	i = 0;
+	if (name[i] == '$')
+		i++;
+	if (i == 1 && name[i] == '?')
+		return (1);
+	if ((!ft_isalpha(name[i])) && name[i] != '_')
 		return (0);
 	i++;
 	while (name[i] != delim)
 	{
-		if (!(ft_isalnum((unsigned char)name[i]) || name[i] != '_'))
+		if ((!ft_isalnum(name[i])) && name[i] != '_')
 			return (0);
 		i++;
 	}

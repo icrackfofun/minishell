@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 01:02:05 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:41:31 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	exec_child(t_ast *cmd, t_info *info)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	if (!cmd->argv[0][0])
+		child_exit("", 0, info, "");
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
 	path = get_path(info, cmd);
@@ -60,6 +62,8 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
+		if (!cmd->argv[0][0])
+			child_exit("", 0, info, "");
 		if (cmd->redirs)
 			handle_redirections(cmd->redirs, info);
 		path = get_path(info, cmd);

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:47:58 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 14:38:19 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:50:50 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,20 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 
 	if (ast->argv[1] != NULL)
 		path = ft_strdup(ast->argv[1]);
-	else
-		path = ft_strdup(get_env_value(info->env_list, "HOME"));
-	if (!path)
+	else if (!get_env_value(info->env_list, "HOME"))
 	{
 		write(2, "cd: HOME not set\n", 17);
 		if (!root)
 			child_exit("", 1, info, "");
-		return ;
+		return (parent_return("", info, 1, ""));
+	}
+	else
+		path = ft_strdup(get_env_value(info->env_list, "HOME"));
+	if (!path)
+	{
+		if (!root)
+			child_exit("malloc", 1, info, "");
+		return (parent_exit("malloc", info));
 	}
 	if (update_env(info, path, root))
 		return ;
@@ -102,17 +108,19 @@ void	builtin_unset(int root, t_ast *ast, t_info *info)
 	i = 1;
 	while (ast->argv[i])
 	{
-		if (ft_is_valid(ast->argv[i], 0, 0))
+		if (ft_is_valid(ast->argv[i], 0))
 		{
 			key = ast->argv[i];
 			unset_env(&info->env_list, key);
 		}
 		else
 		{
-			info->last_status = 1;
 			write(2, "unset: `", 9);
 			write(2, ast->argv[i], ft_strlen(ast->argv[i]));
 			write(2, "\': not a valid identifier\n", 26);
+			if (!root)
+				child_exit("", 1, info, "");
+			return (parent_return("", info, 1, ""));
 		}
 		i++;
 	}

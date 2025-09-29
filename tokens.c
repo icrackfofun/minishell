@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:43:13 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:25:40 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	classify_tokens(t_token *tokens)
 			tokens->type = TOKEN_DOUBLE_QUOTED;
 		else if (tokens->value[0] == '\'')
 			tokens->type = TOKEN_SINGLE_QUOTED;
-		else if (tokens->value[0] == '$' && ft_is_valid(tokens->value, 1, 0))
+		else if (tokens->value[0] == '$' && ft_is_valid(tokens->value, 0))
 			tokens->type = TOKEN_VARIABLE;
 		else
 			tokens->type = TOKEN_WORD;

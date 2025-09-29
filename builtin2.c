@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 14:38:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:41:46 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	handle_export_arg(t_env **env_list, char *arg)
 	eq = ft_strchr(arg, '=');
 	if (eq != NULL)
 	{
-		if (!ft_is_valid(arg, 0, eq[0]))
+		if (!ft_is_valid(arg, eq[0]))
 			return (1);
 		*eq = '\0';
 		key = arg;
@@ -49,7 +49,7 @@ static int	handle_export_arg(t_env **env_list, char *arg)
 	}
 	else
 	{
-		if (!ft_is_valid(arg, 0, 0))
+		if (!ft_is_valid(arg, 0))
 			return (1);
 		key = arg;
 		value = "";
@@ -69,10 +69,12 @@ void	builtin_export(int root, t_ast *cmd, t_info *info)
 	{
 		if (handle_export_arg(&info->env_list, cmd->argv[i]))
 		{
-			info->last_status = 1;
 			write(2, "export: `", 9);
 			write(2, cmd->argv[i], ft_strlen(cmd->argv[i]));
 			write(2, "\': not a valid identifier\n", 26);
+			if (!root)
+				child_exit("", 1, info, "");
+			return (parent_return("", info, 1, ""));
 		}
 		i++;
 	}

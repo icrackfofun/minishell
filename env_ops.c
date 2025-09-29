@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:20:03 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:39:58 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 14:53:13 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	populate_env(char **envp, t_info *info)
 		info->env_list = env_init(envp);
 		if (!info->env_list)
 			parent_exit("malloc", info);
+		unset_env(&info->env_list, "OLDPWD");
+		set_env_value(&info->env_list, "OLDPWD", "");
 	}
 }
 

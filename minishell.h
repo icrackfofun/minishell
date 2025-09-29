@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 14:24:22 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 15:24:50 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int				append_token(t_token **tokens, char **buf, t_info *info);
 t_token			*new_token(char *value);
 int				add_token(t_token **head, t_token *new, t_info *info);
 void			classify_tokens(t_token *tokens);
-int				ft_is_valid(char *name, int i, char delim);
+int				ft_is_valid(char *name, char delim);
 int				is_pipe(t_token *token);
 int				is_redirect(t_token *token);
 t_token			*token_error(t_token **tokens);
