@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:47:58 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 16:34:55 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:35:25 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 
 char	*cd_get_path(t_ast *ast, t_info *info, int root)
 {
-	char	*path;
-
 	if (ast->argv[1])
 		return (ft_strdup(ast->argv[1]));
 	if (!get_env_value(info->env_list, "HOME"))
