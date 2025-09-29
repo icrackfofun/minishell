@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 16:50:13 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 20:19:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	builtin_env(int root, t_ast *ast, t_info *info)
 	node = info->env_list;
 	while (node)
 	{
-		if (node->value && node->value[0] != '\0')
+		if (node->value && node->value)
 			printf("%s=%s\n", node->key, node->value);
 		node = node->next;
 	}
