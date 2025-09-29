@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 18:48:19 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 01:17:54 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 01:19:14 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	populate_env(char **envp, t_info *info)
 {
 	char	*cwd;
 
-	if (!envp || !*envp)
+	if (!envp || !*envp || !**envp)
 	{
 		set_env_value(&info->env_list, "PATH",
 			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
