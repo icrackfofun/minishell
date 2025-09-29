@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 11:21:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:43:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:00:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ void	prompt_sigint_handler(int sig)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+void	child_sigpipe_handler(int sig)
+{
+	(void)sig;
+	write(2, " Broken pipe\n", 12);
 }
 
 void	child_sigint_handler(int sig)
