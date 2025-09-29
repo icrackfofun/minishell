@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 21:14:32 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 22:49:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 			{
 				if (child_heredocs(redir, &j, info))
 				{
-					info->last_status = 1;
+					info->last_status = 130;
 					return (1);
 				}
 			}
