@@ -6,19 +6,19 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 18:47:25 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 01:06:06 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 09:37:54 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int    update_env(t_info *info, char *path, int root)
+int	update_env(t_info *info, char *path, int root)
 {
-    char    *cwd;
+	char	*cwd;
 	char	*oldwd;
 
 	oldwd = ft_strdup(get_env_value(info->env_list, "PWD"));
-    if (chdir(path) != 0)
+	if (chdir(path) != 0)
 	{
 		free(oldwd);
 		if (!root)

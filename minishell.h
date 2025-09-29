@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 01:00:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 09:38:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 
 //builtins
 void			builtin_echo(t_ast *ast, int root, t_info *info);
-int   			update_env(t_info *info, char *path, int root);
+int				update_env(t_info *info, char *path, int root);
 void			builtin_cd(t_ast *ast, t_info *info, int root);
 void			builtin_pwd(t_info *info, int root);
 void			builtin_export(int root, t_ast *cmd, t_info *info);
