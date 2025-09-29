@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 00:21:41 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 00:59:29 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ static void	handle_enoent(const char *cmd, int *code)
 		code = 0;
 }
 
-void	exit_exec_error(const char *cmd, t_info *info)
+void	exit_exec_error(const char *cmd, t_info *info, char *path)
 {
 	struct stat	st;
 	int			code;
 
+	if (path)
+		free(path);
 	if (stat(cmd, &st) == 0 && S_ISDIR(st.st_mode))
 	{
 		write(2, cmd, ft_strlen(cmd));
@@ -73,6 +75,8 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		write(2, ": ", 2);
 		write(2, "command not found\n", 18);
 	}
+	if (file && file[0] != 0)
+		free(file);
 	clean_loop(info);
 	clean_shell(info);
 	exit(code);
@@ -104,5 +108,7 @@ void	parent_return(char *message, t_info *info, int status, char *f)
 		else
 			perror("");
 	}
+	if (f && f[0] != 0)
+		free(f);
 	info->last_status = status;
 }

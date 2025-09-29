@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 21:29:10 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 00:53:27 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	builtin_exit(t_ast *ast, t_info *info, int root)
 	else if (!ft_isnum(ast->argv[1]))
 	{
 		if (!root)
-			child_exit("exit\nexit", 255, info, ast->argv[1]);
-		child_exit("exit\nexit", 255, info, ast->argv[1]);
+			child_exit("exit\nexit", 255, info, ft_strdup(ast->argv[1]));
+		child_exit("exit\nexit", 255, info, ft_strdup(ast->argv[1]));
 	}
 	else if (ast->argv[2])
 	{

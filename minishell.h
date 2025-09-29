@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/28 19:18:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 01:00:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void			reap_children(t_info *info, int i);
 void			child_exit(char *message, int code, t_info *info, char *file);
 void			parent_exit(char *message, t_info *info);
 void			parent_return(char *message, t_info *info, int status, char *f);
-void			exit_exec_error(const char *cmd, t_info *info);
+void			exit_exec_error(const char *cmd, t_info *info, char *path);
 
 //env
 void			env_list_to_array(t_info *info);

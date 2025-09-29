@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 00:02:58 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 01:02:05 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	exec_child(t_ast *cmd, t_info *info)
 		child_exit("", 127, info, path);
 	env_list_to_array(info);
 	execve(path, cmd->argv, info->env_array);
-	exit_exec_error(cmd->argv[0], info);
+	exit_exec_error(cmd->argv[0], info, path);
 }
 
 static void	exec_external(t_ast *cmd, t_info *info, int root)
@@ -67,7 +67,7 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 			child_exit("", 127, info, path);
 		env_list_to_array(info);
 		execve(path, cmd->argv, info->env_array);
-		exit_exec_error(cmd->argv[0], info);
+		exit_exec_error(cmd->argv[0], info, path);
 	}
 	info->child_pids[info->child_count++] = pid;
 }
