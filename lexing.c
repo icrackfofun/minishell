@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:56:49 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:34:31 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:44:07 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	process_char(t_info *info, int *i, char **buf,
 	else if (info->line[*i] == '|' || info->line[*i] == '<'
 		|| info->line[*i] == '>')
 		handle_operator(tokens, buf, info, i);
-	else
+	else if (!ft_isspace(info->line[*i]))
 		handle_char(info, buf, tokens, i);
 	return (0);
 }
