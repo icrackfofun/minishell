@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:47:58 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 15:50:50 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:32:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,70 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 	info->child_pids[info->child_count++] = pid;
 }
 
-void	builtin_cd(t_ast *ast, t_info *info, int root)
+// void	builtin_cd(t_ast *ast, t_info *info, int root)
+// {
+// 	char	*path;
+
+// 	if (ast->argv[2] && ast->argv[2][0])
+		
+// 	if (ast->argv[1] != NULL)
+// 		path = ft_strdup(ast->argv[1]);
+// 	else if (!get_env_value(info->env_list, "HOME"))
+// 	{
+// 		write(2, "cd: HOME not set\n", 17);
+// 		if (!root)
+// 			child_exit("", 1, info, "");
+// 		return (parent_return("", info, 1, ""));
+// 	}
+// 	else
+// 		path = ft_strdup(get_env_value(info->env_list, "HOME"));
+// 	if (!path)
+// 	{
+// 		if (!root)
+// 			child_exit("malloc", 1, info, "");
+// 		return (parent_exit("malloc", info));
+// 	}
+// 	if (update_env(info, path, root))
+// 		return ;
+// 	if (!root)
+// 		child_exit("", 0, info, "");
+// 	info->last_status = 0;
+// }
+
+static char	*cd_get_path(t_ast *ast, t_info *info, int root)
 {
 	char	*path;
 
-	if (ast->argv[1] != NULL)
-		path = ft_strdup(ast->argv[1]);
-	else if (!get_env_value(info->env_list, "HOME"))
+	if (ast->argv[1])
+		return (ft_strdup(ast->argv[1]));
+	if (!get_env_value(info->env_list, "HOME"))
 	{
 		write(2, "cd: HOME not set\n", 17);
 		if (!root)
 			child_exit("", 1, info, "");
+		parent_return("", info, 1, "");
+		return (NULL);
+	}
+	return (ft_strdup(get_env_value(info->env_list, "HOME")));
+}
+
+void	builtin_cd(t_ast *ast, t_info *info, int root)
+{
+	char	*path;
+
+	if (ast->argv[2] && ast->argv[2][0])
+	{
+		write(2, "cd: too many arguments\n", 23);
+		if (!root)
+			child_exit("", 1, info, "");
 		return (parent_return("", info, 1, ""));
 	}
-	else
-		path = ft_strdup(get_env_value(info->env_list, "HOME"));
+	path = cd_get_path(ast, info, root);
 	if (!path)
 	{
 		if (!root)
 			child_exit("malloc", 1, info, "");
-		return (parent_exit("malloc", info));
+		return (parent_return("malloc", info, 1, ""));
 	}
 	if (update_env(info, path, root))
 		return ;
