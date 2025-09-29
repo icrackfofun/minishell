@@ -6,17 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 23:43:29 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 15:55:01 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 00:01:38 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#include <stdlib.h>
-
-/* Assumes ft_strlen and ft_strlcpy are already implemented */
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t	len1;
 	size_t	len2;
