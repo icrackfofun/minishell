@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/27 17:36:43 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 22:22:01 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*heredoc_filename(t_info *info, int *j)
 	return (filename);
 }
 
-static void	write_heredoc_to_tmp(const char *delimiter, char *filename,
+static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 								t_info *info)
 {
 	int		fd;
@@ -46,21 +46,21 @@ static void	write_heredoc_to_tmp(const char *delimiter, char *filename,
 	{
 		free(info->line);
 		info->line = readline("> ");
+		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fd < 0)
+				child_exit("heredoc", 1, info, "");
 		if (!info->line)
-			return ;
+			return (close(fd));
 		if (ft_strcmp(info->line, delimiter) == 0)
-			return ;
+			return (0);
 		expanded = expand_inside_quotes(info, info->line);
 		if (!expanded)
 			child_exit("malloc", 1, info, "");
-		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd < 0)
-			child_exit("heredoc", 1, info, "");
 		write(fd, expanded, ft_strlen(expanded));
 		write(fd, "\n", 1);
 		free(expanded);
-		close (fd);
-	}
+		return (close (fd));
+		}
 }
 
 int	child_heredocs(t_redir *redir, int *j, t_info *info)
