@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 17:01:12 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:11:29 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 //builtins
 void			builtin_echo(t_ast *ast, int root, t_info *info);
 int				update_env(t_info *info, char *path, int root);
+char			*cd_get_path(t_ast *ast, t_info *info, int root);
 void			builtin_cd(t_ast *ast, t_info *info, int root);
 void			builtin_pwd(t_info *info, int root);
 void			builtin_export(int root, t_ast *cmd, t_info *info);
@@ -213,6 +214,5 @@ void			builtin_exit(t_ast *ast, t_info *info, int root);
 void			prompt_sigint_handler(int sig);
 void			child_sigint_handler(int sig);
 void			child_sigquit_handler(int sig);
-void			child_sigpipe_handler(int sig);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:47:58 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 17:05:41 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:11:06 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	echo_child(t_ast *cmd, t_info *info)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGPIPE, SIG_DFL);
 	i = 1;
 	newline = 1;
 	if (cmd->argv[i] && ft_strcmp(cmd->argv[i], "-n") == 0)
@@ -53,51 +52,6 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 	if (pid == 0)
 		echo_child(ast, info);
 	info->child_pids[info->child_count++] = pid;
-}
-
-// void	builtin_cd(t_ast *ast, t_info *info, int root)
-// {
-// 	char	*path;
-
-// 	if (ast->argv[2] && ast->argv[2][0])
-		
-// 	if (ast->argv[1] != NULL)
-// 		path = ft_strdup(ast->argv[1]);
-// 	else if (!get_env_value(info->env_list, "HOME"))
-// 	{
-// 		write(2, "cd: HOME not set\n", 17);
-// 		if (!root)
-// 			child_exit("", 1, info, "");
-// 		return (parent_return("", info, 1, ""));
-// 	}
-// 	else
-// 		path = ft_strdup(get_env_value(info->env_list, "HOME"));
-// 	if (!path)
-// 	{
-// 		if (!root)
-// 			child_exit("malloc", 1, info, "");
-// 		return (parent_exit("malloc", info));
-// 	}
-// 	if (update_env(info, path, root))
-// 		return ;
-// 	if (!root)
-// 		child_exit("", 0, info, "");
-// 	info->last_status = 0;
-// }
-
-char	*cd_get_path(t_ast *ast, t_info *info, int root)
-{
-	if (ast->argv[1])
-		return (ft_strdup(ast->argv[1]));
-	if (!get_env_value(info->env_list, "HOME"))
-	{
-		write(2, "cd: HOME not set\n", 17);
-		if (!root)
-			child_exit("", 1, info, "");
-		parent_return("", info, 1, "");
-		return (NULL);
-	}
-	return (ft_strdup(get_env_value(info->env_list, "HOME")));
 }
 
 void	builtin_cd(t_ast *ast, t_info *info, int root)

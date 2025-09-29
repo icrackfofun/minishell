@@ -6,11 +6,26 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/28 18:47:25 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 09:37:54 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:11:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*cd_get_path(t_ast *ast, t_info *info, int root)
+{
+	if (ast->argv[1])
+		return (ft_strdup(ast->argv[1]));
+	if (!get_env_value(info->env_list, "HOME"))
+	{
+		write(2, "cd: HOME not set\n", 17);
+		if (!root)
+			child_exit("", 1, info, "");
+		parent_return("", info, 1, "");
+		return (NULL);
+	}
+	return (ft_strdup(get_env_value(info->env_list, "HOME")));
+}
 
 int	update_env(t_info *info, char *path, int root)
 {
