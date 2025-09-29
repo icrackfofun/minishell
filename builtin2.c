@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 21:24:34 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 22:52:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	builtin_exit(t_ast *ast, t_info *info, int root)
 	}
 	else if (ast->argv[2])
 	{
-		write(2, "exit: too many arguments", 24);
+		write(2, "exit: too many arguments\n", 25);
 		if (!root)
 			child_exit("", 1, info, "");
 		return (parent_return("", info, 1, ""));
