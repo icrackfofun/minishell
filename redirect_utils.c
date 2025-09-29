@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 22:22:01 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 22:28:41 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 		write(fd, expanded, ft_strlen(expanded));
 		write(fd, "\n", 1);
 		free(expanded);
-		return (close (fd));
+		close (fd);
 		}
+		return (0);
 }
 
 int	child_heredocs(t_redir *redir, int *j, t_info *info)
