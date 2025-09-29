@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:47:58 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 16:32:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:34:55 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 // 	info->last_status = 0;
 // }
 
-static char	*cd_get_path(t_ast *ast, t_info *info, int root)
+char	*cd_get_path(t_ast *ast, t_info *info, int root)
 {
 	char	*path;
 
@@ -105,7 +105,7 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 {
 	char	*path;
 
-	if (ast->argv[2] && ast->argv[2][0])
+	if (ast->argv[2] && ast->argv[2][0] != 0)
 	{
 		write(2, "cd: too many arguments\n", 23);
 		if (!root)
