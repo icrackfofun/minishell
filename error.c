@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 00:59:29 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:09:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exit_exec_error(const char *cmd, t_info *info, char *path)
 	if (stat(cmd, &st) == 0 && S_ISDIR(st.st_mode))
 	{
 		write(2, cmd, ft_strlen(cmd));
-		write(2, ": is a directory\n", 17);
+		write(2, ": Is a directory\n", 17);
 		code = 126;
 	}
 	else if (errno == ENOENT)
