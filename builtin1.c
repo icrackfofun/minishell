@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:47:58 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 16:59:30 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 17:02:49 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	echo_child(t_ast *cmd, t_info *info)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	signal(SIGPIPE, child_sigpipe_handler);
 	i = 1;
 	newline = 1;
 	if (cmd->argv[i] && ft_strcmp(cmd->argv[i], "-n") == 0)
