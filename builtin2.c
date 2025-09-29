@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 15:41:46 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/29 16:08:35 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,23 +107,22 @@ void	builtin_exit(t_ast *ast, t_info *info, int root)
 	status = 0;
 	if (!ast->argv[1])
 		status = info->last_status;
-	else if (!ft_isnum(ast->argv[1]))
-	{
-		if (!root)
-			child_exit("exit\nexit", 255, info, ft_strdup(ast->argv[1]));
-		child_exit("exit\nexit", 255, info, ft_strdup(ast->argv[1]));
-	}
 	else if (ast->argv[2])
 	{
 		write(2, "exit: too many arguments", 24);
 		if (!root)
-			child_exit("", 1, info, "");
-		return (parent_return("", info, 1, ""));
+			child_exit("", 2, info, "");
+		return (parent_return("", info, 2, ""));
+	}
+	else if (!ft_isnum(ast->argv[1]))
+	{
+		if (!root)
+			child_exit("exit\nexit", 2, info, ft_strdup(ast->argv[1]));
+		child_exit("exit\nexit", 2, info, ft_strdup(ast->argv[1]));
 	}
 	else
 		status = ft_atoi(ast->argv[1]);
 	if (!root)
 		child_exit("", status, info, "");
-	write(2, "exit\n", 5);
 	child_exit("", status, info, "");
 }
