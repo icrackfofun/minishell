@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:32:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:06:25 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,6 @@ typedef struct s_terminal
 
 //Singleton Accessor
 t_terminal *terminal(void);
-
-//global
-extern volatile sig_atomic_t	g_last_signal;
 
 //cleaner
 void			clean_shell(t_info *info);
