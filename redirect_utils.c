@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 13:53:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:04:50 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	add_redir(t_redir *redir, char *filename, t_info *info)
 }
 
 static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
-								t_info *info)
+								t_info *info, char **envp)
 {
 	int		fd;
 	char	*expanded;
@@ -61,7 +61,7 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 			return (close(fd));
 		if (ft_strcmp(info->line, delimiter) == 0)
 			return (close(fd));
-		populate_env(terminal()->envp, info);
+		populate_env(envp, info);
 		expanded = expand_inside_quotes(info, info->line);
 		free_env(info->env_list);
 		if (!expanded)
@@ -95,7 +95,9 @@ int	child_heredocs(t_redir *redir, int *j, t_info *info)
 	pid_t	pid;
 	char	filename[60];
 	char	delimiter[10000];
+	char	**envp;
 
+	envp = terminal()->envp;
 	heredoc_filename(info, j, filename);
 	ft_strlcpy(delimiter, redir->target, ft_strlen(redir->target) + 1);
 	pid = fork();
@@ -105,7 +107,7 @@ int	child_heredocs(t_redir *redir, int *j, t_info *info)
 	{
 		signal(SIGINT, SIG_DFL);
 		clean_loop(info);
-		write_heredoc_to_tmp(delimiter, filename, info);
+		write_heredoc_to_tmp(delimiter, filename, info, envp);
 		if (info->line)
 			free(info->line);
 		exit(0);
