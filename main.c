@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 15:06:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 23:31:57 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		cleanup_heredoc_files();
 	}
 	clean_shell(&info);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	return (close(STDERR_FILENO));
 }
