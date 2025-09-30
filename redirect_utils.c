@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:47:25 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:58:07 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,14 +148,14 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 		info->line = readline("> ");
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)
-				child_exit("heredoc", 0, info, "");
+				child_exit("heredoc", 1, info, "");
 		if (!info->line)
 			return (close(fd));
 		if (ft_strcmp(info->line, delimiter) == 0)
 			return (close(fd));
 		expanded = expand_inside_quotes(info, info->line);
 		if (!expanded)
-			child_exit("malloc", 1, info, "");
+			child_exit("malloc", 4, info, "");
 		write(fd, expanded, ft_strlen(expanded));
 		write(fd, "\n", 1);
 		free(expanded);
@@ -182,10 +182,17 @@ int	child_heredocs(t_redir *redir, int *j, t_info *info)
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			return (write(1, "\n", 1));
-		else if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
-			parent_exit("test", info);
+		// if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		// 	return (write(1, "\n", 1));
+		// else if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
+		// 	parent_exit("test", info);
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) == 4)
+				parent_exit("", info);
+			else if (WEXITSTATUS(status) == 2)
+				return (write(1, "\n", 1));
+		}
 		add_redir(redir, info->heredoc_filename, info);
 	}
 	return (0);
