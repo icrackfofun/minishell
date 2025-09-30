@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:25:28 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:33:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 
 	while (1)
 	{
-		free(info->line);
+		free_string(&info->line);
 		info->line = readline("> ");
 		fd = open(filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd < 0)

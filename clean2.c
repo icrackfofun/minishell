@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/27 17:36:32 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:31:40 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_heredoc(char **filename)
+void	free_string(char **filename)
 {
 	free(*filename);
 	*filename = NULL;
@@ -59,23 +59,14 @@ void	clean_loop(t_info *info)
 		info->tree = NULL;
 	}
 	if (info && info->cmds)
-	{
-		free(info->cmds);
-		info->cmds = NULL;
-	}
+		free_string(&info->cmds);
 	if (info && info->child_pids)
-	{
-		free(info->child_pids);
-		info->child_pids = NULL;
-	}
+		free_string(&info->child_pids);
 	if (info && info->tokens)
 		free_tokens(info->tokens);
 	if (info && info->line)
-	{
-		free(info->line);
-		info->line = NULL;
-	}
+		free_string(&info->line);
 	if (info && info->heredoc_filename)
-		free_heredoc(&info->heredoc_filename);
+		free_string(&info->heredoc_filename);
 	close_parent_fds(info);
 }

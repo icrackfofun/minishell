@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:21:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:32:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ extern volatile sig_atomic_t	g_last_signal;
 void			clean_shell(t_info *info);
 void			clean_loop(t_info *info);
 void			free_tokens(t_token *token);
-void			free_heredoc(char **filename);
+void			free_string(char **filename);
 void			free_ast(t_ast *node);
 t_env			*free_env(t_env *env);
 void			free_redirs(t_redir *redir);
