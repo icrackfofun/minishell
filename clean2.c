@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:31:40 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:35:32 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	clean_loop(t_info *info)
 		info->tree = NULL;
 	}
 	if (info && info->cmds)
-		free_string(&info->cmds);
+		free_array(info->cmds);
 	if (info && info->child_pids)
 		free_string(&info->child_pids);
 	if (info && info->tokens)

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:39:16 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:35:05 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	free_array(char **arr)
 		i++;
 	}
 	free(arr);
+	arr = NULL;
 }
 
 static int	env_count(t_env *list)
