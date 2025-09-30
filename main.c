@@ -6,13 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:23:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:03:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-volatile sig_atomic_t	g_last_signal;
 
 static void	info_init(t_info *info, char **envp)
 {
@@ -30,7 +28,6 @@ static void	info_init(t_info *info, char **envp)
 	info->last_pipe_read_fd = -1;
 	info->last_pipe_write_fd = -1;
 	info->leftover_read_fd = -1;
-	g_last_signal = 0;
 	terminal()->envp = envp;
 	terminal()->info = info;
 	signal(SIGINT, prompt_sigint_handler);

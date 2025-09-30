@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:58:07 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:05:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,21 +179,14 @@ int	child_heredocs(t_redir *redir, int *j, t_info *info)
 		write_heredoc_to_tmp(redir->target, info->heredoc_filename, info);
 		child_exit("", 0, info, "");
 	}
-	else if (pid > 0)
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
 	{
-		waitpid(pid, &status, 0);
-		// if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		// 	return (write(1, "\n", 1));
-		// else if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
-		// 	parent_exit("test", info);
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) == 4)
-				parent_exit("", info);
-			else if (WEXITSTATUS(status) == 2)
-				return (write(1, "\n", 1));
-		}
-		add_redir(redir, info->heredoc_filename, info);
+		if (WEXITSTATUS(status) == 4)
+			parent_exit("", info);
+		else if (WEXITSTATUS(status) == 2)
+			return (write(1, "\n", 1));
 	}
+	add_redir(redir, info->heredoc_filename, info);
 	return (0);
 }
