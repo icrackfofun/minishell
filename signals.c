@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 11:21:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/30 23:05:40 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 23:25:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ void	child_sigint_handler(int sig)
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
-	
 	child_exit("", 2, terminal()->info, "");
 }
