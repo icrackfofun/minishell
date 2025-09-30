@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 13:49:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 13:52:13 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 			return (close(fd));
 		if (ft_strcmp(info->line, delimiter) == 0)
 			return (close(fd));
-		populate_env(&terminal()->envp, info);
+		populate_env(terminal()->envp, info);
 		expanded = expand_inside_quotes(info, info->line);
 		free_env(info->env_list);
 		if (!expanded)

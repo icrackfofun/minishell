@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 13:41:54 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 13:51:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_info
 //Singleton struct
 typedef struct s_terminal
 {
-	t_info	info;
+	t_info	*info;
 	char	**envp;
 }	t_terminal;
 
