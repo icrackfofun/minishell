@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:42:09 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 14:42:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 
 void	parent_exit(char *message, t_info *info)
 {
-	perror("error:");
+	perror(message);
 	kill_all_children(info);
 	reap_children(info, 0);
 	clean_loop(info);
