@@ -10,3 +10,9 @@
     ...
     fun:add_history
 }
+{
+   leak rl_extend_line_buffer
+   Memcheck:Leak
+   ...
+   fun:readline_internal_char
+}
