@@ -6,11 +6,18 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 00:30:48 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/09/30 13:49:26 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_terminal	*terminal(void)
+{
+	static t_terminal	t;
+
+	return (&t);
+}
 
 static void	heredoc_filename(t_info *info, int *j, char *filename)
 {
@@ -54,7 +61,9 @@ static int	write_heredoc_to_tmp(const char *delimiter, char *filename,
 			return (close(fd));
 		if (ft_strcmp(info->line, delimiter) == 0)
 			return (close(fd));
+		populate_env(&terminal()->envp, info);
 		expanded = expand_inside_quotes(info, info->line);
+		free_env(info->env_list);
 		if (!expanded)
 			exit(1);
 		write(fd, expanded, ft_strlen(expanded));
@@ -96,7 +105,6 @@ int	child_heredocs(t_redir *redir, int *j, t_info *info)
 	{
 		signal(SIGINT, SIG_DFL);
 		clean_loop(info);
-		clean_shell(info);
 		write_heredoc_to_tmp(delimiter, filename, info);
 		if (info->line)
 			free(info->line);
