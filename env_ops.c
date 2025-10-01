@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:20:03 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 21:17:25 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:25:09 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,7 @@
 
 void	populate_env(char **envp, t_info *info)
 {
-	char	*cwd;
-
-	if (!envp || !*envp || !**envp)
-	{
-		set_env_value(&info->env_list, "PATH",
-			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
-		set_env_value(&info->env_list, "SHLVL", "1");
-		set_env_value(&info->env_list, "OLDPWD", "");
-		cwd = getcwd(NULL, 0);
-		if (!cwd)
-			return (set_env_value(&info->env_list, "PWD", "/"));
-		set_env_value(&info->env_list, "PWD", cwd);
-		free(cwd);
-	}
-	else
-	{
-		info->env_list = env_init(envp);
-		if (!info->env_list)
-			parent_exit("malloc", info);
-	}
+	info->env_list = env_init(envp);
 }
 
 char	*get_env_value(t_env *env_list, const char *key)

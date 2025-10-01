@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/30 14:35:05 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:27:38 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,12 @@ t_env	*env_init(char **envp)
 	t_env	*head;
 	t_env	*node;
 	int		i;
+	char	*cwd;
 	char	*eq;
 
 	head = NULL;
 	i = 0;
-	while (envp[i])
+	while (envp && *envp && **envp && envp[i])
 	{
 		eq = ft_strchr(envp[i], '=');
 		if (!eq)
@@ -103,5 +104,25 @@ t_env	*env_init(char **envp)
 		head = node;
 		i++;
 	}
+	if (!get_env_value(head, "PATH"))
+		set_env_value(&head, "PATH",
+			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+	if (!get_env_value(head, "SHLVL"))
+		set_env_value(&head, "SHLVL", "0");
+	if (!get_env_value(head, "OLDPWD"))
+		set_env_value(&head, "OLDPWD", "");
+	if (!get_env_value(head, "PWD"))
+	{
+		cwd = getcwd(NULL, 0);
+		if (cwd)
+			set_env_value(&head, "PWD", cwd);
+		else	
+			set_env_value(&head, "PWD", "/");
+		free(cwd);
+	}
+	int	level = ft_atoi(get_env_value(head, "SHLVL"));
+	char *new_lvl_str = ft_itoa(level + 1);
+	set_env_value(&head, "SHLVL", new_lvl_str);
+	free(new_lvl_str);
 	return (head);
 }

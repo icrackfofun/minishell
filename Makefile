@@ -6,13 +6,13 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/09/29 14:50:16 by psantos-         ###   ########.fr        #
+#    Updated: 2025/10/01 16:28:00 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 SRCS = 	main.c  \
 		clean.c \
 		clean2.c \
@@ -78,19 +78,28 @@ test: re
 	@cd minishell_tester && (./tester || true) && cd ..
 	@rm -rf minishell_tester
 
+val:
+	valgrind --show-leak-kinds=all --leak-check=full --track-fds=all --suppressions=readline.supp ./minishell
+
 .PHONY: all clean fclean re
 
-#{
-#    leak readline
-#    Memcheck:Leak
-#    ...
-#    fun:readline
-#}
-#{
+# {
+#     leak readline
+#     Memcheck:Leak
+#     ...
+#     fun:readline
+# }
+# {
 #     leak add_history
 #     Memcheck:Leak
 #     ...
 #     fun:add_history
-#}
+# }
+# {
+#    leak rl_extend_line_buffer
+#    Memcheck:Leak
+#    ...
+#    fun:readline_internal_char
+# }
 
-#valgrind --show-leak-kinds=all --leak-check=full --track-fds=all --suppressions=readline.supp ./minishell
+#

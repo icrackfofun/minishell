@@ -1,0 +1,8 @@
+export var nao pode ser var="", apenas se fizer exprt var=
+o heredoc nao pode expandir cenas como eof pra sair
+tem que executar ficheiro .sh
+echo -nnnn -nn -nnn -nann pag ->> hosuld only print -nan forward
+cd segfault
+SHLVL not increasing
+don't use cwd to do pwd, BECAUSE IF mkdir test && d test && rm ~/test && pwd it doesn't work
+
