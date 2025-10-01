@@ -7,3 +7,4 @@ SHLVL not increasing
 don't use cwd to do pwd, BECAUSE IF mkdir test && d test && rm ~/test && pwd it doesn't work
 expand variable after called
 ls _42+"ls -lah" -> call function
+export ordem alfabetica
