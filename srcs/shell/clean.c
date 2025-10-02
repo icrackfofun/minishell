@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:56:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 00:00:59 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,13 @@ void	free_ast(t_ast *node)
 
 void	clean_shell(t_info *info)
 {
+	int devnull = open("/dev/null", O_RDWR);
+if (devnull >= 0) {
+    dup2(devnull, 0);
+    dup2(devnull, 1);
+    dup2(devnull, 2);
+    if (devnull > 2) close(devnull);
+}
 	if (!info)
 		return ;
 	if (info->env_array)
