@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 19:15:06 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:43:08 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	echo_child(t_ast *cmd, t_info *info)
 	}
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
+	close_heredocs(info->cmds, info->cmd_count);
 	while (cmd->argv[i])
 	{
 		printf("%s", cmd->argv[i]);

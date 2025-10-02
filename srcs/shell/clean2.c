@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 19:17:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:39:00 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_tokens(t_token *token)
 	}
 }
 
-static void	close_heredocs(t_ast **cmds, int count)
+void	close_heredocs(t_ast **cmds, int count)
 {
 	int		i;
 	t_redir	*redir;

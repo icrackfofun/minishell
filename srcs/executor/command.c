@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:31 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:43:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	exec_child(t_ast *cmd, t_info *info)
 		child_exit("", 0, info, "");
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
+	close_heredocs(info->cmds, info->cmd_count);
 	path = get_path(info, cmd);
 	if (path[0] && path[0] != '.' && path[0] != '/')
 		child_exit("", 127, info, path);

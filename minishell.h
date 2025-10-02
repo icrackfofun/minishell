@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:41:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:39:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void			free_array(char **arr);
 void			close_parent_fds(t_info *info);
 void			kill_all_children(t_info *info);
 void			reap_children(t_info *info, int i);
+void			close_heredocs(t_ast **cmds, int count);
 
 //error
 void			child_exit(char *message, int code, t_info *info, char *file);
@@ -202,8 +203,6 @@ int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 
 //builtins
 void			builtin_echo(t_ast *ast, int root, t_info *info);
-int				update_env(t_info *info, char *path, int root);
-char			*cd_get_path(t_ast *ast, t_info *info, int root);
 void			builtin_cd(t_ast *ast, t_info *info, int root);
 void			builtin_pwd(t_info *info, int root);
 void			builtin_export(int root, t_ast *cmd, t_info *info);
