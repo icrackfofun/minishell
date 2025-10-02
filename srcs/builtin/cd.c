@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:48:31 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:54:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,6 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 
 	if (ast->argv[1] && ast->argv[2])
 	{
-		printf("%s\n", ast->argv[0]);
-		printf("%s\n", ast->argv[1]);
-		printf("%s\n", ast->argv[2]);
-		printf("%s\n", ast->argv[3]);
-		printf("%s\n", ast->argv[4]);
 		write(2, "cd: too many arguments\n", 23);
 		if (!root)
 			child_exit("", 1, info, "");
