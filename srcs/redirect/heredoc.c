@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 19:39:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:56:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	child_heredocs(t_redir *redir, t_info *info)
 		parent_exit("fork", info);
 	if (pid == 0)
 	{
+		if (info->heredoc_fd >= 0)
+			close(info->heredoc_fd);
 		close(pipefd[0]);
 		info->heredoc_fd = pipefd[1];
 		signal(SIGINT, child_sigint_handler);
@@ -68,6 +70,7 @@ int	child_heredocs(t_redir *redir, t_info *info)
 		child_exit("", 0, info, "");
 	}
 	close(pipefd[1]);
+	info->heredoc_fd = pipefd[0];
 	ret = wait_heredoc(pid, info);
 	redir->fd = pipefd[0];
 	return (ret);
@@ -96,5 +99,6 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 		}
 		i++;
 	}
+	info->heredoc_fd = -1;
 	return (0);
 }
