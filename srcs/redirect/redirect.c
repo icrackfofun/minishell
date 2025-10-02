@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:00:25 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 23:18:48 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ void	handle_redirections(t_redir *redir, t_info *info)
 			fd = redir->fd;
 			redir->fd = -1;
 		}
-		printf("%i\n", STDOUT_FILENO);
 		change_fd(redir, fd, info);
-		printf("%i\n", STDOUT_FILENO);
 		close(fd);
 		redir = redir->next;
 	}
