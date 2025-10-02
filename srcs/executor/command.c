@@ -6,11 +6,43 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 21:43:30 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:57:15 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+#include <stdio.h>
+
+void	debug_print_cmds(t_ast **cmds, int count)
+{
+	int i;
+	t_redir *redir;
+
+	if (!cmds)
+	{
+		printf("cmds array is NULL\n");
+		return;
+	}
+
+	for (i = 0; i < count; i++)
+	{
+		if (!cmds[i])
+		{
+			printf("cmds[%d] is NULL\n", i);
+			continue;
+		}
+
+		printf("cmds[%d]: argv[0] = '%s'\n", i, cmds[i]->argv ? cmds[i]->argv[0] : "(NULL argv)");
+		redir = cmds[i]->redirs;
+		while (redir)
+		{
+			printf("  redir fd = %d, type = %d, target = %s\n",
+				redir->fd, redir->type, redir->target ? redir->target : "(NULL target)");
+			redir = redir->next;
+		}
+	}
+}
 
 static void	exec_builtin(t_ast *cmd, t_info *info, int root)
 {
@@ -57,6 +89,7 @@ static void	exec_child(t_ast *cmd, t_info *info)
 		child_exit("", 0, info, "");
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
+	debug_print_cmds(info->cmds, info->cmd_count);
 	close_heredocs(info->cmds, info->cmd_count);
 	path = get_path(info, cmd);
 	if (path[0] && path[0] != '.' && path[0] != '/')
