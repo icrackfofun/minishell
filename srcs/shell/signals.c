@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 11:21:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 18:38:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:17:12 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,15 @@ void	prompt_sigint_handler(int sig)
 
 void	child_sigint_handler(int sig)
 {
+	t_info	*info;
+	
 	(void)sig;
+	info = terminal()->info;
+	if (info->heredoc_out)
+	{
+		close(info->heredoc_out);
+		info->heredoc_out = -1;
+	}
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

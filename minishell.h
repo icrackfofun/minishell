@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 21:39:52 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:08:11 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ typedef struct s_info
 	t_ast	*tree;
 	int		cmd_count;
 	t_ast	**cmds;
-	int		heredoc_fd;
+	int		heredoc_in;
+	int		heredoc_out;
 	int		last_pipe_read_fd;
 	int		last_pipe_write_fd;
 	int		leftover_read_fd;

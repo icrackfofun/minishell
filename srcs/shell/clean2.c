@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 21:39:00 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:10:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	clean_loop(t_info *info)
 		free_tokens(info->tokens);
 	if (info && info->line)
 		free_string(&info->line);
-	if (info && info->heredoc_fd != -1)
-		close(info->heredoc_fd);
+	if (info && info->heredoc_in != -1)
+		close(info->heredoc_in);
 	close_parent_fds(info);
 }
