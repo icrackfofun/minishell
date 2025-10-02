@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:39:27 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 23:42:38 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_tokens(t_token *token)
 	}
 }
 
-void	close_heredocs_ast(t_ast *node)
+void	close_heredocs(t_ast *node)
 {
 	t_redir	*redir;
 
@@ -48,8 +48,8 @@ void	close_heredocs_ast(t_ast *node)
 		}
 		redir = redir->next;
 	}
-	close_heredocs_ast(node->left);
-	close_heredocs_ast(node->right);
+	close_heredocs(node->left);
+	close_heredocs(node->right);
 }
 
 
