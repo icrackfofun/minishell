@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 22:18:35 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:28:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	child_heredocs(t_redir *redir, t_info *info)
 		write_heredoc_fd(redir->target, pipefd[1], info);
 		child_exit("", 0, info, "");
 	}
-	close(pipefd[1]);
+	//close(pipefd[1]);
 	info->heredoc_in = pipefd[0];
 	ret = wait_heredoc(pid, info);
 	redir->fd = pipefd[0];
