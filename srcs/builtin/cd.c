@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 19:09:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 00:39:14 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ int	update_env(t_info *info, char *path, int root)
 
 char	*cd_get_path(t_ast *ast, t_info *info, int root)
 {
+	char	*home;
+
 	if (ast->argv[1])
 		return (ft_strdup(ast->argv[1]));
-	if (!get_env_value(info->env_list, "HOME"))
+	home = get_env_value(info->env_list, "HOME");
+	if (!home)
 	{
 		write(2, "cd: HOME not set\n", 17);
 		if (!root)
@@ -53,6 +56,8 @@ char	*cd_get_path(t_ast *ast, t_info *info, int root)
 		info->last_status = 1;
 		return ((char *)-1);
 	}
+	if (home[0] == 0)
+		return (ft_strdup("."));
 	return (ft_strdup(get_env_value(info->env_list, "HOME")));
 }
 
