@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 21:58:39 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 22:00:32 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,12 @@ static void	exec_external(t_ast *cmd, t_info *info, int root)
 	pid_t	pid;
 
 	if (!root)
-		exec_child(cmd, info);
+		exec_child(cmd, info, root);
 	pid = fork();
 	if (pid < 0)
 		parent_exit("fork", info);
 	if (pid == 0)
-		exec_child(cmd, info);
+		exec_child(cmd, info, root);
 	info->child_pids[info->child_count++] = pid;
 }
 
