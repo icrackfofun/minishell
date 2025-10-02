@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 21:57:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:58:39 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	exec_builtin(t_ast *cmd, t_info *info, int root)
 //     }
 // }
 
-static void	exec_child(t_ast *cmd, t_info *info)
+static void	exec_child(t_ast *cmd, t_info *info, int root)
 {
 	char	*path;
 
@@ -89,8 +89,8 @@ static void	exec_child(t_ast *cmd, t_info *info)
 		child_exit("", 0, info, "");
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
-	debug_print_cmds(info->cmds, info->cmd_count);
-	close_heredocs(info->cmds, info->cmd_count);
+	if (!root)
+		close_heredocs(info->cmds, info->cmd_count);
 	path = get_path(info, cmd);
 	if (path[0] && path[0] != '.' && path[0] != '/')
 		child_exit("", 127, info, path);

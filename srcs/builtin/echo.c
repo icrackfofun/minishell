@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 21:43:08 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 21:59:45 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static void	echo_child(t_ast *cmd, t_info *info)
+static void	echo_child(t_ast *cmd, t_info *info, int root)
 {
 	int	newline;
 	int	i;
@@ -28,7 +28,8 @@ static void	echo_child(t_ast *cmd, t_info *info)
 	}
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
-	close_heredocs(info->cmds, info->cmd_count);
+	if (!root)
+		close_heredocs(info->cmds, info->cmd_count);
 	while (cmd->argv[i])
 	{
 		printf("%s", cmd->argv[i]);
@@ -46,11 +47,11 @@ void	builtin_echo(t_ast *ast, int root, t_info *info)
 	pid_t	pid;
 
 	if (!root)
-		echo_child(ast, info);
+		echo_child(ast, info, root);
 	pid = fork();
 	if (pid < 0)
 		parent_exit("fork", info);
 	if (pid == 0)
-		echo_child(ast, info);
+		echo_child(ast, info, root);
 	info->child_pids[info->child_count++] = pid;
 }
