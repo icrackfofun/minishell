@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:27:01 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 23:39:27 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,27 +32,26 @@ void	free_tokens(t_token *token)
 	}
 }
 
-void	close_heredocs(t_ast **cmds, int count)
+void	close_heredocs_ast(t_ast *node)
 {
-	int		i;
 	t_redir	*redir;
 
-	i = 0;
-	while (i < count)
+	if (!node)
+		return;
+	redir = node->redirs;
+	while (redir)
 	{
-		redir = cmds[i]->redirs;
-		while (redir)
+		if (redir->fd >= 0)
 		{
-			if (redir->fd >= 0)
-			{
-				close(redir->fd);
-				redir->fd = -1;
-			}
-			redir = redir->next;
+			close(redir->fd);
+			redir->fd = -1;
 		}
-		i++;
+		redir = redir->next;
 	}
+	close_heredocs_ast(node->left);
+	close_heredocs_ast(node->right);
 }
+
 
 void	close_parent_fds(t_info *info)
 {
@@ -75,10 +74,9 @@ void	close_parent_fds(t_info *info)
 
 void	clean_loop(t_info *info)
 {
-	if (info && info->cmds)
-		close_heredocs(info->cmds, info->cmd_count);
 	if (info && info->tree)
 	{
+		close_heredocs(info->tree);
 		free_ast(info->tree);
 		info->tree = NULL;
 	}
