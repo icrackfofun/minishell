@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:37:40 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:25:29 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	handle_redirections(t_redir *redir, t_info *info)
 		else if (redir->type == REDIR_HEREDOC)
 		{
 			fd = redir->fd;
-			redir->fd= -1;
+			redir->fd = -1;
 		}
 		change_fd(redir, fd, info);
 		close(fd);

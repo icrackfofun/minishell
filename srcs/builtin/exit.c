@@ -6,13 +6,14 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:55:35 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:35:58 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:24:58 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//codes are wrong, exit with letters yes, with 2 numbers yes, number + letters no (look into)
+//codes are wrong, exit with letters yes, with 2 numbers yes, 
+//number + letters no (look into)
 void	builtin_exit(t_ast *ast, t_info *info, int root)
 {
 	int	status;

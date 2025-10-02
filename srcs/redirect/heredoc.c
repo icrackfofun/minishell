@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:37:37 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:25:58 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int wait_heredoc(pid_t pid, t_info *info)
+static int	wait_heredoc(pid_t pid, t_info *info)
 {
 	int	status;
 
@@ -27,8 +27,7 @@ static int wait_heredoc(pid_t pid, t_info *info)
 	return (0);
 }
 
-
-static void write_heredoc_fd(const char *delimiter, int fd, t_info *info)
+static void	write_heredoc_fd(const char *delimiter, int fd, t_info *info)
 {
 	char	*expanded;
 
@@ -49,7 +48,7 @@ static void write_heredoc_fd(const char *delimiter, int fd, t_info *info)
 		info->heredoc_fd = -1;
 }
 
-int child_heredocs(t_redir *redir, t_info *info)
+int	child_heredocs(t_redir *redir, t_info *info)
 {
 	int		pipefd[2];
 	pid_t	pid;

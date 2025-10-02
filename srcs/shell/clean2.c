@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:37:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:17:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,26 @@ void	free_tokens(t_token *token)
 	}
 }
 
-static void close_heredocs(t_ast **cmds, int count)
+static void	close_heredocs(t_ast **cmds, int count)
 {
-    int		i;
-    t_redir	*redir;
+	int		i;
+	t_redir	*redir;
 
-    i = 0;
-    while (i < count)
-    {
-        redir = cmds[i]->redirs;
-        while (redir)
-        {
-            if (redir->fd >= 0)
-            {
-                close(redir->fd);
-                redir->fd = -1;
-            }
-            redir = redir->next;
-        }
-        i++;
-    }
+	i = 0;
+	while (i < count)
+	{
+		redir = cmds[i]->redirs;
+		while (redir)
+		{
+			if (redir->fd >= 0)
+			{
+				close(redir->fd);
+				redir->fd = -1;
+			}
+			redir = redir->next;
+		}
+		i++;
+	}
 }
 
 void	close_parent_fds(t_info *info)
