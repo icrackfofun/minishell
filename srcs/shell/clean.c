@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 12:53:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:49 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 t_env	*free_env(t_env *env)
 {

@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin2.c                                         :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/18 16:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 22:52:21 by psantos-         ###   ########.fr       */
+/*   Created: 2025/10/02 17:51:41 by psantos-          #+#    #+#             */
+/*   Updated: 2025/10/02 18:36:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
+//list has to be in order
+//var has no ""(NULL), var= has ""(0)
 static void	print_env_list(int root, t_env *env_list, t_info *info)
 {
 	t_env	*node;
@@ -81,49 +83,4 @@ void	builtin_export(int root, t_ast *cmd, t_info *info)
 	if (!root)
 		child_exit("", 0, info, "");
 	info->last_status = 0;
-}
-
-void	builtin_env(int root, t_ast *ast, t_info *info)
-{
-	t_env	*node;
-
-	(void)ast;
-	node = info->env_list;
-	while (node)
-	{
-		if (node->value)
-			printf("%s=%s\n", node->key, node->value);
-		node = node->next;
-	}
-	if (!root)
-		child_exit("", 0, info, "");
-	info->last_status = 0;
-}
-
-void	builtin_exit(t_ast *ast, t_info *info, int root)
-{
-	int	status;
-
-	status = 0;
-	printf("exit\n");
-	if (!ast->argv[1])
-		status = info->last_status;
-	else if (!ft_isnum(ast->argv[1]))
-	{
-		if (!root)
-			child_exit("exit", 2, info, ft_strdup(ast->argv[1]));
-		child_exit("exit", 2, info, ft_strdup(ast->argv[1]));
-	}
-	else if (ast->argv[2])
-	{
-		write(2, "exit: too many arguments\n", 25);
-		if (!root)
-			child_exit("", 1, info, "");
-		return (parent_return("", info, 1, ""));
-	}
-	else
-		status = ft_atoi(ast->argv[1]);
-	if (!root)
-		child_exit("", status, info, "");
-	child_exit("", status, info, "");
 }

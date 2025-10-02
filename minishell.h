@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 14:28:18 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:41:26 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void			free_ast(t_ast *node);
 t_env			*free_env(t_env *env);
 void			free_redirs(t_redir *redir);
 void			free_array(char **arr);
-void			cleanup_heredoc_files(void);
 void			close_parent_fds(t_info *info);
 void			kill_all_children(t_info *info);
 void			reap_children(t_info *info, int i);

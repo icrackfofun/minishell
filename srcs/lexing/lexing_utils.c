@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 15:05:15 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:41:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 int	is_pipe(t_token *token)
 {

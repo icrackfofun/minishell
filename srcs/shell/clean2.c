@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 14:33:18 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	free_string(char **filename)
 {

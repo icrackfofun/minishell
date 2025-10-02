@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 16:17:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/26 23:02:50 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static int	create_pipe_fd(int pipefd[2], t_info *info)
 {

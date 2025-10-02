@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/01 16:27:38 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:36:20 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	free_array(char **arr)
 {

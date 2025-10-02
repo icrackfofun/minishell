@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 13:45:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 10:48:51 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:36:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 char	*expand_var_value(t_info *info, const char *key)
 {

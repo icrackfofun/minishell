@@ -6,39 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 14:16:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:40 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
-{
-	int		i;
-	t_redir	*redir;
-	//int		j;
-
-	i = 0;
-	//j = 0;
-	while (i < count)
-	{
-		redir = cmds[i]->redirs;
-		while (redir)
-		{
-			if (redir->type == REDIR_HEREDOC)
-			{
-				if (child_heredocs(redir, info))
-				{
-					info->last_status = 130;
-					return (1);
-				}
-			}
-			redir = redir->next;
-		}
-		i++;
-	}
-	return (0);
-}
+#include "../../minishell.h"
 
 static void	change_fd(t_redir *redir, int fd, t_info *info)
 {

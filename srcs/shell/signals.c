@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 11:21:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/30 23:36:02 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:38:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 t_terminal	*terminal(void)
 {

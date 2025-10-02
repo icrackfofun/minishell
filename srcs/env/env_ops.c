@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:20:03 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/01 16:25:09 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:36:16 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 void	populate_env(char **envp, t_info *info)
 {

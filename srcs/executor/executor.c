@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:56:53 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 14:30:49 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:36:35 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static void	handle_last_child_status(int status, t_info *info)
 {

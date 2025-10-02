@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 13:09:37 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 14:29:43 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:27 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static int	count_commands(t_ast *node)
 {

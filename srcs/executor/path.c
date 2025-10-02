@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 22:56:15 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/29 01:01:16 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:36:40 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static char	*join_path(const char *dir, const char *cmd, t_info *info)
 {

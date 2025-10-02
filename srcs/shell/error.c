@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 14:43:35 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:37:55 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static void	handle_enoent(const char *cmd, int *code)
 {

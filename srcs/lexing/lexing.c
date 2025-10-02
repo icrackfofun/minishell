@@ -6,11 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/01 11:56:49 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 21:44:07 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:36:59 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../minishell.h"
 
 static int	handle_quotes(t_info *info, int *i, char **buf, t_token **tokens)
 {
