@@ -6,37 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/01 16:54:50 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 12:53:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	cleanup_heredoc_files(void)
-{
-	DIR				*dir;
-	struct dirent	*entry;
-	const char		*prefix;
-
-	prefix = ".minishell_heredoc_";
-	dir = opendir(".");
-	if (!dir)
-	{
-		perror("opendir");
-		return ;
-	}
-	entry = readdir(dir);
-	while (entry != NULL)
-	{
-		if (ft_strncmp(entry->d_name, prefix, ft_strlen(prefix)) == 0)
-		{
-			if (unlink(entry->d_name) < 0)
-				perror("unlink heredoc");
-		}
-		entry = readdir(dir);
-	}
-	closedir(dir);
-}
 
 t_env	*free_env(t_env *env)
 {

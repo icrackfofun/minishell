@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 14:36:30 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:38:35 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:16:56 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 {
 	int		i;
 	t_redir	*redir;
-	int		j;
+	//int		j;
 
 	i = 0;
-	j = 0;
+	//j = 0;
 	while (i < count)
 	{
 		redir = cmds[i]->redirs;
@@ -27,13 +27,12 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 		{
 			if (redir->type == REDIR_HEREDOC)
 			{
-				if (child_heredocs(redir, &j, info))
+				if (child_heredocs(redir, info))
 				{
 					info->last_status = 130;
 					return (1);
 				}
 			}
-			free_string(&info->heredoc_filename);
 			redir = redir->next;
 		}
 		i++;
@@ -76,7 +75,10 @@ void	handle_redirections(t_redir *redir, t_info *info)
 		else if (redir->type == REDIR_APPEND)
 			fd = open(redir->target, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else if (redir->type == REDIR_HEREDOC)
-			fd = open(redir->target, O_RDONLY);
+		{
+			fd = redir->fd;
+			redir->fd= -1;
+		}
 		change_fd(redir, fd, info);
 		close(fd);
 		redir = redir->next;

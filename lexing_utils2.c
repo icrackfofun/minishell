@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:07:09 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:42:00 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 10:52:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	skip_spaces_and_mark(const char *line, int *i, t_info *info)
 	}
 }
 
-t_token	*token_error(t_token **tokens)
+t_token	*token_check(t_token **tokens)
 {
 	t_token	*current;
 
@@ -108,5 +108,5 @@ t_token	*finalize_tokens(t_info *info, t_token **tokens)
 {
 	info->had_space = 0;
 	classify_tokens(*tokens);
-	return (token_error(tokens));
+	return (token_check(tokens));
 }

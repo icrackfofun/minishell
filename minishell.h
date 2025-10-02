@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/01 16:25:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:28:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_redir
 {
 	t_redir_type	type;
 	char			*target;
+	int				fd;
 	struct s_redir	*next;
 }	t_redir;
 
@@ -100,8 +101,9 @@ typedef struct s_info
 	t_token	*tokens;
 	int		pipe_count;
 	t_ast	*tree;
+	int		cmd_count;
 	t_ast	**cmds;
-	char	*heredoc_filename;
+	int		heredoc_fd;
 	int		last_pipe_read_fd;
 	int		last_pipe_write_fd;
 	int		leftover_read_fd;
@@ -113,7 +115,6 @@ typedef struct s_info
 typedef struct s_terminal
 {
 	t_info	*info;
-	char	**envp;
 }	t_terminal;
 
 //Singleton Accessor
@@ -165,7 +166,7 @@ void			classify_tokens(t_token *tokens);
 int				ft_is_valid(char *name, char delim);
 int				is_pipe(t_token *token);
 int				is_redirect(t_token *token);
-t_token			*token_error(t_token **tokens);
+t_token			*token_check(t_token **tokens);
 void			error_tokens(t_token **tokens, const char *value);
 t_token			*finalize_tokens(t_info *info, t_token **tokens);
 t_token			*lexing(t_info *info);
@@ -197,7 +198,7 @@ void			exec_command(t_ast *cmd, t_info *info, int root);
 
 //redirections
 void			handle_redirections(t_redir *redir, t_info *info);
-int				child_heredocs(t_redir *redir, int *j, t_info *info);
+int				child_heredocs(t_redir *redir, t_info *info);
 int				prepare_heredocs(t_ast **cmds, t_info *info, int count);
 
 //builtins

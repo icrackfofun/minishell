@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/07 01:56:53 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/25 23:15:49 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:30:49 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	executor(t_ast *node, t_info *info)
 		info->child_pids = malloc(sizeof(pid_t));
 		if (!info->child_pids)
 			parent_exit("malloc", info);
+		info->cmd_count = 1;
 		exec_command(node, info, 1);
 	}
 	else if (node->type == NODE_PIPE)
@@ -66,6 +67,7 @@ void	executor(t_ast *node, t_info *info)
 		info->child_pids = malloc(sizeof(pid_t) * (count));
 		if (!info->child_pids || !info->cmds)
 			parent_exit("malloc", info);
+		info->cmd_count = count;
 		exec_pipeline(info->cmds, count, info, -1);
 	}
 	reap_children(info, 0);

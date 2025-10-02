@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 23:31:57 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:28:44 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static void	info_init(t_info *info, char **envp)
 	info->child_pids = NULL;
 	info->child_count = 0;
 	info->cmds = NULL;
-	info->heredoc_filename = NULL;
+	info->cmd_count = 0;
+	info->heredoc_fd = -1;
 	info->last_pipe_read_fd = -1;
 	info->last_pipe_write_fd = -1;
 	info->leftover_read_fd = -1;
-	terminal()->envp = envp;
 	terminal()->info = info;
 	signal(SIGINT, prompt_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
@@ -55,7 +55,6 @@ int	main(int argc, char **argv, char **envp)
 		parsing(&info, info.pipe_count);
 		executor(info.tree, &info);
 		clean_loop(&info);
-		cleanup_heredoc_files();
 	}
 	clean_shell(&info);
 	close(STDIN_FILENO);

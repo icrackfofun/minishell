@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:53:02 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:43:35 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	parent_exit(char *message, t_info *info)
 	reap_children(info, 0);
 	clean_loop(info);
 	clean_shell(info);
-	cleanup_heredoc_files();
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/09/30 14:38:06 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 14:33:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,28 @@ void	free_tokens(t_token *token)
 	}
 }
 
+static void close_heredocs(t_ast **cmds, int count)
+{
+    int		i;
+    t_redir	*redir;
+
+    i = 0;
+    while (i < count)
+    {
+        redir = cmds[i]->redirs;
+        while (redir)
+        {
+            if (redir->fd >= 0)
+            {
+                close(redir->fd);
+                redir->fd = -1;
+            }
+            redir = redir->next;
+        }
+        i++;
+    }
+}
+
 void	close_parent_fds(t_info *info)
 {
 	if (info->leftover_read_fd != -1)
@@ -53,6 +75,8 @@ void	close_parent_fds(t_info *info)
 
 void	clean_loop(t_info *info)
 {
+	if (info && info->cmds)
+		close_heredocs(info->cmds, info->cmd_count);
 	if (info && info->tree)
 	{
 		free_ast(info->tree);
@@ -72,7 +96,7 @@ void	clean_loop(t_info *info)
 		free_tokens(info->tokens);
 	if (info && info->line)
 		free_string(&info->line);
-	if (info && info->heredoc_filename)
-		free_string(&info->heredoc_filename);
+	if (info && info->heredoc_fd != -1)
+		close(info->heredoc_fd);
 	close_parent_fds(info);
 }

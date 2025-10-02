@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 11:08:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:34:50 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 12:13:47 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	add_redir(t_ast *cmd, t_token *op, t_token *target, t_info *info)
 		free_redirs(new);
 		parent_exit("strdup", info);
 	}
+	new->fd = -1;
 	new->next = NULL;
 	if (!cmd->redirs)
 		cmd->redirs = new;

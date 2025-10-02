@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 13:45:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/09/29 14:34:27 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 10:48:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,5 @@ void	expand_variables(t_info *info)
 	if (join_non_operator_tokens(&info->tokens))
 		return (parent_exit("malloc", info));
 	remove_empty_tokens_from_list(&info->tokens);
-	token_error(&info->tokens);
+	token_check(&info->tokens);
 }
