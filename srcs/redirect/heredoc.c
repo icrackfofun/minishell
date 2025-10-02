@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 14:36:27 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:40:02 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 23:54:40 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,5 @@ int	prepare_heredocs(t_ast **cmds, t_info *info, int count)
 		}
 		i++;
 	}
-	// info->heredoc_in = -1;
 	return (0);
 }
