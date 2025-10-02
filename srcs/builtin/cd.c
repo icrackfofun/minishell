@@ -6,13 +6,12 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:54:21 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:09:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//segfault and wrong execution
 int	update_env(t_info *info, char *path, int root)
 {
 	char	*cwd;
@@ -51,8 +50,8 @@ char	*cd_get_path(t_ast *ast, t_info *info, int root)
 		write(2, "cd: HOME not set\n", 17);
 		if (!root)
 			child_exit("", 1, info, "");
-		parent_return("", info, 1, "");
-		return (NULL);
+		info->last_status = 1;
+		return ((char *)-1);
 	}
 	return (ft_strdup(get_env_value(info->env_list, "HOME")));
 }
@@ -69,6 +68,8 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 		return (parent_return("", info, 1, ""));
 	}
 	path = cd_get_path(ast, info, root);
+	if (path == (char *)-1)
+		return ;
 	if (!path)
 	{
 		if (!root)
