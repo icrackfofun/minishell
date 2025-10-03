@@ -6,37 +6,76 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 00:39:14 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 01:14:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+// int	update_env(t_info *info, char *path, int root)
+// {
+// 	char	*cwd;
+// 	char	*oldwd;
+
+// 	oldwd = ft_strdup(get_env_value(info->env_list, "PWD"));
+// 	if (chdir(path) != 0)
+// 	{
+// 		free(oldwd);
+// 		if (!root)
+// 			child_exit("cd", 1, info, path);
+// 		return (parent_return("cd", info, 1, path), 1);
+// 	}
+// 	cwd = getcwd(NULL, 0);
+// 	if (!cwd)
+// 	{
+// 		free(oldwd);
+// 		free(path);
+// 		if (!root)
+// 			child_exit("cd", 1, info, "");
+// 		return (parent_return("cd", info, 1, ""), 1);
+// 	}
+// 	set_env_value(&info->env_list, "PWD", cwd);
+// 	set_env_value(&info->env_list, "OLDPWD", oldwd);
+// 	free(oldwd);
+// 	free(path);
+// 	return (free(cwd), 0);
+// }
+
+static int	cd_error(t_info *info, char *path, int root)
+{
+	free(path);
+	if (!root)
+	{
+		if (path)
+			child_exit("cd", 1, info, path);
+		else
+			child_exit("cd", 1, info, "");
+	}
+	if (path)
+		return(parent_return("cd", info, 1, path), 1);
+	else
+		return(parent_return("cd", info, 1, ""), 1);
+}
 
 int	update_env(t_info *info, char *path, int root)
 {
 	char	*cwd;
 	char	*oldwd;
 
-	oldwd = ft_strdup(get_env_value(info->env_list, "PWD"));
-	if (chdir(path) != 0)
+	oldwd = get_env_value(info->env_list, "PWD");
+	if (!oldwd)
 	{
-		free(oldwd);
-		if (!root)
-			child_exit("cd", 1, info, path);
-		return (parent_return("cd", info, 1, path), 1);
+		oldwd = getcwd(NULL, 0);
+		if (!oldwd)
+			return (cd_error(info, path, root));
 	}
+	if (chdir(path) != 0)
+		return (cd_error(info, path, root));
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-	{
-		free(oldwd);
-		free(path);
-		if (!root)
-			child_exit("cd", 1, info, "");
-		return (parent_return("cd", info, 1, ""), 1);
-	}
+		return (cd_error(info, NULL, root));
 	set_env_value(&info->env_list, "PWD", cwd);
 	set_env_value(&info->env_list, "OLDPWD", oldwd);
-	free(oldwd);
 	free(path);
 	return (free(cwd), 0);
 }
@@ -58,7 +97,7 @@ char	*cd_get_path(t_ast *ast, t_info *info, int root)
 	}
 	if (home[0] == 0)
 		return (ft_strdup("."));
-	return (ft_strdup(get_env_value(info->env_list, "HOME")));
+	return (ft_strdup(home));
 }
 
 void	builtin_cd(t_ast *ast, t_info *info, int root)
