@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:20:03 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/03 15:50:37 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 16:35:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,12 @@ void	set_env_value(t_env **env_list, const char *key, const char *value)
 	{
 		if (ft_strcmp(node->key, key) == 0)
 		{
-			if (node->value)
-				free(node->value);
-			node->value = ft_strdup(value);
+			if (value)
+			{
+				if (node->value)
+					free(node->value);
+				node->value = ft_strdup(value);
+			}
 			return ;
 		}
 		node = node->next;

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:48:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 19:15:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:29:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ void	builtin_pwd(t_info *info, int root)
 {
 	char	*cwd;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
+	cwd = ft_strdup(get_env_value(info->env_list, "PWD"));
+	if (!cwd || cwd[0] == 0)
 	{
-		if (!root)
-			child_exit("pwd", 1, info, "");
-		return (parent_return("pwd", info, 1, ""));
+		cwd = getcwd(NULL, 0);
+		if (!cwd)
+		{
+			if (!root)
+				child_exit("pwd", 1, info, "");
+			return (parent_return("pwd", info, 1, ""));
+		}
 	}
 	printf("%s\n", cwd);
 	free(cwd);

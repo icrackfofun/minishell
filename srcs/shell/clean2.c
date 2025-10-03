@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:16:22 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:42:38 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:43:47 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	close_heredocs(t_ast *node)
 	t_redir	*redir;
 
 	if (!node)
-		return;
+		return ;
 	redir = node->redirs;
 	while (redir)
 	{
@@ -51,7 +51,6 @@ void	close_heredocs(t_ast *node)
 	close_heredocs(node->left);
 	close_heredocs(node->right);
 }
-
 
 void	close_parent_fds(t_info *info)
 {

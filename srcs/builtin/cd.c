@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 01:29:12 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:40:50 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ static int	cd_error(t_info *info, char *path, int root)
 			child_exit("cd", 1, info, "");
 	}
 	if (path)
-		return(parent_return("cd", info, 1, path), 1);
+		return (parent_return("cd", info, 1, path), 1);
 	else
-		return(parent_return("cd", info, 1, ""), 1);
+		return (parent_return("cd", info, 1, ""), 1);
 }
 
 int	update_env(t_info *info, char *path, int root)

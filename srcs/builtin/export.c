@@ -6,14 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:51:41 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:42:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 //list has to be in order
-//var has no ""(NULL), var= has ""(0)
 static void	print_env_list(int root, t_env *env_list, t_info *info)
 {
 	t_env	*node;
@@ -21,10 +20,14 @@ static void	print_env_list(int root, t_env *env_list, t_info *info)
 	node = env_list;
 	while (node)
 	{
-		printf("declare -x %s=\"", node->key);
-		if (node->value != NULL)
+		printf("declare -x %s=", node->key);
+		if (node->value)
+		{
+			printf("\"");
 			printf("%s", node->value);
-		printf("\"\n");
+			printf("\"");
+		}
+		printf("\n");
 		node = node->next;
 	}
 	if (!root)
@@ -54,8 +57,7 @@ static int	handle_export_arg(t_env **env_list, char *arg)
 		if (!ft_is_valid(arg, 0))
 			return (1);
 		key = arg;
-		value = "";
-		set_env_value(env_list, key, value);
+		set_env_value(env_list, key, NULL);
 	}
 	return (0);
 }
