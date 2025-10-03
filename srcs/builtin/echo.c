@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 00:02:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 01:25:28 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static void	echo_child(t_ast *cmd, t_info *info, int root)
 	{
 		printf("%s", cmd->argv[i]);
 		if (cmd->argv[i + 1])
-			write(1, " ", 1);
+			printf(" ");
 		i++;
 	}
 	if (newline)
-		write(1, "\n", 1);
+		printf("\n");
 	child_exit("", 0, info, "");
 }
 
