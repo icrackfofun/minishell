@@ -6,11 +6,26 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 01:25:28 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:58:47 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+static int	is_n(const char *arg)
+{
+	int	i;
+
+	if (!arg || arg[0] != '-' || arg[1] != 'n')
+		return (0);
+	i = 1;
+	while (arg[++i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+	}
+	return (1);
+}
 
 static void	echo_child(t_ast *cmd, t_info *info, int root)
 {
@@ -19,23 +34,22 @@ static void	echo_child(t_ast *cmd, t_info *info, int root)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	i = 1;
-	newline = 1;
-	if (cmd->argv[i] && ft_strcmp(cmd->argv[i], "-n") == 0)
-	{
-		newline = 0;
-		i++;
-	}
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
 	if (!root)
 		close_heredocs(info->tree);
+	i = 1;
+	newline = 1;
+	while (cmd->argv[i] && is_n(cmd->argv[i]))
+	{
+		newline = 0;
+		i++;
+	}
 	while (cmd->argv[i])
 	{
 		printf("%s", cmd->argv[i]);
-		if (cmd->argv[i + 1])
+		if (cmd->argv[1 + i++])
 			printf(" ");
-		i++;
 	}
 	if (newline)
 		printf("\n");

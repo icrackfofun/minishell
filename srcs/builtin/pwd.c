@@ -6,13 +6,12 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:48:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 17:29:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 17:48:59 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//change to get_env("PWD") or both
 void	builtin_pwd(t_info *info, int root)
 {
 	char	*cwd;
