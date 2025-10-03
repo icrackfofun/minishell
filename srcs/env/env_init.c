@@ -1,80 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:20 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 16:22:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	free_array(char **arr)
+static void	check_shlvl(t_env *env)
 {
-	int	i;
+	int		level;
+	char	*new_lvl;
 
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	arr = NULL;
-}
-
-static int	env_count(t_env *list)
-{
-	int	count;
-
-	count = 0;
-	while (list)
-	{
-		count++;
-		list = list->next;
-	}
-	return (count);
-}
-
-static char	*env_str(t_env *node, t_info *info)
-{
-	char	*str;
-	size_t	len;
-
-	len = ft_strlen(node->key) + ft_strlen(node->value) + 2;
-	str = malloc(len);
-	if (!str)
-		child_exit("malloc", 1, info, "");
-	ft_strlcpy(str, node->key, ft_strlen(node->key) + 1);
-	str[ft_strlen(node->key)] = '=';
-	ft_strlcpy(str + ft_strlen(node->key) + 1, node->value,
-		ft_strlen(node->value) + 1);
-	return (str);
-}
-
-void	env_list_to_array(t_info *info)
-{
-	t_env	*tmp;
-	int		i;
-	int		size;
-
-	size = env_count(info->env_list);
-	info->env_array = malloc(sizeof(char *) * (size + 1));
-	if (!info->env_array)
-		child_exit("malloc", 1, info, "");
-	tmp = info->env_list;
-	i = 0;
-	while (tmp)
-	{
-		info->env_array[i++] = env_str(tmp, info);
-		tmp = tmp->next;
-	}
-	info->env_array[i] = NULL;
+	level = ft_atoi(get_env_value(env, "SHLVL"));
+	new_lvl = ft_itoa(level + 1);
+	set_env_value(&env, "SHLVL", new_lvl);
+	free(new_lvl);
 }
 
 t_env	*env_init(char **envp)
@@ -82,11 +28,12 @@ t_env	*env_init(char **envp)
 	t_env	*head;
 	t_env	*node;
 	int		i;
-	char	*cwd;
 	char	*eq;
 
 	head = NULL;
 	i = 0;
+	//printf("%p\n", envp);
+	//printf("%s\n", envp[i]);
 	while (envp && *envp && **envp && envp[i])
 	{
 		eq = ft_strchr(envp[i], '=');
@@ -104,14 +51,24 @@ t_env	*env_init(char **envp)
 		head = node;
 		i++;
 	}
-	if (!get_env_value(head, "PATH"))
+	return (head);
+}
+
+void	populate_env(char **envp, t_info *info)
+{
+	t_env	*head;
+	char	*cwd;
+	
+	info->env_list = env_init(envp);
+	head = info->env_list;
+	if (!get_env_value(head, "PATH") || get_env_value(head, "PATH")[0] == 0)
 		set_env_value(&head, "PATH",
 			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
-	if (!get_env_value(head, "SHLVL"))
+	if (!get_env_value(head, "SHLVL") || get_env_value(head, "SHLVL")[0] == 0)
 		set_env_value(&head, "SHLVL", "0");
-	if (!get_env_value(head, "OLDPWD"))
-		set_env_value(&head, "OLDPWD", "");
-	if (!get_env_value(head, "PWD"))
+	if (!get_env_value(head, "OLDPWD") || get_env_value(head, "OLDPWD")[0] == 0)
+		set_env_value(&head, "OLDPWD", NULL);
+	if (!get_env_value(head, "PWD") || get_env_value(head, "PWD")[0] == 0)
 	{
 		cwd = getcwd(NULL, 0);
 		if (cwd)
@@ -120,9 +77,5 @@ t_env	*env_init(char **envp)
 			set_env_value(&head, "PWD", "/");
 		free(cwd);
 	}
-	int	level = ft_atoi(get_env_value(head, "SHLVL"));
-	char *new_lvl_str = ft_itoa(level + 1);
-	set_env_value(&head, "SHLVL", new_lvl_str);
-	free(new_lvl_str);
-	return (head);
+	check_shlvl(info->env_list);
 }

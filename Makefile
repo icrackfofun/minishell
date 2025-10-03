@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/10/02 19:24:41 by psantos-         ###   ########.fr        #
+#    Updated: 2025/10/03 16:01:07 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS =  shell/main.c \
         shell/error.c \
         shell/signals.c \
         env/env_init.c \
+		env/env_utils.c \
         env/env_ops.c \
         lexing/lexing.c \
         lexing/lexing_utils.c \

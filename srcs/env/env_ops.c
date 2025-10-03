@@ -6,16 +6,11 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 16:20:03 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:16 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/03 15:50:37 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	populate_env(char **envp, t_info *info)
-{
-	info->env_list = env_init(envp);
-}
 
 char	*get_env_value(t_env *env_list, const char *key)
 {
@@ -37,7 +32,8 @@ void	set_env_value(t_env **env_list, const char *key, const char *value)
 	{
 		if (ft_strcmp(node->key, key) == 0)
 		{
-			free(node->value);
+			if (node->value)
+				free(node->value);
 			node->value = ft_strdup(value);
 			return ;
 		}
@@ -68,7 +64,8 @@ void	unset_env(t_env **env_list, const char *key)
 			else
 				*env_list = node->next;
 			free(node->key);
-			free(node->value);
+			if (node->value)
+				free(node->value);
 			free(node);
 			return ;
 		}
