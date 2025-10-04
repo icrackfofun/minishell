@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:44:49 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:46:41 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void exec_sh(char *path, t_ast *cmd, t_info *info)
 		args[2] = NULL;
 		env_list_to_array(info);
 		execve("/bin/sh", args, info->env_array);
-		exit_exec_error(cmd->argv[0], info, path);
+		//exit_exec_error(cmd->argv[0], info, path);
 	}
 }
 
@@ -68,7 +68,7 @@ static void	exec_child(t_ast *cmd, t_info *info, int root)
 	exec_sh(path, cmd, info);
 	env_list_to_array(info);
 	execve(path, cmd->argv, info->env_array);
-	exit_exec_error(cmd->argv[0], info, path);
+	//exit_exec_error(cmd->argv[0], info, path);
 }
 
 static void	exec_external(t_ast *cmd, t_info *info, int root)
