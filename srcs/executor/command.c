@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 17:42:44 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 21:54:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	exec_child(t_ast *cmd, t_info *info, int root)
 {
 	char	*path;
 
-	signal(SIGINT, SIG_DFL);
+	signal(SIGINT, child_sigint_handler);
 	signal(SIGQUIT, SIG_DFL);
 	if (!cmd->argv[0][0])
 		child_exit("", 0, info, "");
