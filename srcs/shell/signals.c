@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 11:21:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/04 21:58:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:11:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,11 @@ void	prompt_sigint_handler(int sig)
 void	child_sigint_handler(int sig)
 {
 	(void)sig;
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
 	child_exit("", 2, terminal()->info, "");
 }
 
 void	child_sigquit_handler(int sig)
 {
 	(void)sig;
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
 	child_exit("", 3, terminal()->info, "");
 }
