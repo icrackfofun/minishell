@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:20:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:23:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ static void	exec_builtin(t_ast *cmd, t_info *info, int root)
 		builtin_exit(cmd, info, root);
 }
 
-// static void exec_sh(char *path, t_info *info)
-// {
-//     size_t	len;
-// 	char	*args[3];
+static void exec_sh(char *path, t_info *info)
+{
+    size_t	len;
+	char	*args[3];
 
-//     len = ft_strlen(path);
-//     if (len > 3 && !ft_strcmp(path + len - 3, ".sh"))
-//     {
-//         args[0] = "sh";
-//         args[1] = path;
-//         args[2] = NULL;
-//         env_list_to_array(info);
-//         execve("/bin/sh", args, info->env_array);
-// 		exit_exec_error("", info, path);
-//     }
-// }
+    len = ft_strlen(path);
+    if (len > 3 && !ft_strcmp(path + len - 3, ".sh"))
+    {
+        args[0] = "sh";
+        args[1] = path;
+        args[2] = NULL;
+        env_list_to_array(info);
+        execve("/bin/sh", args, info->env_array);
+		exit_exec_error("", info, path);
+    }
+}
 
 static void	exec_child(t_ast *cmd, t_info *info, int root)
 {
@@ -62,7 +62,7 @@ static void	exec_child(t_ast *cmd, t_info *info, int root)
 	path = get_path(info, cmd);
 	if (path[0] && path[0] != '.' && path[0] != '/')
 		child_exit("", 127, info, path);
-	//exec_sh(path, info);
+	exec_sh(path, info);
 	env_list_to_array(info);
 	execve(path, cmd->argv, info->env_array);
 	exit_exec_error(cmd->argv[0], info, path);
