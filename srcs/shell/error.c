@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:11:55 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:15:38 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		write(2, ": ", 2);
 		write(2, "command not found\n", 18);
 	}
+	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	if (file && file[0] != 0)
 		free(file);
 	clean_loop(info);
 	clean_shell(info);
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	exit(code);
 }
 
