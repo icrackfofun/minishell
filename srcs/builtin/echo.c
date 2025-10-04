@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 17:58:47 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 21:59:47 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	echo_child(t_ast *cmd, t_info *info, int root)
 	int	newline;
 	int	i;
 
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, child_sigint_handler);
+	signal(SIGQUIT, child_sigquit_handler);
 	if (cmd->redirs)
 		handle_redirections(cmd->redirs, info);
 	if (!root)

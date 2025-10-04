@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 20:06:11 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 21:59:39 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,6 @@ void			builtin_exit(t_ast *ast, t_info *info, int root);
 //signals
 void			prompt_sigint_handler(int sig);
 void			child_sigint_handler(int sig);
+void			child_sigquit_handler(int sig);
 
 #endif
