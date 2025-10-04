@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:46:35 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 15:51:04 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 16:23:23 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,6 @@ int	env_count(t_env *list)
 	return (count);
 }
 
-// static char	*env_str(t_env *node, t_info *info)
-// {
-// 	char	*str;
-// 	size_t	len;
-
-// 	len = ft_strlen(node->key) + ft_strlen(node->value) + 2;
-// 	str = malloc(len);
-// 	if (!str)
-// 		child_exit("malloc", 1, info, "");
-// 	ft_strlcpy(str, node->key, ft_strlen(node->key) + 1);
-// 	str[ft_strlen(node->key)] = '=';
-// 	ft_strlcpy(str + ft_strlen(node->key) + 1, node->value,
-// 		ft_strlen(node->value) + 1);
-// 	return (str);
-// }
-
 static char	*env_str(t_env *node, t_info *info)
 {
 	char	*str;
@@ -56,7 +40,6 @@ static char	*env_str(t_env *node, t_info *info)
 	str = malloc(len);
 	if (!str)
 		child_exit("malloc", 1, info, "");
-
 	ft_strlcpy(str, node->key, key_len + 1);
 	if (node->value)
 	{
@@ -69,7 +52,6 @@ static char	*env_str(t_env *node, t_info *info)
 	}
 	return (str);
 }
-
 
 void	env_list_to_array(t_info *info)
 {
