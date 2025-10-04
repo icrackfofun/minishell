@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 23:39:46 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 02:12:38 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 # include <fcntl.h>
 # include <dirent.h>
 # include <termios.h>
