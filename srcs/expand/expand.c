@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 13:45:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/04 21:16:41 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:22:28 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	expand_token(t_info *info, t_token *cur)
 		exp = expand_inside_quotes(info, inner);
 		free(inner);
 	}
-	else if (cur->type == TOKEN_SINGLE_QUOTED || cur->type == TOKEN_DOUBLE_QUOTED)
+	else
 		exp = ft_strndup(cur->value + 1, ft_strlen(cur->value) - 2);
 	if (!exp)
 		return (1);

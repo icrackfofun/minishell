@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:18:00 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:20:36 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	exec_child(t_ast *cmd, t_info *info, int root)
 		child_exit("", 127, info, path);
 	//exec_sh(path, info);
 	env_list_to_array(info);
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	execve(path, cmd->argv, info->env_array);
 	exit_exec_error(cmd->argv[0], info, path);
 }

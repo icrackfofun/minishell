@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:17:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:19:08 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exit_exec_error(const char *cmd, t_info *info, char *path)
 		code = 1;
 	clean_loop(info);
 	clean_shell(info);
-	_exit(code);
+	exit(code);
 }
 
 void	child_exit(char *message, int code, t_info *info, char *file)
@@ -79,8 +79,7 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		free(file);
 	clean_loop(info);
 	clean_shell(info);
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
-	_exit(code);
+	exit(code);
 }
 
 void	parent_exit(char *message, t_info *info)
@@ -91,7 +90,7 @@ void	parent_exit(char *message, t_info *info)
 	clean_loop(info);
 	clean_shell(info);
 	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
-	_exit(1);
+	exit(1);
 }
 
 void	parent_return(char *message, t_info *info, int status, char *f)
