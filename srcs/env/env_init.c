@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/12 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/03 17:43:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:36:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	check_shlvl(t_env *env)
 
 	level = ft_atoi(get_env_value(env, "SHLVL"));
 	new_lvl = ft_itoa(level + 1);
-	set_env_value(&env, "SHLVL", ft_strdup(new_lvl));
+	set_env_value(&env, "SHLVL", new_lvl);
 	free(new_lvl);
 }
 
