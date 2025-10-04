@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 18:37:08 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:08:34 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	add_token(t_token **head, t_token *new, t_info *info)
 		while (len > 0 && new->value[len - 1] == ' ')
 			new->value[--len] = '\0';
 		new->has_space_before = info->had_space;
+		new->has_heredoc_before = 0;
 	}
 	if (!*head)
 		*head = new;

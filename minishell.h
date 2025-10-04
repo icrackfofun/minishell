@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 15:03:48 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 20:06:11 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_token
 	char				*value;
 	t_token_type		type;
 	int					has_space_before;
+	int					has_heredoc_before;
 	struct s_token		*next;
 }	t_token;
 

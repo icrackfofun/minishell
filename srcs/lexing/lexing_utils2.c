@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 12:07:09 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 18:37:06 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 21:14:43 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,16 @@ t_token	*token_check(t_token **tokens)
 
 t_token	*finalize_tokens(t_info *info, t_token **tokens)
 {
+	t_token	*cur;
+
 	info->had_space = 0;
 	classify_tokens(*tokens);
+	cur = *tokens;
+	while (cur && cur->next)
+	{
+		if (cur->type == TOKEN_HEREDOC)
+			cur->next->has_heredoc_before = 1;
+		cur = cur->next;
+	}
 	return (token_check(tokens));
 }

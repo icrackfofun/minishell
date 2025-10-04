@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 13:45:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:51 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 21:16:41 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,28 +73,29 @@ char	*expand_inside_quotes(t_info *info, const char *str)
 
 static int	expand_token(t_info *info, t_token *cur)
 {
-	char	*expanded;
+	char	*exp;
 	char	*inner;
 
-	if (!cur || cur->type == TOKEN_WORD || is_pipe(cur) || is_redirect(cur))
+	if ((!cur || cur->type == TOKEN_WORD || is_pipe(cur) || is_redirect(cur))
+		|| (cur->type == TOKEN_VARIABLE && cur->has_heredoc_before == 1))
 		return (0);
-	expanded = NULL;
+	exp = NULL;
 	if (cur->type == TOKEN_VARIABLE)
-		expanded = expand_var_value(info, cur->value + 1);
-	else if (cur->type == TOKEN_DOUBLE_QUOTED)
+		exp = expand_var_value(info, cur->value + 1);
+	else if (cur->type == TOKEN_DOUBLE_QUOTED && cur->has_heredoc_before == 0)
 	{
 		inner = ft_strndup(cur->value + 1, ft_strlen(cur->value) - 2);
 		if (!inner)
 			return (1);
-		expanded = expand_inside_quotes(info, inner);
+		exp = expand_inside_quotes(info, inner);
 		free(inner);
 	}
-	else if (cur->type == TOKEN_SINGLE_QUOTED)
-		expanded = ft_strndup(cur->value + 1, ft_strlen(cur->value) - 2);
-	if (!expanded)
+	else if (cur->type == TOKEN_SINGLE_QUOTED || cur->type == TOKEN_DOUBLE_QUOTED)
+		exp = ft_strndup(cur->value + 1, ft_strlen(cur->value) - 2);
+	if (!exp)
 		return (1);
 	free(cur->value);
-	cur->value = expanded;
+	cur->value = exp;
 	cur->type = TOKEN_WORD;
 	return (0);
 }
