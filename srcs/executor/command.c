@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:33:58 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:41:50 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,22 @@ static void	exec_builtin(t_ast *cmd, t_info *info, int root)
 
 static void exec_sh(char *path, t_ast *cmd, t_info *info)
 {
-    size_t	len;
-	char	*args[3];
+	size_t		len;
+	char		*args[3];
+	struct stat	st;
 
-    len = ft_strlen(path);
-    if (len > 3 && !ft_strcmp(path + len - 3, ".sh"))
-    {
-        args[0] = "sh";
-        args[1] = path;
-        args[2] = NULL;
-        env_list_to_array(info);
-        execve("/bin/sh", args, info->env_array);
+	len = ft_strlen(path);
+	if (len > 3 && !ft_strcmp(path + len - 3, ".sh"))
+	{
+		if (stat(path, &st) == -1)
+			return ;
+		args[0] = "sh";
+		args[1] = path;
+		args[2] = NULL;
+		env_list_to_array(info);
+		execve("/bin/sh", args, info->env_array);
 		exit_exec_error(cmd->argv[0], info, path);
-    }
+	}
 }
 
 static void	exec_child(t_ast *cmd, t_info *info, int root)
