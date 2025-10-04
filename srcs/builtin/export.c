@@ -6,30 +6,82 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:51:41 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 17:42:21 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:26:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//list has to be in order
-static void	print_env_list(int root, t_env *env_list, t_info *info)
+static t_env	**create_env_arr(t_env *env)
 {
-	t_env	*node;
+	t_env	**arr;
+	int		size;
+	int		i;
 
-	node = env_list;
-	while (node)
+	size = env_count(env);
+	arr = malloc(sizeof(t_env *) * (size + 1));
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (env)
 	{
-		printf("declare -x %s=", node->key);
-		if (node->value)
-		{
-			printf("\"");
-			printf("%s", node->value);
-			printf("\"");
-		}
-		printf("\n");
-		node = node->next;
+		arr[i++] = env;
+		env = env->next;
 	}
+	arr[i] = NULL;
+	return (arr);
+}
+
+static void	sort_env_arr(t_env **arr)
+{
+	int		i;
+	int		swapped;
+	t_env	*tmp;
+
+	if (!arr)
+		return ;
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		i = 0;
+		while (arr[i + 1])
+		{
+			if (ft_strcmp(arr[i]->key, arr[i + 1]->key) > 0)
+			{
+				tmp = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = tmp;
+				swapped = 1;
+			}
+			i++;
+		}
+	}
+}
+
+static void	print_env_list(int root, t_env *env, t_info *info)
+{
+	t_env	**tmp_arr;
+	int		i;
+
+	tmp_arr = create_env_arr(env);
+	if (!tmp_arr)
+	{
+		if (!root)
+			child_exit("export", 1, info, "");
+		parent_exit("malloc", info);
+	}
+	sort_env_arr(tmp_arr);
+	i = 0;
+	while (tmp_arr[i])
+	{
+		printf("declare -x %s", tmp_arr[i]->key);
+		if (tmp_arr[i]->value)
+			printf("=\"%s\"", tmp_arr[i]->value);
+		printf("\n");
+		i++;
+	}
+	free(tmp_arr);
 	if (!root)
 		child_exit("", 0, info, "");
 	info->last_status = 0;

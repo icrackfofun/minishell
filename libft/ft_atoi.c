@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 01:46:47 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 02:02:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:31:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ long long	ft_atoll(const char *str)
 	}
 	return (number * sign);
 }
-
 
 int	ft_atoi(const char *str)
 {

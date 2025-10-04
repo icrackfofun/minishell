@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:37:01 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 15:50:09 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 14:52:56 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,4 @@ void	clean_shell(t_info *info)
 	if (info->env_list)
 		free_env(info->env_list);
 	rl_clear_history();
-	// close(0);
-	// close(1);
-	// close(2);
 }

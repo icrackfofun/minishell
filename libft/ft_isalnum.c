@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 22:47:14 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 02:09:32 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:31:28 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	ft_isnum(char *str)
 	}
 	return (1);
 }
-
 
 int	ft_isalpha(int c)
 {

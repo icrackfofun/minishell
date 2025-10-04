@@ -6,13 +6,13 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:46:35 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 17:43:17 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:03:25 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	env_count(t_env *list)
+int	env_count(t_env *list)
 {
 	int	count;
 

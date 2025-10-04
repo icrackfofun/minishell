@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 18:20:32 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 01:15:07 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 15:30:20 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,5 @@ int	main(int argc, char **argv, char **envp)
 		executor(info.tree, &info);
 		clean_loop(&info);
 	}
-	clean_shell(&info);
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	return (close(STDERR_FILENO));
+	return (clean_shell(&info), 0);
 }
