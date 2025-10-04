@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:15:38 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/04 22:17:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	exit_exec_error(const char *cmd, t_info *info, char *path)
 		code = 1;
 	clean_loop(info);
 	clean_shell(info);
-	exit(code);
+	_exit(code);
 }
 
 void	child_exit(char *message, int code, t_info *info, char *file)
@@ -75,12 +75,12 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		write(2, ": ", 2);
 		write(2, "command not found\n", 18);
 	}
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	if (file && file[0] != 0)
 		free(file);
 	clean_loop(info);
 	clean_shell(info);
-	exit(code);
+	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
+	_exit(code);
 }
 
 void	parent_exit(char *message, t_info *info)
@@ -90,7 +90,8 @@ void	parent_exit(char *message, t_info *info)
 	reap_children(info, 0);
 	clean_loop(info);
 	clean_shell(info);
-	exit(1);
+	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
+	_exit(1);
 }
 
 void	parent_return(char *message, t_info *info, int status, char *f)
