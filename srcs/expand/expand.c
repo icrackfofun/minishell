@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 13:45:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/05 10:02:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 15:27:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	expand_variables(t_info *info)
 	}
 	info->pipe_count = count;
 	classify_again(&info->tokens, info);
+	info->had_space = 0;
 	if (join_non_operator_tokens(&info->tokens))
 		return (parent_exit("malloc", info));
 	remove_empty_tokens_from_list(&info->tokens);
