@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 00:07:24 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:09:36 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ static void	print_error(char *a, char *b, char *c, char *d)
 	}
 }
 
-static void	handle_enoent(const char *cmd, int *code)
+static void	handle_enoent(char *cmd, int *code)
 {
 	if (cmd[0])
 	{
@@ -153,7 +153,7 @@ static void	handle_enoent(const char *cmd, int *code)
 		*code = 0;
 }
 
-void	exit_exec_error(const char *cmd, t_info *info, char *path)
+void	exit_exec_error(char *cmd, t_info *info, char *path)
 {
 	struct stat	st;
 	int			code;
