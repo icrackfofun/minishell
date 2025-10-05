@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 00:09:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 00:10:51 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@
 // 	exit(code);
 // }
 
-// void	parent_exit(char *message, t_info *info)
-// {
-// 	perror(message);
-// 	kill_all_children(info);
-// 	reap_children(info, 0);
-// 	clean_loop(info);
-// 	clean_shell(info);
-// 	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
-// 	exit(1);
-// }
+void	parent_exit(char *message, t_info *info)
+{
+	perror(message);
+	kill_all_children(info);
+	reap_children(info, 0);
+	clean_loop(info);
+	clean_shell(info);
+	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
+	exit(1);
+}
 
 // void	parent_return(char *message, t_info *info, int status, char *f)
 // {
