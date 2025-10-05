@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:55:35 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 02:13:08 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:38:42 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ void	builtin_exit(t_ast *ast, t_info *info, int root)
 		status = (unsigned char)ft_atoll(ast->argv[1]);
 	clean_loop(info);
 	clean_shell(info);
+	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	exit(status);
 }
