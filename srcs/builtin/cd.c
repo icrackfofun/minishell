@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 18:12:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:17:25 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	update_env(t_info *info, char *path, int root)
 	set_env_value(&info->env_list, "PWD", cwd);
 	set_env_value(&info->env_list, "OLDPWD", oldwd);
 	free(path);
+	free(oldwd);
 	return (free(cwd), 0);
 }
 
