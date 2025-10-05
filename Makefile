@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/10/03 16:01:07 by psantos-         ###   ########.fr        #
+#    Updated: 2025/10/05 10:52:40 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS =  shell/main.c \
         parsing/parse_utils.c \
         expand/expand.c \
         expand/expand_utils.c \
+		expand/lex_expanded.c \
         pipe/pipe.c \
         pipe/flatten.c \
         redirect/redirect.c \

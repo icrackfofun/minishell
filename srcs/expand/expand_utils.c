@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/02 18:04:23 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:47 by psantos-         ###   ########.fr       */
+/*   Created: 2025/09/11 10:35:10 by jose-vda          #+#    #+#             */
+/*   Updated: 2025/10/05 10:02:45 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,19 @@ int	join_non_operator_tokens(t_token **tokens)
 		cur = cur->next;
 	}
 	return (0);
+}
+
+void	classify_again(t_token **token, t_info *info)
+{
+	t_token	*cur;
+
+	cur = *token;
+	while (cur)
+	{
+		if (cur->type == TOKEN_VARIABLE && ft_strchr(cur->value, ' '))
+			lex_expanded(cur, token, info);
+		else if (cur->type == TOKEN_SINGLE_QUOTED ||
+			cur->type == TOKEN_DOUBLE_QUOTED)
+			cur->type = TOKEN_WORD;
+	}
 }

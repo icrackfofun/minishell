@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/10 13:45:32 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/04 22:22:28 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:02:26 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ static int	expand_token(t_info *info, t_token *cur)
 		return (1);
 	free(cur->value);
 	cur->value = exp;
-	cur->type = TOKEN_WORD;
 	return (0);
 }
 
@@ -121,6 +120,7 @@ void	expand_variables(t_info *info)
 		cur = cur->next;
 	}
 	info->pipe_count = count;
+	classify_again(&info->tokens, info);
 	if (join_non_operator_tokens(&info->tokens))
 		return (parent_exit("malloc", info));
 	remove_empty_tokens_from_list(&info->tokens);

@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 09:23:42 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/04 20:08:34 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:38:52 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	append_token(t_token **tokens, char **buf, t_info *info)
 {
 	t_token	*token;
 
-	if (buf && *buf && **buf)
+	if (buf && *buf)
 	{
 		token = new_token(*buf);
 		if (!token)

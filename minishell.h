@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 21:59:39 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 10:52:11 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,8 @@ char			*expand_inside_quotes(t_info *info, const char *str);
 char			*expand_var_in_quotes(t_info *info, const char *str, int *i);
 char			*append_piece(t_info *info, const char *str, int *i, char *res);
 char			*expand_var_value(t_info *info, const char *key);
+void			lex_expanded(t_token **head, t_token *token, t_info *info);
+void			classify_again(t_token **token, t_info *info);
 void			expand_variables(t_info *info);
 
 //parsing
