@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 09:37:28 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/05 11:26:54 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 11:36:00 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,67 +56,68 @@ static t_token	*tokenize(const char *val, t_info *info)
 	return (new_list);
 }
 
-// void	lex_expanded(t_token **head, t_token *token, t_info *info)
-// {
-// 	t_token	*new_list;
-// 	t_token	*tail;
-// 	t_token	*prev;
-// 	t_token	*tmp;
-
-// 	tail = token->next;
-// 	new_list = tokenize(token->value, info);
-// 	free(token->value);
-// 	free(token);
-// 	tmp = new_list;
-// 	while (tmp->next)
-// 		tmp = tmp->next;
-// 	tmp->next = tail;
-// 	if (*head == token)
-// 		*head = new_list;
-// 	else
-// 	{
-// 		prev = *head;
-// 		while (prev && prev->next != token)
-// 			prev = prev->next;
-// 		if (prev)
-// 			prev->next = new_list;
-// 	}
-// }
-
-t_token *lex_expanded(t_token **head, t_token *token, t_info *info)
+t_token	*lex_expanded(t_token **head, t_token *token, t_info *info)
 {
-    t_token *new_list;
-    t_token *tail;
-    t_token *prev;
-    t_token *last;
+	t_token	*new_list;
+	t_token	*tail;
+	t_token	*prev;
+	t_token	*tmp;
 
-    tail = token->next;
-    prev = NULL;
-    if (*head != token)
-    {
-        prev = *head;
-        while (prev && prev->next != token)
-            prev = prev->next;
-    }
-    new_list = tokenize(token->value, info);
-    free(token->value);
-    free(token);
-    last = new_list;
-    while (last && last->next)
-        last = last->next;
-    if (last)
-        last->next = tail;
-    if (prev)
-        prev->next = new_list;
-    else
-    {
-        if (new_list)
-            *head = new_list;
-        else
-            *head = tail;
-    }
-    if (tail)
-        return (tail);
-    else
-        return (last);
+	tail = token->next;
+	prev = *head;
+	while (prev && prev->next != token)
+		prev = prev->next;
+	new_list = tokenize(token->value, info);
+	free(token->value);
+	free(token);
+	tmp = new_list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = tail;
+	if (prev)
+		prev->next = new_list;
+	else
+		*head = new_list;
+	if (tail)
+		return (tail);
+	else
+		return (tmp);
 }
+
+// t_token	*lex_expanded(t_token **head, t_token *token, t_info *info)
+// {
+//     t_token *new_list;
+//     t_token *tail;
+//     t_token *prev;
+//     t_token *last;
+
+//     tail = token->next;
+//     prev = NULL;
+//     if (*head != token)
+//     {
+//         prev = *head;
+//         while (prev && prev->next != token)
+//             prev = prev->next;
+//     }
+//     new_list = tokenize(token->value, info);
+//     free(token->value);
+//     free(token);
+//     last = new_list;
+//     while (last && last->next)
+//         last = last->next;
+//     if (last)
+//         last->next = tail;
+//     if (prev)
+//         prev->next = new_list;
+//     else
+//     {
+//         if (new_list)
+//             *head = new_list;
+//         else
+//             *head = tail;
+//     }
+//     if (tail)
+//         return (tail);
+//     else
+//         return (last);
+// }
