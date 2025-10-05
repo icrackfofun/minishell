@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 22:47:55 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 12:04:33 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	exec_builtin(t_ast *cmd, t_info *info, int root)
 		builtin_exit(cmd, info, root);
 }
 
-static void exec_sh(char *path, t_ast *cmd, t_info *info)
+static void	exec_sh(char *path, t_ast *cmd, t_info *info)
 {
 	size_t		len;
 	char		*args[3];

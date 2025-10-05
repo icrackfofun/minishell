@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 10:35:10 by jose-vda          #+#    #+#             */
-/*   Updated: 2025/10/05 11:27:03 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 12:05:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	classify_again(t_token **token, t_info *info)
 	{
 		if (cur->type == TOKEN_VARIABLE && ft_strchr(cur->value, ' '))
 			cur = lex_expanded(token, cur, info);
-		else if (cur->type == TOKEN_SINGLE_QUOTED ||
-			cur->type == TOKEN_DOUBLE_QUOTED)
+		else if (cur->type == TOKEN_SINGLE_QUOTED
+			|| cur->type == TOKEN_DOUBLE_QUOTED)
 			cur->type = TOKEN_WORD;
 		cur = cur->next;
 	}

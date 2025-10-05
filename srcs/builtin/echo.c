@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 11:57:49 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 12:04:08 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	echo_child(t_ast *cmd, t_info *info, int root)
 	}
 	if (newline)
 		write(1, "\n", 1);
-	//fflush(stdout);
 	child_exit("", 0, info, "");
 }
 
