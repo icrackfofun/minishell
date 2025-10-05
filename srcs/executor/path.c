@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 22:56:15 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/02 18:36:40 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:48:05 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_path(t_info *info, t_ast *cmd)
 		return (ft_strdup(cmd->argv[0]));
 	path_env = get_env_value(info->env_list, "PATH");
 	if (!path_env)
-		return ((cmd->argv[0]));
+		return (ft_strdup(cmd->argv[0]));
 	copy = ft_strdup(path_env);
 	if (!copy)
 		child_exit("malloc", 1, info, "");
