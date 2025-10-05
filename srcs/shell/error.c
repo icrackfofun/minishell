@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 11:40:36 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:31:39 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	exit_exec_error(const char *cmd, t_info *info, char *path)
 		code = 1;
 	clean_loop(info);
 	clean_shell(info);
+	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	exit(code);
 }
 
