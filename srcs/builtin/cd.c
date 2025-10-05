@@ -6,14 +6,16 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 18:17:25 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:35:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	cd_error(t_info *info, char *path, int root)
+static int	cd_error(t_info *info, char *path, int root, char *oldwd)
 {
+	if (oldwd)
+		free(oldwd);
 	if (!root)
 	{
 		if (path)
@@ -37,13 +39,13 @@ int	update_env(t_info *info, char *path, int root)
 	{
 		oldwd = getcwd(NULL, 0);
 		if (!oldwd)
-			return (cd_error(info, path, root));
+			return (cd_error(info, path, root, NULL));
 	}
 	if (chdir(path) != 0)
-		return (cd_error(info, path, root));
+		return (cd_error(info, path, root, oldwd));
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (cd_error(info, NULL, root));
+		return (cd_error(info, NULL, root, oldwd));
 	set_env_value(&info->env_list, "PWD", cwd);
 	set_env_value(&info->env_list, "OLDPWD", oldwd);
 	free(path);
@@ -92,7 +94,7 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 		return (parent_return("malloc", info, 1, ""));
 	}
 	if (update_env(info, path, root))
-		return ;
+		return (free(path));
 	if (!root)
 		child_exit("", 0, info, "");
 	info->last_status = 0;
