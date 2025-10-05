@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:50:45 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 11:45:26 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 11:46:02 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_n(const char *arg)
 
 static void	echo_child(t_ast *cmd, t_info *info, int root)
 {
-	int	newline;
+	//int	newline;
 	int	i;
 
 	signal(SIGINT, child_sigint_handler);
@@ -39,10 +39,10 @@ static void	echo_child(t_ast *cmd, t_info *info, int root)
 	if (!root)
 		close_heredocs(info->tree);
 	i = 1;
-	newline = 1;
+	//newline = 1;
 	while (cmd->argv[i] && is_n(cmd->argv[i]))
 	{
-		newline = 0;
+		//newline = 0;
 		i++;
 	}
 	while (cmd->argv[i])
