@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 18:35:22 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:40:32 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 		return (parent_return("malloc", info, 1, ""));
 	}
 	if (update_env(info, path, root))
-		return (free(path));
+		return ;
 	if (!root)
 		child_exit("", 0, info, "");
 	info->last_status = 0;
