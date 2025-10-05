@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/03 17:40:50 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/05 18:12:26 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	update_env(t_info *info, char *path, int root)
 	char	*cwd;
 	char	*oldwd;
 
-	oldwd = get_env_value(info->env_list, "PWD");
+	oldwd = ft_strdup(get_env_value(info->env_list, "PWD"));
 	if (!oldwd)
 	{
 		oldwd = getcwd(NULL, 0);
