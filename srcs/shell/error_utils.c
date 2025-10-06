@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 00:48:34 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:22:29 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:30:11 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,15 @@ int	print_error(char *a, char *b, char *c, char *d)
 		free(msg);
 	}
 	return (0);
+}
+
+void	malloc_fail_exit(t_info *info)
+{
+	perror("malloc");
+	clean_loop(info);
+	clean_shell(info);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
+	exit(1);
 }

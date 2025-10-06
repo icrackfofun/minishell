@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:23:51 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:32:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	exit_exec_error(char *cmd, t_info *info, char *path)
 	else
 		code = 1;
 	if (printed)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	(clean_loop(info), clean_shell(info));
 	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	exit(code);
@@ -171,7 +171,7 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 	if (file && file[0] != 0)
 		free(file);
 	if (printed)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	(clean_loop(info), clean_shell(info));
 	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
 	exit(code);
@@ -209,6 +209,6 @@ void	parent_return(char *message, t_info *info, int status, char *f)
 	if (f && f[0] != 0)
 		free(f);
 	if (printed)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	info->last_status = status;
 }

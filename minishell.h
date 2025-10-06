@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 00:53:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:30:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ void			close_heredocs(t_ast *ast);
 
 //error
 int				print_error(char *a, char *b, char *c, char *d);
+void			malloc_fail_exit(t_info *info);
 void			child_exit(char *message, int code, t_info *info, char *file);
 void			parent_exit(char *message, t_info *info);
 void			parent_return(char *message, t_info *info, int status, char *f);
