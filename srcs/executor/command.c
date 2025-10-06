@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:33:47 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:37:13 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	exec_sh(char *path, t_ast *cmd, t_info *info)
 		if (access(path, R_OK) == -1)
 		{
 			free(path);
-			if (print_error(path, ": Permission denied\n", NULL, NULL))
+			if (print_error(cmd->argv[0], ": Permission denied\n", NULL, NULL))
 				malloc_fail_exit(info);
 			child_exit("", 126, info, "");
 		}
