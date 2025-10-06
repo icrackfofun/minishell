@@ -6,13 +6,13 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/10/06 14:21:47 by psantos-         ###   ########.fr        #
+#    Updated: 2025/10/06 14:24:20 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = srcs
 OBJ_DIR = obj
@@ -85,14 +85,6 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-test: re
-	@git clone https://github.com/LucasKuhn/minishell_tester
-	@cd minishell_tester && (./tester || true) && cd ..
-	@rm -rf minishell_tester
-
-val:
-	valgrind --show-leak-kinds=all --leak-check=full --track-fds=all --suppressions=readline.supp ./minishell
 
 .PHONY: all clean fclean re
 
