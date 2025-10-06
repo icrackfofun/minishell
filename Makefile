@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:36:16 by jose-vda          #+#    #+#              #
-#    Updated: 2025/10/05 10:52:40 by psantos-         ###   ########.fr        #
+#    Updated: 2025/10/06 01:38:03 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS =  shell/main.c \
         shell/clean.c \
         shell/clean2.c \
         shell/error.c \
+		shell/error_utils.c \
         shell/signals.c \
         env/env_init.c \
 		env/env_utils.c \
