@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 15:46:35 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/04 16:23:23 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:03:10 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*env_str(t_env *node, t_info *info)
 	len = key_len + val_len + 2;
 	str = malloc(len);
 	if (!str)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	ft_strlcpy(str, node->key, key_len + 1);
 	if (node->value)
 	{
@@ -62,7 +62,7 @@ void	env_list_to_array(t_info *info)
 	size = env_count(info->env_list);
 	info->env_array = malloc(sizeof(char *) * (size + 1));
 	if (!info->env_array)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	tmp = info->env_list;
 	i = 0;
 	while (tmp)

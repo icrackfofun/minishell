@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/02 17:39:44 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 18:40:32 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:15:49 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,16 @@ int	update_env(t_info *info, char *path, int root)
 	char	*cwd;
 	char	*oldwd;
 
-	oldwd = ft_strdup(get_env_value(info->env_list, "PWD"));
-	if (!oldwd)
+	if (get_env_value(info->env_list, "PWD"))
+		oldwd = ft_strdup(get_env_value(info->env_list, "PWD"));
+	else
 	{
 		oldwd = getcwd(NULL, 0);
 		if (!oldwd)
 			return (cd_error(info, path, root, NULL));
 	}
+	if (!oldwd)
+		child_exit("malloc", 1, info, path);
 	if (chdir(path) != 0)
 		return (cd_error(info, path, root, oldwd));
 	cwd = getcwd(NULL, 0);
@@ -90,8 +93,8 @@ void	builtin_cd(t_ast *ast, t_info *info, int root)
 	if (!path)
 	{
 		if (!root)
-			child_exit("malloc", 1, info, "");
-		return (parent_return("malloc", info, 1, ""));
+			malloc_fail_exit(info);
+		return (parent_exit("malloc", info));
 	}
 	if (update_env(info, path, root))
 		return ;

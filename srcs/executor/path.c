@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 22:56:15 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/05 18:48:05 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:01:18 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static char	*join_path(const char *dir, const char *cmd, t_info *info)
 
 	tmp = ft_strjoin(dir, "/");
 	if (!tmp)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	full = ft_strjoin(tmp, cmd);
 	if (!full)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	free(tmp);
 	return (full);
 }
@@ -81,7 +81,7 @@ char	*get_path(t_info *info, t_ast *cmd)
 		return (ft_strdup(cmd->argv[0]));
 	copy = ft_strdup(path_env);
 	if (!copy)
-		child_exit("malloc", 1, info, "");
+		malloc_fail_exit(info);
 	result = search_in_path(copy, cmd->argv[0], info);
 	free(copy);
 	return (result);

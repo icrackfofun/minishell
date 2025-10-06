@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:37:13 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 13:56:42 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void	exec_child(t_ast *cmd, t_info *info, int root)
 	if (!root)
 		close_heredocs(info->tree);
 	path = get_path(info, cmd);
+	if (!path)
+		malloc_fail_exit(info);
 	if (path[0] && path[0] != '.' && path[0] != '/')
 		child_exit("", 127, info, path);
 	exec_sh(path, cmd, info);
