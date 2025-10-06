@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 00:48:34 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:42:31 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:32:39 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,19 @@ void	malloc_fail_exit(t_info *info)
 	perror("malloc");
 	clean_loop(info);
 	clean_shell(info);
+	close_std_fds();
+	exit(1);
+}
+
+void	close_std_fds(void)
+{
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
-	exit(1);
+}
+
+void	clean_all(t_info *info)
+{
+	clean_loop(info);
+	clean_shell(info);
 }

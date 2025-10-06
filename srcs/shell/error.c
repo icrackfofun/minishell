@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:41:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:34:30 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	exit_exec_error(char *cmd, t_info *info, char *path)
 		code = 1;
 	if (printed)
 		malloc_fail_exit(info);
-	(clean_loop(info), clean_shell(info));
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
+	clean_all(info);
+	close_std_fds();
 	exit(code);
 }
 
@@ -80,8 +80,8 @@ void	child_exit(char *message, int code, t_info *info, char *file)
 		free(file);
 	if (printed)
 		malloc_fail_exit(info);
-	(clean_loop(info), clean_shell(info));
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
+	clean_all(info);
+	close_std_fds();
 	exit(code);
 }
 
@@ -92,7 +92,7 @@ void	parent_exit(char *message, t_info *info)
 	reap_children(info, 0);
 	clean_loop(info);
 	clean_shell(info);
-	(close(STDIN_FILENO), close(STDOUT_FILENO), close(STDERR_FILENO));
+	close_std_fds();
 	exit(1);
 }
 

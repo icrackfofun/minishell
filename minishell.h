@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:43:11 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:30:30 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 14:33:19 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_terminal
 t_terminal		*terminal(void);
 
 //cleaner
+void			clean_all(t_info *info);
 void			clean_shell(t_info *info);
 void			clean_loop(t_info *info);
 void			free_tokens(t_token *token);
@@ -135,6 +136,7 @@ void			free_array(char **arr);
 void			close_parent_fds(t_info *info);
 void			kill_all_children(t_info *info);
 void			reap_children(t_info *info, int i);
+void			close_std_fds(void);
 void			close_heredocs(t_ast *ast);
 
 //error
