@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 19:47:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 01:21:18 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:23:23 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@
 // 	info->last_status = status;
 // }
 
-static void	handle_enoent(char *cmd, int *code, t_info *info, int *printed)
+static void	handle_enoent(char *cmd, int *code, int *printed)
 {
 	if (cmd[0])
 	{
