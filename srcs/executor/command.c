@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:07:55 by psantos-          #+#    #+#             */
-/*   Updated: 2025/10/06 00:25:24 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/10/06 01:07:14 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@ static void	exec_sh(char *path, t_ast *cmd, t_info *info)
 	len = ft_strlen(path);
 	if (len > 3 && !ft_strcmp(path + len - 3, ".sh"))
 	{
-		if (stat(path, &st) == -1 || access(path, R_OK) == -1
-			|| access(path, X_OK) == -1)
+		if (stat(path, &st) == -1 || access(path, X_OK) == -1)
 			return ;
+		if (access(path, R_OK) == -1)
+		{
+			free(path);
+			if (print_error(cmd, ": Permission denied\n", NULL, NULL))
+				child_exit("malloc", 1, info, "");
+			child_exit("", 126, info, "");
+		}
 		args[0] = "sh";
 		args[1] = path;
 		args[2] = NULL;
