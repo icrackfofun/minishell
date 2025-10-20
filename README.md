@@ -1,5 +1,7 @@
 # Minishell
 
+![C](https://img.shields.io/badge/Language-C-555555?style=flat-square&logo=c&logoColor=white) Minishell
+
 This project is a small Unix shell written in C. It aims to replicate some shell functionality, including command execution, piping, redirection, and built-in commands. This project was developed as part of a 42 school assignment.
 
 ---
@@ -38,7 +40,7 @@ make
 
 This will generate the executable minishell in the project directory.
 
-**Usage**
+## Usage
 
 Run the shell:
 ```bash
@@ -59,12 +61,4 @@ Exit the shell:
 ```bash
 $ exit
 ```
-
-**Tools & Language Stack**
-
-Language: C
-
-Tools: GCC, Make, Unix system calls
-
-Ensure your environment variables are set properly to run commands from the PATH.
 
