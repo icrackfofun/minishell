@@ -1,22 +1,30 @@
 # Minishell
 
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C" width="20" height="20"/>
-
-This project is a small Unix shell written in C. It aims to replicate some shell functionality, including command execution, piping, redirection, and built-in commands. This project was developed as part of a 42 school assignment.
+## Overview
+This project is a small Unix shell written in C. It aims to replicate base shell functionality, including command execution, piping, redirection, and built-in commands. This was a group project developed during my time at 42 Lisbon.
 
 ---
 
 ## Features
 
-- Execute commands from the system PATH
-- Built-in commands:
-  - `cd`
-  - `echo`
-  - `pwd`
-  - `export`
-  - `unset`
-  - `env`
-  - `exit`
+- Allows Execution of commands using the system PATH:
+  ```bash
+  $ echo
+  ```
+
+  Or a through including path to executable:
+  ```bash
+  $ /bin/echo
+  ```
+  
+- Implemented the Following Built-in commands:
+  - `cd` (Change Directories)
+  - `echo` (Print Message to a file descriptor)
+  - `pwd` (Print Current Working Directory)
+  - `export` (Add or Update Environment Variable)
+  - `unset` (Remove Environment Variable)
+  - `env` (No arguments, List Environment Variables)
+  - `exit` (Exit Shell)
 - Support for:
   - Command arguments
   - Pipes (`|`)
