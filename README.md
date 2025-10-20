@@ -1,6 +1,6 @@
 # Minishell
 
-![C](https://img.shields.io/badge/Language-C-555555?style=flat-square&logo=c&logoColor=white) Minishell
+`C`
 
 This project is a small Unix shell written in C. It aims to replicate some shell functionality, including command execution, piping, redirection, and built-in commands. This project was developed as part of a 42 school assignment.
 
