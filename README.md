@@ -39,6 +39,7 @@ make
 This will generate the executable minishell in the project directory.
 
 **Usage**
+
 Run the shell:
 ```bash
 ./minishell
@@ -60,6 +61,7 @@ $ exit
 ```
 
 **Tools & Language Stack**
+
 Language: C
 
 Tools: GCC, Make, Unix system calls
