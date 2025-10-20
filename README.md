@@ -1,6 +1,6 @@
 # Minishell
 
-`C`
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C" width="20" height="20"/>
 
 This project is a small Unix shell written in C. It aims to replicate some shell functionality, including command execution, piping, redirection, and built-in commands. This project was developed as part of a 42 school assignment.
 
