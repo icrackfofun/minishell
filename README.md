@@ -127,7 +127,7 @@ $ exit
 
 * * * * *
 
-Project Structure (Optional)
+Project Structure
 ----------------------------
 
 -   `src/` → Source code files (parsing, execution, builtins)
